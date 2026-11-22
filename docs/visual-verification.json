@@ -1,0 +1,117 @@
+{
+  "verification_date": "2026-11-22",
+  "timezone": "Asia/Shanghai",
+  "source_sha256": "49c997fcd0933a765520d5439a62ffdd60354c77f49f4c7b4441759388f612f1",
+  "runtime": {
+    "execution": "Node VM running the production inline JavaScript",
+    "graphics": "@napi-rs/canvas / native Skia Canvas 2D",
+    "dom": "minimal deterministic DOM and event harness",
+    "browser_tested": false,
+    "browser_limitation": "Chromium startup denied a local socket by this execution environment; no browser layout or browser FPS result is claimed."
+  },
+  "result": "PASS for the native rendering, event and save checks listed below",
+  "production_rendering": {
+    "source": "fanren-xiantu/index.html",
+    "label": "after",
+    "engine": "Node VM + @napi-rs/canvas (not browser)",
+    "cases": 1528,
+    "enemies": 43,
+    "bosses": 10,
+    "gameplay": [
+      {
+        "chapter": 0,
+        "action": "KeyJ",
+        "entered": "atk"
+      },
+      {
+        "chapter": 0,
+        "action": "KeyL",
+        "entered": "charge"
+      },
+      {
+        "chapter": 0,
+        "action": "Space",
+        "entered": "dodge"
+      },
+      {
+        "chapter": 7,
+        "action": "KeyJ",
+        "entered": "atk"
+      },
+      {
+        "chapter": 7,
+        "action": "KeyL",
+        "entered": "charge"
+      },
+      {
+        "chapter": 7,
+        "action": "Space",
+        "entered": "dodge"
+      }
+    ],
+    "saveCompatibility": "load and roundtrip identical",
+    "pauseResume": "pass",
+    "canvasStackDepth": 0,
+    "errors": [],
+    "timing": {
+      "frames": 120,
+      "entities": 30,
+      "medianMs": 12.15108999999984,
+      "p95Ms": 13.907474000000093
+    },
+    "drawCalls": 923902
+  },
+  "character_viewer": {
+    "engine": "Node VM + native Canvas, DOM event harness (not browser layout)",
+    "entries": 54,
+    "cases": 1296,
+    "errors": [],
+    "saveUnchanged": true,
+    "enemyCountUnchanged": true,
+    "playerUnchanged": true,
+    "noStorageWrites": true,
+    "backToTitle": "pass",
+    "escapeToHub": "pass",
+    "stackDepth": 0
+  },
+  "unchanged_gameplay_sections": {
+    "data_save_generation_world": true,
+    "player_enemy_update": true
+  },
+  "visual_inspection": {
+    "comparison": "character-upgrade-comparison.png",
+    "comparability": "Old and new characters use the same scale, camera facing, animation time and draw entry points; character palettes reflect each version.",
+    "reviewed": [
+      "Han Li front, side and back silhouettes",
+      "idle, walk, charge and attack poses",
+      "distinct elder, bandit, celestial armor and demon clothing",
+      "wolf, bear and shark anatomy",
+      "rock golem and ancient demon silhouettes",
+      "spider, crab, ghost and serpent render coverage",
+      "golden and red avatars with exactly three heads and six arms",
+      "normal enemy health bars above heads on dark ground and snow"
+    ]
+  },
+  "native_render_timing": {
+    "scenario": "1280 x 760, DPR 1, 30 visible enemies plus hero, 120 render calls, with Canvas validation instrumentation; excludes browser DOM/layout/compositing and input/update work",
+    "before": {
+      "frames": 120,
+      "entities": 30,
+      "medianMs": 5.628026000000091,
+      "p95Ms": 6.37165200000004
+    },
+    "after": {
+      "frames": 120,
+      "entities": 30,
+      "medianMs": 12.15108999999984,
+      "p95Ms": 13.907474000000093
+    },
+    "is_browser_fps": false
+  },
+  "artifacts": [
+    "character-upgrade-comparison.png"
+  ],
+  "remaining_scope": "Native Canvas validation does not establish browser CSS layout, mobile device performance or screenshot equivalence across browsers.",
+  "inline_script_sha256": "1162d076c3aa3a05a4aa02224447b90d81f3d173a2f2740dabe5094c910d15af",
+  "post_verification_css_review": "Removed the inherited 280px preview minimum height in the mobile media query so the stage fits its 220px/38vh grid row. JavaScript is unchanged by this correction."
+}
