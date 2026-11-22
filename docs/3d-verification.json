@@ -1,143 +1,84 @@
 {
   "date": "2026-11-22",
-  "revision": "hanli-character-5",
-  "baseline_commit": "e51eda5e2957b3555b117bab9e62aaeac58bf3c7",
-  "previous_reference_asset_sha256": "fbefaca2c6fa6c7b47026df60c93d9ab79c51b563d3f8cb60c1d140f1883c861",
-  "scope": "Reference-directed Han Li face, hair, costume and grounded animation refinement; incorporates the previously unpublished reference-4 viewer and asset pipeline. Mojiao unchanged.",
-  "result": "PASS for asset, CPU animation, actual exported GLB renders, viewer-state checks and HTTP delivery; browser execution blocked.",
+  "recorded_at": "2026-11-22T21:02:05+08:00",
+  "revision": "hanli-character-6-runtime-1",
+  "baseline_commit": "8c552c0fc6dc7f976d9aeb97fb08ae5bf009a832",
+  "result": "PASS for tested assets, CPU motion, runtime behavior and offline rendering; browser launch BLOCKED",
   "runtime": "Three.js 0.180.0",
   "blender": "4.3.2",
+  "source_sha256": {
+    "game3d.html": "ab51c615cb95a802f3e46fd864d8755b241d32877da8fb2fbdd3747a7902975f",
+    "web3d/main.js": "9f546f40e5ab2d6e7f074f20375f74a215e843e2cd9ca6391402c16dfc1731b3",
+    "web3d/style.css": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
+    "tools/hanli_face.py": "af974e66689cdb49c309e67ec019c9e659dd1e5ceef0f610df1c7176b762e1e8",
+    "tools/validate-viewer.mjs": "6e39a30604085563f82cea3e5b6361c6be3d39aae9a5e39a2e4cd5d0cd144861",
+    "tools/validate-collar.mjs": "4293cff8310d2299bb9f766187b100430265c989e7674594a3308ff36953339b",
+    "tools/validate-browser.mjs": "27421ed6f99878c11ac1a924d61263ebfe3c44b647dcc263208fd675fb91ca53",
+    "assets/3d/hanli.glb": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+    "assets/3d/mojiao.glb": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+    "art/hanli.blend": "be0a68c87a374989a2b107a83a7e35d4daa68ef952890c107f83b96fe7c7e969"
+  },
   "asset_loader": {
     "result": "PASS",
     "report": "docs/asset-validation.json",
-    "decoded_images": 16,
-    "warnings": [],
-    "errors": []
+    "decoded_images": 18
   },
   "motion": {
     "result": "PASS",
     "report": "docs/model-polish-verification.json",
     "foot_samples": 727,
     "whole_mesh_samples": 150,
-    "existing_crossfade_samples": 248,
-    "additional_phase_cases": 96,
-    "additional_phase_samples": 2592,
-    "walk_max_lowest_foot_m": 0.0100001,
-    "phase_sweep_min_foot_m": 0.0004919,
-    "ground_tolerance_m": 0.005,
-    "walk_support_clearance_limit_m": 0.012,
-    "fix": "Bake pelvis height from weighted boot-sole vertices; counter-rotate feet against thigh/shin pitch; retain measured blend clearance.",
-    "physical_foot_ik": false
+    "phase_cases": 96,
+    "phase_samples": 2592,
+    "phase_min_foot_y_m": 0.0004919
   },
-  "viewer": {
+  "viewer_and_combat": {
     "result": "PASS",
     "report": "docs/viewer-verification.json",
-    "viewport_fixtures": 5,
-    "azimuths_per_model": 24,
-    "switch_cycles": 25,
-    "portrait_content": [
-      "crown",
-      "shoulders",
-      "waist"
-    ]
+    "behavior_regressions": 14,
+    "projection_fixtures": 10,
+    "repeated_mode_cycles": 25,
+    "browser_dom": false
+  },
+  "collar": {
+    "result": "PASS",
+    "report": "docs/collar-verification.json",
+    "fixed_rays": 7,
+    "scope": "Fixed-ray regression of the previously observed right posterior neck-base skin protrusion; exported default pose only. No complete collision, animation, all-angle, browser or GPU certification."
   },
   "visual_review": {
-    "method": "Final runtime GLB imported into Blender; CPU Cycles; matching asset hashes in the render and motion manifests.",
-    "blend_reopen": "PASS",
-    "hanli": "docs/hanli-render-verification.json",
-    "targeted_motion": "docs/hanli-motion-review.json",
-    "frames": [
-      "Walk 7",
-      "Walk 19",
-      "Attack 11",
-      "Attack 17"
-    ],
-    "same_camera_and_lighting_comparison": true,
-    "comparison": "docs/hanli-v5-comparison.jpg",
-    "head_comparison": "docs/hanli-v5-head-comparison.jpg",
-    "web_screenshots": false,
-    "mojiao_unchanged": true
+    "report": "docs/hanli-v6-render-manifest.json",
+    "unique_images": 13,
+    "method": "Final exported GLB reimported to Blender, CPU Cycles; files bound to the exact final asset hash",
+    "webgl_tested": false
   },
   "browser_verification": {
-    "status": "BLOCKED",
-    "revision": "hanli-character-5",
-    "attempted_launch_at": "2026-11-22T10:36:55.012Z",
-    "local_stage": "chromium-launch",
-    "local_error": "Chromium process_singleton_posix.cc socket() failed: Operation not permitted before navigation",
-    "cloud_error": "net::ERR_CERT_COMMON_NAME_INVALID followed by browser URL authority policy denial; no bypass attempted",
+    "result": "BLOCKED",
+    "stage": "chromium-launch",
+    "report": "docs/browser-verification.json",
     "webgl_verified": false,
     "css_layout_verified": false,
     "fps_measured": false,
-    "mobile_performance_verified": false,
-    "note": "Launch/access failed before a model could be displayed; no claim is made about final-model browser execution."
+    "mobile_performance_verified": false
   },
-  "remaining_art_limits": [
-    "Procedural facial anatomy and skin response remain below the film-quality reference.",
-    "Hair uses closed geometric locks, not production hair cards or strand simulation.",
-    "Skirt uses authored skinning and can form angular folds at maximum stride.",
-    "Walking retains a small baked sole clearance and lacks physical foot locking or full heel-to-toe weight transfer."
-  ],
-  "source_sha256": {
-    "README.md": "bb8198f7340ef487ecbbead7616ce49eabd0eafa55618afc0c08c8dd6473f795",
-    "HANDOFF.md": "530fe8eea93852a33c9c397dd6566d28b9130168e265b8f762703c87917e3441",
-    "game3d.html": "e4b3764095a1e109b1aa7eafe72b921686d50397e4bd25e27196e18a9414ca00",
-    "web3d/main.js": "edc5ff935d81bc27fcef4d2d34831e9ce65e05161dee88f814d5eb56a33e1745",
-    "tools/build_hanli.py": "8cc6764310dc96c6d8a7704f7b3e522b765fc91fea8f9b4242356a17c978279b",
-    "tools/hanli_face.py": "5c73a68b72ddeb30b1674b6b468305920c3d2d65322bd73b1584e8e73e72feaa",
-    "tools/hanli_hair.py": "a0e45d39762a32ddbc7e2f668950e31f0842415985307251e4498184c92d386f",
-    "tools/hanli_costume.py": "c91c1fb904205fb86f4a6c58e3a2a8ad26249b7c302c3651eda9d23d46565ab4",
-    "tools/render_glb_review.py": "ec795d39a531100a34a3b6f3657b56a67b34001ab62913601b56ad01c2cea3e5",
-    "tools/validate-model-polish.mjs": "edbf36ede99fc9f528b9dccbe58a6cf424479c313f15ed763b96337683a6e29d",
-    "tools/validate-viewer.mjs": "5141f460a70bede870359be5501b06a2dbd9e9984d2c5a15fb47c2d783349a02",
-    "art/hanli.blend": "5b2bdbd46943703096487ec36e14acef9ad46881d92f28d6c0a49bd2d2248297",
-    "assets/3d/hanli.glb": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
-    "assets/3d/hanli-info.json": "176218ff7cc04d061004d446c1492d541a50e5fd0e11b20514106d8e1c151610",
-    "docs/asset-validation.json": "1769b693142f94282de78bd406cbac1f3aaffa695c1699b2ca097fe54f17a62e",
-    "docs/model-polish-verification.json": "16c8efd83075fbe07703093c122ac845a4e6a8062800aa1fc56402416b3f93a2",
-    "docs/viewer-verification.json": "eb393e9157051373bb17842c45130bda4dd00f98873800552579f0ed48b93c54",
-    "docs/hanli-render-verification.json": "2d98acc529fbdc7133a6e31c575e231207a20e3de6801cc3e185c9d8e8e02eb1",
-    "docs/hanli-motion-review.json": "8fdd4fbe42685cc5c35a0cbdaff74b15c58ea2a042c68526cea4f386fb918844",
-    "docs/browser-verification.json": "b70b0c976cdbc273036543391c6ee3724623aec240072a92678e0626580e5e0d",
-    "docs/hanli-3d-preview.png": "e81556f01823ce099ddf2bddb3302fc4bf6504b6f603965969e96f18b73504cf",
-    "docs/hanli-head-preview.png": "e838d0e25e2c14efde0429e7f7fda1b84cc164c8293e8830fb76ce09f28d8cc5",
-    "docs/hanli-back-preview.png": "6e8abc265d97e85435f49a1d06b03b91cbdd6de5723e7ccb59ccd0fdd23b595d",
-    "docs/hanli-portrait-preview.png": "55775db170d04f89d93eb69b0548368b381c87c8b1b00c7226c9058b424dbcae",
-    "docs/hanli-attack-preview.png": "9b2a84bf531ded28d2db9c055bf402f786e6b5b3de552771e4196856ef89b3d5",
-    "docs/hanli-walk-preview.png": "59faaecd566609553f38829bd03ab3979f3955aedba9098c6b1118eded9cc82c",
-    "docs/hanli-walk-7-preview.png": "59faaecd566609553f38829bd03ab3979f3955aedba9098c6b1118eded9cc82c",
-    "docs/hanli-walk-19-preview.png": "5d32d86db76cf114134d67eb870a4b8b167afa00340652672800b571aa23f19a",
-    "docs/hanli-attack-11-preview.png": "9b2a84bf531ded28d2db9c055bf402f786e6b5b3de552771e4196856ef89b3d5",
-    "docs/hanli-attack-17-preview.png": "4405684d7aad288a443999d7b4c7b31292f72de9410166d6992b9f7563e81246",
-    "docs/hanli-v5-comparison.jpg": "12219cb90e38c9fc14b06186a3579ef93067458bd2f3949aa7808636920537e4",
-    "docs/hanli-v5-head-comparison.jpg": "bed97139d76e1980c9a8c60e5bf396da2ed5f7a994783448eb029a8524acd9ad",
-    "web3d/style.css": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
-    "tools/validate-assets.mjs": "ab146ed09972ed442291aae2f9548b02e82dc61609aa810756fa7e9d32d80ccc",
-    "assets/3d/mojiao.glb": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
-    "art/mojiao.blend": "ccec4e5b6fdc16ece976fc6b8c011b6eb487069831f4ab5f69cd6f2ba4c7c5fc",
-    "assets/3d/mojiao-info.json": "e33f9c194c1f979ab70032720e6fae7202aed9041d3ba9ccf02d757116f87bef",
-    "docs/release-delivery.json": "f10325b228738ad1efb153a9b038341b1eba43645743c4dc9f3bddfcc5c6b1e0"
+  "asset_budget": {
+    "bytes": 16520736,
+    "triangles": 268652,
+    "materials": 29,
+    "textures": 15,
+    "v5_bytes": 8864356,
+    "v5_triangles": 181170,
+    "bytes_change_percent": 86.37,
+    "triangles_change_percent": 48.29
   },
-  "http_delivery": {
-    "status": "PASS",
-    "verified_at": "2026-11-22T11:05:22Z",
-    "base_url": "http://23.82.99.226:8090",
-    "cache_version": "20261122-character5",
-    "files_verified": 18,
-    "report": "docs/release-delivery.json",
-    "method": "HTTP GET from the release host to the public game URL; every response body was compared byte-for-byte with both the repository and deployment files. This verifies delivery, not browser rendering."
+  "delivery": {
+    "status": "PENDING",
+    "report": "docs/runtime-release-delivery.json"
   },
-  "original_2d_change": "No 2D source files changed by this revision.",
-  "validation_rerun": {
-    "date": "2026-11-22",
-    "node": "v24.22.3",
-    "asset_loader": "PASS",
-    "cpu_animation": "PASS",
-    "viewer_state": "PASS",
-    "javascript_syntax": "PASS",
-    "reports": [
-      "docs/asset-validation.json",
-      "docs/model-polish-verification.json",
-      "docs/viewer-verification.json"
-    ]
-  }
+  "remaining_limits": [
+    "Actual browser WebGL/CSS and target-device performance unverified",
+    "Stylized face/hair and skinned cloth need further art work",
+    "No physical foot lock or full weight transfer",
+    "3D is an independent single-battle prototype"
+  ]
 }

@@ -1,8 +1,9 @@
-"""Build an original, editable Han Li prototype in Blender 4.3+.
+"""Build the editable Han Li character in Blender 4.3+.
 
 Run: blender -b --factory-startup --python tools/build_hanli.py
 Units are metres. Blender forward is -Y; glTF forward is +Z.
 The mesh, materials, armature and three authored actions are self-contained.
+The anatomical head uses CC0 MakeHuman asset data; see art/source/makehuman.
 """
 import bpy
 import bmesh
@@ -19,7 +20,7 @@ from mathutils import Vector
 ROOT = Path(__file__).resolve().parents[1]
 ASSET = ROOT / 'assets' / '3d'
 ART = ROOT / 'art'
-QA = Path(os.environ.get('FANREN_QA_DIR', str(ROOT.parent / 'qa3d' / 'character-v5')))
+QA = Path(os.environ.get('FANREN_QA_DIR', str(ROOT.parent / 'qa3d' / 'character-v6')))
 for directory in (ASSET, ART, QA):
     directory.mkdir(parents=True, exist_ok=True)
 random.seed(19)
@@ -316,6 +317,10 @@ for obj in PARTS:
             vertex.co.x-=side*offset
     def weight_vertex(v):
         z = v.co.z
+        if mode == 'head_neck':
+            f=max(0,min(1,(z-1.40)/.08))
+            f=f*f*(3-2*f)
+            return {'neck':1-f,'head':f}
         if mode in ('hair_back','hair_front'):
             f=max(0,min(1,(z-1.26)/.26));f=f*f*(3-2*f)
             return {'head':f,'chest':1-f}
@@ -374,7 +379,7 @@ body.data.name = 'Hanli editable character mesh'
 
 root = bpy.data.objects.new('Hanli', None)
 bpy.context.collection.objects.link(root)
-root['asset_role'] = 'Original procedural character prototype; not a scanned or AAA production asset'
+root['asset_role'] = 'Reference-directed realtime character; CC0 anatomical head with custom costume and hair'
 root['forward'] = 'Blender -Y, glTF +Z'
 root['units'] = 'metres'
 root['source'] = 'tools/build_hanli.py'
@@ -595,10 +600,12 @@ bpy.ops.export_scene.gltf(filepath=str(ASSET / 'hanli.glb'), export_format='GLB'
     export_skins=True, export_yup=True, export_apply=False, export_extras=True,
     export_materials='EXPORT', export_cameras=False, export_lights=False)
 metadata = {'asset': 'hanli.glb', 'source': 'art/hanli.blend', 'generator': 'tools/build_hanli.py',
-    'revision': 5, 'uv_revision': 2,
+    'revision': 6, 'uv_revision': 3,
     'generator_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
     'component_sha256': {name: hashlib.sha256((Path(__file__).parent / name).read_bytes()).hexdigest()
                          for name in ['hanli_face.py', 'hanli_hair.py', 'hanli_costume.py']},
+    'source_asset_sha256': {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+                            for path in sorted((ART / 'source' / 'makehuman').glob('*')) if path.is_file()},
     'art_direction': 'User-provided Han Li reference: youthful face, half-tied long black hair, teal and pale-blue layered robes, pale-gold filigree and crimson tassels.',
     'glb_bytes': (ASSET / 'hanli.glb').stat().st_size,
     'glb_sha256': hashlib.sha256((ASSET / 'hanli.glb').read_bytes()).hexdigest(),
@@ -606,7 +613,7 @@ metadata = {'asset': 'hanli.glb', 'source': 'art/hanli.blend', 'generator': 'too
     'blender': bpy.app.version_string, 'forward': 'glTF +Z', 'height_m': round(max(v.co.z for v in body.data.vertices), 4),
     'vertices': len(body.data.vertices), 'triangles': sum(len(p.vertices) - 2 for p in body.data.polygons),
     'materials': len(body.data.materials), 'bones': len(rig.data.bones), 'clips': ['Idle', 'Walk', 'Attack'],
-    'quality_scope': 'Original editable procedural prototype; not a AAA-ready production character.'}
+    'quality_scope': 'Editable realtime character; reference fidelity and runtime validation are reviewed separately.'}
 (ASSET / 'hanli-info.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n')
 print('HANLI_ASSET', json.dumps(metadata))
 scene.render.filepath = str(QA / 'hero-preview.png')

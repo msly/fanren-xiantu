@@ -1,0 +1,117 @@
+{
+  "commit": "a8bc2d54ff0ac92e78ff71431b1023eda42bf482",
+  "assets": [
+    {
+      "path": "makehuman/data/3dobjs/base.obj",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/3dobjs/base.obj",
+      "bytes": 1749303,
+      "sha256": "8e761e6624b8f54536409135d1636da63b32486a90d4897f84e121d144f6fb4c",
+      "local_file": "base.obj"
+    },
+    {
+      "path": "makehuman/data/targets/macrodetails/asian-male-young.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/macrodetails/asian-male-young.target",
+      "bytes": 421040,
+      "sha256": "ed2e8c191cb6b87b4a2d97c80486acb2604fa549316c7aa2a738a5d5a14334dc",
+      "local_file": "asian-male-young.target"
+    },
+    {
+      "path": "makehuman/data/targets/macrodetails/universal-male-young-averagemuscle-averageweight.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/macrodetails/universal-male-young-averagemuscle-averageweight.target",
+      "bytes": 604,
+      "sha256": "4ba5396ddabda448ece15650a566fbebfbb10239256ccb201e8f883429e12249",
+      "local_file": "universal-male-young-averagemuscle-averageweight.target"
+    },
+    {
+      "path": "makehuman/data/targets/macrodetails/universal-male-young-averagemuscle-minweight.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/macrodetails/universal-male-young-averagemuscle-minweight.target",
+      "bytes": 147071,
+      "sha256": "fac0d53b7051f4d1f06230d0b419e916eb5bae5ce67c031a9998fdde05229755",
+      "local_file": "universal-male-young-averagemuscle-minweight.target"
+    },
+    {
+      "path": "makehuman/data/targets/macrodetails/proportions/male-young-averagemuscle-minweight-idealproportions.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/macrodetails/proportions/male-young-averagemuscle-minweight-idealproportions.target",
+      "bytes": 167077,
+      "sha256": "278060f8fb9c1843df0ae0894d015c8459ccb8cef74cf4f65032bae9152cfd6a",
+      "local_file": "male-young-averagemuscle-minweight-idealproportions.target"
+    },
+    {
+      "path": "LICENSE.md",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/LICENSE.md",
+      "bytes": 3598,
+      "sha256": "edd99571ca62698f78c943fd4fffb159a413c315fa0d4819d3cec5cadaf8b4f1",
+      "local_file": "LICENSE.md"
+    },
+    {
+      "path": "LICENSE.ASSETS.md",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/LICENSE.ASSETS.md",
+      "bytes": 6962,
+      "sha256": "f6089cba01cb570a24712b41ab8a586ccd3cc5ef53dc266ca50b95c288956d2c",
+      "local_file": "LICENSE.ASSETS.md"
+    },
+    {
+      "path": "makehuman/data/eyes/materials/brown_eye.png",
+      "local_file": "brown_eye.png",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/eyes/materials/brown_eye.png",
+      "bytes": 610817,
+      "sha256": "4659691c7295ad6206c78b003e5fd0e5f91dcd53032fa914a229bb48cabe424b"
+    },
+    {
+      "path": "makehuman/data/eyes/high-poly/high-poly.obj",
+      "local_file": "high-poly.obj",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/eyes/high-poly/high-poly.obj",
+      "bytes": 100882,
+      "sha256": "da2493215b708a344c33dc72f2a9a5b8fa985dcc5a70ad3b208995cf871da8e1"
+    },
+    {
+      "path": "makehuman/data/eyes/high-poly/high-poly.mhclo",
+      "local_file": "high-poly.mhclo",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/eyes/high-poly/high-poly.mhclo",
+      "bytes": 72490,
+      "sha256": "b183cfe37120ab726f9b3f2ea6cd3a64c44ce7b4bd91a77c841cf70c04f83a0d"
+    },
+    {
+      "file": "young_asian_male.mhmat",
+      "archive_entry": "skins/young_asian_male/young_asian_male.mhmat",
+      "url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+      "bytes": 1452,
+      "sha256": "9fdfc9863cd15d1359311435f2da7de3906f81d6eea549fba6bf14cd82ceb6a0",
+      "license": "CC0-1.0",
+      "license_source": "https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html"
+    },
+    {
+      "file": "young_lightskinned_male_diffuse3.png",
+      "archive_entry": "skins/young_asian_male/young_lightskinned_male_diffuse3.png",
+      "url": "https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+      "bytes": 3593099,
+      "sha256": "f50016a5507fc687dc8df06599c8ea48de950cd185de33a71cafc1319ddab4d5",
+      "license": "CC0-1.0",
+      "license_source": "https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html"
+    },
+    {
+      "path": "makehuman/data/targets/expression/units/asian/mouth-compression.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/expression/units/asian/mouth-compression.target",
+      "bytes": 13039,
+      "sha256": "b7abd0826708d7e4344559583edd0fc80e098b08b91f3e6d67d83b1eed20ccbe",
+      "local_file": "asian-mouth-compression.target"
+    },
+    {
+      "path": "makehuman/data/targets/mouth/mouth-upperlip-middle-down.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/mouth/mouth-upperlip-middle-down.target",
+      "bytes": 2436,
+      "sha256": "bc35d43e1e631c84df30730cb3578ba35bc645fbf55d0b586ebebb2f424a56ab",
+      "local_file": "mouth-upperlip-middle-down.target"
+    },
+    {
+      "path": "makehuman/data/targets/mouth/mouth-lowerlip-middle-up.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/mouth/mouth-lowerlip-middle-up.target",
+      "bytes": 1388,
+      "sha256": "b52334380917a0b648a35cfd89dd48fbb7fa95745fff28753d30ea73d169de7c",
+      "local_file": "mouth-lowerlip-middle-up.target"
+    }
+  ],
+  "license": "CC0-1.0 (graphical data only; no MakeHuman application source included)",
+  "retrieved_date": "2026-11-22",
+  "scope": "Graphical data only: base mesh, morph deltas, eye fitting data, image textures and asset license. No MakeHuman or MPFB application code is incorporated."
+}

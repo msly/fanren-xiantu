@@ -1,0 +1,294 @@
+{
+  "result": "PASS",
+  "validatedAt": "2026-11-22T12:58:49.522Z",
+  "node": "v24.22.3",
+  "three_revision": "180",
+  "asset": "assets/3d/hanli.glb",
+  "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+  "validator": "tools/validate-collar.mjs",
+  "validator_sha256": "4293cff8310d2299bb9f766187b100430265c989e7674594a3308ff36953339b",
+  "scope": "Fixed-ray regression of the previously observed right posterior neck-base skin protrusion; exported default pose only. No complete collision, animation, all-angle, browser or GPU certification.",
+  "webgl_tested": false,
+  "pose": "exported default/bind pose",
+  "camera": {
+    "reference": "v6 GLB side-profile offline render",
+    "blender_position": [
+      4,
+      -0.035,
+      1.6
+    ],
+    "blender_target": [
+      0,
+      -0.015,
+      1.565
+    ],
+    "orthographic_scale_m": 0.38,
+    "resolution": [
+      675,
+      675
+    ]
+  },
+  "expected_first_material": "Ice blue | overlapping inner silk",
+  "probes": [
+    {
+      "name": "exposed-center",
+      "pixel": [
+        450,
+        640
+      ],
+      "result": "PASS",
+      "first_hit": {
+        "mesh": "Hanli_editable_character_mesh_7",
+        "material": "Ice blue | overlapping inner silk",
+        "distance_m": 3.9438071,
+        "gltf_point": [
+          0.0581998,
+          1.3952037,
+          -0.0480431
+        ],
+        "blender_point": [
+          0.0581998,
+          0.0480431,
+          1.3952037
+        ]
+      },
+      "first_skin_hit": {
+        "mesh": "Hanli_editable_character_mesh_20",
+        "material": "Skin | anatomical young male",
+        "distance_m": 3.9569245,
+        "gltf_point": [
+          0.0450831,
+          1.3950889,
+          -0.0481087
+        ],
+        "blender_point": [
+          0.0450831,
+          0.0481087,
+          1.3950889
+        ]
+      },
+      "skin_behind_first_surface_m": 0.0131174
+    },
+    {
+      "name": "exposed-upper",
+      "pixel": [
+        455,
+        620
+      ],
+      "result": "PASS",
+      "first_hit": {
+        "mesh": "Hanli_editable_character_mesh_7",
+        "material": "Ice blue | overlapping inner silk",
+        "distance_m": 3.9503218,
+        "gltf_point": [
+          0.051601,
+          1.4064055,
+          -0.050891
+        ],
+        "blender_point": [
+          0.051601,
+          0.050891,
+          1.4064055
+        ]
+      },
+      "first_skin_hit": {
+        "mesh": "Hanli_editable_character_mesh_20",
+        "material": "Skin | anatomical young male",
+        "distance_m": 3.964571,
+        "gltf_point": [
+          0.0373526,
+          1.4062808,
+          -0.0509622
+        ],
+        "blender_point": [
+          0.0373526,
+          0.0509622,
+          1.4062808
+        ]
+      },
+      "skin_behind_first_surface_m": 0.0142492
+    },
+    {
+      "name": "exposed-lower",
+      "pixel": [
+        448,
+        650
+      ],
+      "result": "PASS",
+      "first_hit": {
+        "mesh": "Hanli_editable_character_mesh_7",
+        "material": "Ice blue | overlapping inner silk",
+        "distance_m": 3.9412432,
+        "gltf_point": [
+          0.0608072,
+          1.3895967,
+          -0.0469041
+        ],
+        "blender_point": [
+          0.0608072,
+          0.0469041,
+          1.3895967
+        ]
+      },
+      "first_skin_hit": {
+        "mesh": "Hanli_editable_character_mesh_20",
+        "material": "Skin | anatomical young male",
+        "distance_m": 3.9540589,
+        "gltf_point": [
+          0.0479921,
+          1.3894845,
+          -0.0469682
+        ],
+        "blender_point": [
+          0.0479921,
+          0.0469682,
+          1.3894845
+        ]
+      },
+      "skin_behind_first_surface_m": 0.0128157
+    },
+    {
+      "name": "exposed-rear-lower",
+      "pixel": [
+        460,
+        655
+      ],
+      "result": "PASS",
+      "first_hit": {
+        "mesh": "Hanli_editable_character_mesh_7",
+        "material": "Ice blue | overlapping inner silk",
+        "distance_m": 3.9499884,
+        "gltf_point": [
+          0.0521209,
+          1.3867055,
+          -0.0537032
+        ],
+        "blender_point": [
+          0.0521209,
+          0.0537032,
+          1.3867055
+        ]
+      },
+      "first_skin_hit": {
+        "mesh": "Hanli_editable_character_mesh_20",
+        "material": "Skin | anatomical young male",
+        "distance_m": 3.9677891,
+        "gltf_point": [
+          0.0343211,
+          1.3865497,
+          -0.0537922
+        ],
+        "blender_point": [
+          0.0343211,
+          0.0537922,
+          1.3865497
+        ]
+      },
+      "skin_behind_first_surface_m": 0.0178007
+    },
+    {
+      "name": "upper-rim-control",
+      "pixel": [
+        443,
+        608
+      ],
+      "result": "PASS",
+      "first_hit": {
+        "mesh": "Hanli_editable_character_mesh_7",
+        "material": "Ice blue | overlapping inner silk",
+        "distance_m": 3.9431601,
+        "gltf_point": [
+          0.0586695,
+          1.4132234,
+          -0.0441
+        ],
+        "blender_point": [
+          0.0586695,
+          0.0441,
+          1.4132234
+        ]
+      },
+      "first_skin_hit": {
+        "mesh": "Hanli_editable_character_mesh_20",
+        "material": "Skin | anatomical young male",
+        "distance_m": 3.952611,
+        "gltf_point": [
+          0.049219,
+          1.4131408,
+          -0.0441472
+        ],
+        "blender_point": [
+          0.049219,
+          0.0441472,
+          1.4131408
+        ]
+      },
+      "skin_behind_first_surface_m": 0.0094509
+    },
+    {
+      "name": "front-edge-control",
+      "pixel": [
+        430,
+        640
+      ],
+      "result": "PASS",
+      "first_hit": {
+        "mesh": "Hanli_editable_character_mesh_7",
+        "material": "Ice blue | overlapping inner silk",
+        "distance_m": 3.9328819,
+        "gltf_point": [
+          0.0690682,
+          1.3952993,
+          -0.0367294
+        ],
+        "blender_point": [
+          0.0690682,
+          0.0367294,
+          1.3952993
+        ]
+      },
+      "first_skin_hit": {
+        "mesh": "Hanli_editable_character_mesh_20",
+        "material": "Skin | anatomical young male",
+        "distance_m": 3.942557,
+        "gltf_point": [
+          0.0593936,
+          1.3952146,
+          -0.0367778
+        ],
+        "blender_point": [
+          0.0593936,
+          0.0367778,
+          1.3952146
+        ]
+      },
+      "skin_behind_first_surface_m": 0.0096751
+    },
+    {
+      "name": "rear-edge-control",
+      "pixel": [
+        475,
+        640
+      ],
+      "result": "PASS",
+      "first_hit": {
+        "mesh": "Hanli_editable_character_mesh_7",
+        "material": "Ice blue | overlapping inner silk",
+        "distance_m": 3.9721493,
+        "gltf_point": [
+          0.0299294,
+          1.3949557,
+          -0.0622587
+        ],
+        "blender_point": [
+          0.0299294,
+          0.0622587,
+          1.3949557
+        ]
+      },
+      "first_skin_hit": null,
+      "skin_behind_first_surface_m": null
+    }
+  ],
+  "errors": []
+}

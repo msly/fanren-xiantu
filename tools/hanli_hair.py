@@ -1,4 +1,4 @@
-"""Layered, half-tied black hair with closed tapered locks and packed strand maps.
+"""Side-parted half-tied hair with sculpted flow masses and feathered alpha cards.
 
 Geometry uses the face module's unshifted coordinates; the main pipeline applies
 the shared head offset and blends long locks into the upper-body rig.
@@ -23,38 +23,42 @@ def build_hair(ctx, anatomy):
     start = len(parts)
     profile = anatomy['profile']
     face_surface = anatomy['surface']
+    skull_bvh = anatomy.get('scalp_bvh') or anatomy.get('head_bvh')
     crown = anatomy.get('crown_z', 1.705)
     cy = anatomy.get('center_y', -.013)
     height_offset = crown - 1.705
 
-    M['hair_swept'] = material('Hair | blue-black longitudinal strands', '#13181d', .60)
-    M['hair_under'] = material('Hair | soft dark underlayer', '#0e1318', .69)
-    M['hair_fine'] = material('Hair | restrained fine strands', '#192129', .61)
+    M['hair_swept'] = material('Hair | soft black-brown silk bundles', '#151719', .42)
+    M['hair_under'] = material('Hair | close dark underlayer', '#101214', .50)
+    M['hair_fine'] = material('Hair | fine black-brown flyaways', '#1b1c20', .48)
     for key in ('hair_swept', 'hair_under', 'hair_fine'):
         bsdf = M[key].node_tree.nodes.get('Principled BSDF')
-        bsdf.inputs['Specular IOR Level'].default_value = .18
+        bsdf.inputs['Specular IOR Level'].default_value = .16
         bsdf.inputs['Coat Weight'].default_value = 0
         bsdf.inputs['Coat Roughness'].default_value = .6
+        if 'Anisotropic' in bsdf.inputs:
+            bsdf.inputs['Anisotropic'].default_value = .72
+            bsdf.inputs['Anisotropic Rotation'].default_value = .25
 
     # U crosses a lock; V follows its length. Fine lanes stay dark in the colour
     # map and contribute through low-relief normals and varied roughness.
-    size = 512
+    size = 1024
     yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
     phase = xx * math.tau / size
     drift = .085 * np.sin(yy * math.tau / size) + .035 * np.sin(yy * math.tau * 3 / size)
-    lanes = (.48 * np.sin(phase * 53 + drift) + .28 * np.sin(phase * 89 - drift * .7)
-             + .18 * np.sin(phase * 127 + drift * .3))
+    lanes = (.48 * np.sin(phase * 137 + drift) + .28 * np.sin(phase * 211 - drift * .7)
+             + .18 * np.sin(phase * 307 + drift * .3))
     broad = .5 + .5 * np.sin(phase * 7 + .2 * np.sin(yy * math.tau / size))
     normal = np.ones((size, size, 4), dtype=np.float32)
-    normal[:, :, 0] = .5 + lanes * .035
+    normal[:, :, 0] = .5 + lanes * .012
     normal[:, :, 1] = .5 + .0015 * np.cos(yy * math.tau / size)
     normal[:, :, 2] = np.sqrt(np.maximum(0, 1 - (normal[:, :, 0] * 2 - 1) ** 2
                                          - (normal[:, :, 1] * 2 - 1) ** 2)) * .5 + .5
     rough = np.ones_like(normal)
-    rough[:, :, :3] = (.64 + lanes * .045 + (broad - .5) * .065)[:, :, None]
+    rough[:, :, :3] = (.52 + lanes * .035 + (broad - .5) * .050)[:, :, None]
     colour = np.ones_like(normal)
-    for channel, base in enumerate((.052, .064, .080)):
-        colour[:, :, channel] = base * (.88 + broad * .18 + lanes * .045)
+    for channel, base in enumerate((.068, .073, .083)):
+        colour[:, :, channel] = base * (.90 + broad * .20 + lanes * .18)
     images = []
     for name, values, space in [('Hanli_hair_strand_colour', colour, 'sRGB'),
                                  ('Hanli_hair_strand_normal', normal, 'Non-Color'),
@@ -81,7 +85,7 @@ def build_hair(ctx, anatomy):
                 links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
             elif index == 1:
                 normal_node = nodes.new('ShaderNodeNormalMap')
-                normal_node.inputs['Strength'].default_value = .52 if key == 'hair_swept' else .25
+                normal_node.inputs['Strength'].default_value = .16 if key == 'hair_swept' else .20
                 links.new(tex.outputs['Color'], normal_node.inputs['Color'])
                 links.new(normal_node.outputs['Normal'], bsdf.inputs['Normal'])
             else:
@@ -109,37 +113,59 @@ def build_hair(ctx, anatomy):
         return obj
 
     def scalp(angle, fraction, clearance=.003):
-        front = max(0, math.cos(angle)); back = max(0, -math.cos(angle))
-        bottom = 1.559 + .104 * front ** 1.2 - .017 * back
-        # The asymmetric hairline is scalloped into the part and temples;
-        # it does not form one smooth, horizontal helmet edge.
-        bottom += (.0013 * math.sin(angle * 17) + .0006 * math.sin(angle * 31)
-                   + .004 * front**3 * math.sin(angle * 2 + .45) + height_offset)
+        front = max(0, math.cos(angle))
+        # The side hairline climbs over the ear. A low, level cap edge makes a
+        # rectangular black sideburn across the cheek on an anatomical head.
+        a = abs((angle + math.pi) % math.tau - math.pi)
+        line = [(0,1.663),(.50,1.657),(.95,1.638),(1.35,1.629),
+                (1.65,1.623),(1.95,1.600),(2.35,1.565),(math.pi,1.543)]
+        bottom = line[-1][1]
+        for left,right in zip(line,line[1:]):
+            if left[0] <= a <= right[0]:
+                t=(a-left[0])/(right[0]-left[0]);t=t*t*(3-2*t)
+                bottom=left[1]*(1-t)+right[1]*t
+                break
+        bottom += .0025*math.sin(angle+.30)*front**2 + .0005*math.sin(angle*11+.4) + height_offset
         fraction = max(0, min(1, fraction))
         skin_z = bottom + (crown - bottom) * fraction
-        support_z=min(crown - .0001, skin_z)
+        support_z = min(crown - .0001, skin_z)
         skin_rx, skin_ry = profile(support_z)
-        lift = (.003 + .004 * math.sin(fraction * math.pi)) * (1 - fraction) ** .35
-        rx = max(0, skin_rx) + clearance + lift
-        ry = max(0, skin_ry) + clearance + lift
-        z = skin_z + .006 * math.sin(fraction * math.pi / 2) ** 2
-        y=cy-math.cos(angle)*ry
-        if math.cos(angle)>0:
-            y=face_surface(math.sin(angle)*skin_rx,support_z)-math.cos(angle)*(clearance+lift)
-        return Vector((math.sin(angle) * rx,y,z))
+        puff = (.0035 + .008 * math.sin(fraction * math.pi))
+        puff *= 1 + .38 * max(0, -math.sin(angle)) * front
+        puff *= (1 - fraction) ** .36
+        puff += .0010 * math.sin(angle*11 + fraction*2) * math.sin(math.pi*fraction) ** 1.5
+        rx = max(0, skin_rx) + clearance + puff
+        ry = max(0, skin_ry) + clearance + puff
+        z = skin_z + .011 * math.sin(fraction * math.pi / 2) ** 2
+        y = cy - math.cos(angle) * ry
+        if math.cos(angle) > 0:
+            y = face_surface(math.sin(angle)*skin_rx, support_z) - math.cos(angle)*(clearance+puff)
+        x = math.sin(angle) * rx + .003 * fraction**2
+        if skull_bvh is not None and support_z >= 1.638:
+            radial = Vector((math.sin(angle), -math.cos(angle), 0))
+            origin = Vector((0, cy, support_z)) + radial * .35
+            hit, normal_hit, _, _ = skull_bvh.ray_cast(origin, -radial, .70)
+            expected_radius = math.sqrt((math.sin(angle)*skin_rx)**2 + (math.cos(angle)*skin_ry)**2)
+            valid_hit = (hit is not None and normal_hit.dot(radial) > .22
+                         and (hit-Vector((0,cy,support_z))).dot(radial) > max(.006, expected_radius*.60))
+            if valid_hit:
+                p = hit + normal_hit * (clearance + puff)
+                p.z += .011 * math.sin(fraction*math.pi/2)**2
+                return p
+        return Vector((x, y, z))
 
     # A thin closed underlayer prevents see-through gaps between individual locks.
     columns, rows = 72, 16
     vertices, faces, uv = [], [], []
     for inside in (False, True):
         for row in range(rows):
-            fraction = row / rows
+            fraction = .075 + row / rows * .925
             for col in range(columns + 1):
                 angle = col / columns * math.tau
                 p = scalp(angle, fraction, .0012 if inside else .0026)
                 if inside:
                     p.z -= .0008
-                vertices.append(tuple(p)); uv.append((col / columns, fraction))
+                vertices.append(tuple(p)); uv.append((fraction + .14*math.sin(angle), col / columns))
     layer_size = rows * (columns + 1)
     for layer in range(2):
         for row in range(rows - 1):
@@ -148,7 +174,7 @@ def build_hair(ctx, anatomy):
                 face = (k, k + 1, k + columns + 2, k + columns + 1)
                 faces.append(face if layer == 0 else tuple(reversed(face)))
         apex = len(vertices)
-        vertices.append((0, cy, crown + .006 - layer * .001)); uv.append((.5, 1))
+        vertices.append((.003, cy, crown + .011 - layer * .001)); uv.append((.5, 1))
         for col in range(columns):
             k = layer * layer_size + (rows - 1) * (columns + 1) + col
             face = (k, k + 1, apex)
@@ -185,7 +211,7 @@ def build_hair(ctx, anatomy):
         for index, sample in enumerate(samples):
             center = positions[index]
             tangent = (positions[min(index+1,len(samples)-1)] - positions[max(0,index-1)]).normalized()
-            if normal == 'scalp':
+            if normal in ('scalp', 'volume'):
                 hint = Vector((center.x/.08, (center.y-cy)/.09, (center.z-(1.602+height_offset))/.105))
             else:
                 hint = Vector((0, -1 if normal == 'front' else 1, .025))
@@ -221,134 +247,186 @@ def build_hair(ctx, anatomy):
                 layer.data[loop].uv=(.5+p.dot(across)/(2*width),.5+p.dot(outward)/(2*thickness))
         return finish(obj)
 
-    def roof(x,y,lift=.015):
-        hit,normal_hit,_,_=scalp_bvh.ray_cast(Vector((x,y,crown+.15)),Vector((0,0,-1)))
-        if hit is not None:return hit+normal_hit*max(.0008,lift*.10)
-        return scalp(math.atan2(x,cy-y),.65,.004)
+    # One packed mask is shared by all feather cards. Individual strands have
+    # different roots, drift and tip lengths; no opaque rectangular silhouette.
+    size = 1024
+    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
+    u, v = xx / (size-1), yy / (size-1)
+    alpha = np.zeros_like(u)
+    rng = np.random.default_rng(607)
+    for index in range(88):
+        center = (.04 + index / 87 * .92) + rng.uniform(-.004, .004)
+        drift = rng.uniform(-.008, .008) * np.sin(v * math.pi * rng.uniform(.7, 1.5))
+        finish_v = rng.uniform(.72, 1.04)
+        start_v = rng.uniform(-.04, .075)
+        width = rng.uniform(.00065, .00145)
+        strand = np.exp(-((u-center-drift)/width)**2)
+        root_fade = np.clip((v-start_v)/.06, 0, 1)
+        tip_fade = np.clip((finish_v-v)/.095, 0, 1)
+        alpha = np.maximum(alpha, strand * root_fade * tip_fade * rng.uniform(.70, 1.0))
+    rgba = np.empty((size, size, 4), dtype=np.float32)
+    rgba[:, :, :3] = (.067, .072, .080)
+    rgba[:, :, :3] *= (1 + .07*np.sin(xx*.063))[:, :, None]
+    rgba[:, :, 3] = np.clip(alpha * 1.55, 0, 1)
+    pixels = np.clip(rgba*255+.5, 0, 255).astype(np.uint8)
+    def chunk(kind, data):
+        return struct.pack('>I',len(data))+kind+data+struct.pack('>I',zlib.crc32(kind+data)&0xffffffff)
+    raw = b''.join(b'\0'+row.tobytes() for row in pixels[::-1])
+    data = b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',size,size,8,6,0,0,0))
+    data += chunk(b'IDAT', zlib.compress(raw,6)) + chunk(b'IEND',b'')
+    mask_path = qa/'Hanli_hair_feather_rgba.png'; mask_path.write_bytes(data)
+    mask = bpy.data.images.load(str(mask_path),check_existing=False)
+    mask.name='Hanli_hair_feather_rgba';mask.colorspace_settings.name='sRGB';mask.pack()
+    images.append(mask)
+    M['hair_feather'] = material('Hair | feathered fine strand cards', '#17191c', .46)
+    cardmat=M['hair_feather'];cardmat.use_backface_culling=False
+    cardmat.blend_method='CLIP';cardmat.alpha_threshold=.32
+    bsdf=cardmat.node_tree.nodes.get('Principled BSDF')
+    bsdf.inputs['Specular IOR Level'].default_value=.13
+    bsdf.inputs['Anisotropic'].default_value=.70
+    bsdf.inputs['Anisotropic Rotation'].default_value=.25
+    tex=cardmat.node_tree.nodes.new('ShaderNodeTexImage');tex.image=mask;tex.extension='CLIP'
+    cardmat.node_tree.links.new(tex.outputs['Color'],bsdf.inputs['Base Color'])
+    clip=cardmat.node_tree.nodes.new('ShaderNodeMath');clip.operation='GREATER_THAN';clip.inputs[1].default_value=.32
+    cardmat.node_tree.links.new(tex.outputs['Alpha'],clip.inputs[0])
+    cardmat.node_tree.links.new(clip.outputs[0],bsdf.inputs['Alpha'])
 
-    # Crown sections cross the dome, from a scalloped hairline to the low tie.
-    # Covering the summit avoids a smooth exposed "helmet" between side locks.
-    for index in range(64):
-        x=(index-31.5)*.00195+.00022*math.sin(index*2.1)
-        angle=math.asin(max(-.94,min(.94,x/.075)))
-        root=scalp(angle,.015,.0017)
-        wander=.0024*math.sin(index*.73)
-        path=[root,roof(x+.003+wander,-.052,.010),roof(x+.006-wander,-.026,.015),
-              roof(x+.005+wander,.006,.016),roof(x*.94,.035,.015),
-              roof(x*.76,.058,.010),scalp(math.pi-x*.9,.44,.004)]
-        width=.00175+.00038*math.sin(index*.7)
-        lock('Hair | flowing crown section %02d'%index,path,
-             [.00055,width,width*.99,width*.94,width*.91,width*.75,.00010],depth=.08,
-             sides=6,steps=3)
-        for offset in ((.19,) if index%4==0 else ()):
-            fine=[p+Vector((offset*width,0,.00075)) for p in path]
-            lock('Hair | crown fine strand %02d %.2f'%(index,offset),fine,
-                 [.00004,.00018,.00021,.00020,.00019,.00016,.000035],depth=.45,
-                 mat='hair_fine',sides=4,steps=3)
-    # Short tapered locks feather the boundary against the forehead instead of
-    # relying on the opaque undercap's single edge. They remain closed meshes.
-    for index in range(24):
-        angle=-1.31+index/23*2.62
-        root=scalp(angle,.18,.0021)
-        mid=scalp(angle+.025*math.sin(index),.055,.0022)
-        tip=scalp(angle,.005,.0015)
-        tip.z-=.0018+.0015*(.5+.5*math.sin(index*1.7))
-        lock('Hair | feathered hairline %02d'%index,[root,mid,tip],
-             [.0013,.0010,.000035],depth=.10,sides=5,steps=3)
-    for side in (-1,1):
-        for index in range(6):
-            path=[scalp(side*(.94+index*.13),.02,.0022),
-                  scalp(side*(1.12+index*.12),.30,.005),
-                  scalp(side*(1.64+index*.09),.52,.005),
-                  scalp(side*(2.32+index*.08),.48,.0045),
-                  scalp(side*2.96,.29+index*.018,.004)]
-            lock('Hair | low swept side section %s %02d'%(side,index),path,
-                 [.001,.007,.0075,.006,.00015],depth=.11,sides=8,steps=4)
+    def card(name, points, widths, normal='front', skin_mode='rigid', steps=5):
+        keys=[Vector((*Vector(p),w)) for p,w in zip(points,widths)]
+        samples=[]
+        for i in range(len(keys)-1):
+            for j in range(steps):
+                samples.append(catmull(keys[max(0,i-1)],keys[i],keys[i+1],keys[min(len(keys)-1,i+2)],j/steps))
+        samples.append(keys[-1])
+        positions=[Vector(p[:3]) for p in samples]
+        vv,ff,uv=[],[],[]
+        for i, row in enumerate(samples):
+            center=positions[i]
+            tangent=(positions[min(i+1,len(positions)-1)]-positions[max(0,i-1)]).normalized()
+            hint=Vector((center.x/.08,(center.y-cy)/.09,(center.z-1.60)/.11)) if normal=='volume' else Vector((0,-1 if normal=='front' else 1,0))
+            outward=hint-tangent*hint.dot(tangent)
+            if outward.length<.001:outward=tangent.orthogonal()
+            outward.normalize(); across=tangent.cross(outward).normalized()
+            for j in range(5):
+                f=j/4; signed=f*2-1
+                p=center+across*(max(.0001,row[3])*signed)+outward*(.0006*(1-signed*signed))
+                vv.append(tuple(p));uv.append((f,i/(len(samples)-1)))
+                if i<len(samples)-1 and j<4:
+                    k=i*5+j;ff.append((k,k+1,k+6,k+5))
+        obj=mesh(name,vv,ff,'hair_feather','head',skin_mode=skin_mode,uv=uv)
+        # Single-sided sheets deliberately keep their authored outward normals;
+        # backfaces are visible through glTF doubleSided.
+        for p in obj.data.polygons:p.use_smooth=True
+        return obj
 
-    # Main offset wave rises from the hairline and falls outside the eye socket.
     def point(x,y,z):
-        return (x,y,z+height_offset)
-    wave=[scalp(.62,.50,.004),point(.008,-.073,1.692),point(-.024,-.081,1.677),
-          point(-.047,-.080,1.646),point(-.064,-.061,1.598),
-          point(-.070,-.046,1.547),point(-.060,-.053,1.491)]
-    lock('Hair | asymmetric S-shaped forelock',wave,[.0003,.0044,.0052,.0045,.0034,.0018,.00010],
-         depth=.10,normal='front',sides=10,steps=5)
-    for index in range(5):
-        path=[Vector(p)+Vector((-.00135*(index+1),-.0006-index*.0003,-.0007*index)) for p in wave]
-        path[0]=Vector(wave[0])
-        path[-1].x-=.005*index;path[-1].z-=.006*index
-        lock('Hair | separated fringe wisp %02d'%index,path,
-             [.0002,.0010,.00115,.00085,.0006,.00035,.000035],depth=.14,normal='front',sides=6,steps=4)
-    small_wave=[scalp(.65,.45,.004),point(.054,-.069,1.666),point(.070,-.054,1.625),
-                point(.077,-.037,1.574),point(.073,-.040,1.527),point(.065,-.052,1.484)]
-    lock('Hair | narrow opposite temple wave',small_wave,[.0003,.0045,.0045,.0035,.002,.0001],
-         depth=.12,normal='front',sides=10,steps=5)
+        return Vector((x,y,z+height_offset))
 
-    # Loose under-hair broadens down the back, with staggered natural tips.
+    # The crown is one continuous surface with shallow flow undulations.
+    # Separate opaque strips here produced hard, armor-like steps in three-quarter
+    # lighting; their strand detail belongs in the normal/roughness maps instead.
+
+    # Fine roots soften the cap edge with actual transparent strand silhouettes.
+    for index in range(38):
+        angle=-1.42+index/37*2.84
+        root=scalp(angle,.20,.003)
+        mid=scalp(angle-.028,.055,.0032)
+        tip=scalp(angle-.046,.0,.0027)
+        tip.z-=.003+(.5+.5*math.sin(index*1.7))*.004
+        card('Hair | individual feathered hairline %02d'%index,[root,mid,tip],
+             [.0032,.0048,.0026],normal='volume',steps=4)
+
+    # A wide, flat S-wave hangs from the side part. Its large section changes the
+    # forehead silhouette, while the alpha-card edge splits into fine strands.
+    wave=[scalp(.66,.43,.004),point(.025,-.066,1.687),point(-.004,-.086,1.665),
+          point(-.030,-.094,1.642),point(-.052,-.080,1.610),
+          point(-.061,-.066,1.563),point(-.056,-.060,1.512)]
+    # The anatomical head is deeper than the old analytic face. Keep the hero
+    # fringe in front of the actual face AND hair-cap surface, instead of burying
+    # its old absolute Y coordinates in the forehead after a head replacement.
+    for index, (p, width) in enumerate(zip(wave, [.001,.010,.015,.014,.010,.005,.00012])):
+        front_y = face_surface(p.x, min(crown-.0001, p.z))
+        cap_hit, _, _, _ = scalp_bvh.ray_cast(Vector((p.x, -.45, p.z)), Vector((0,1,0)), .8)
+        if cap_hit is not None:
+            front_y = min(front_y, cap_hit.y)
+        p.y = min(p.y, front_y - .0025 - width*.12)
+        wave[index] = p
+    lock('Hair | broad asymmetric S forelock',wave,
+         [.001,.010,.015,.014,.010,.005,.00012],depth=.11,normal='front',sides=10,steps=6)
+    card('Hair | feathered S forelock edge',[p+Vector((-.002,-.0015,0)) for p in wave],
+         [.002,.013,.018,.017,.014,.008,.002],steps=6)
+    for index in range(3):
+        path=[p+Vector((-.0017*(index+1),-.002-index*.0005,-.001*index)) for p in wave]
+        path[-1].x-=.005*(index+1);path[-1].z-=.009*(index+1)
+        card('Hair | separate long fringe wisp %02d'%index,path,
+             [.0006,.0020,.0030,.0026,.0022,.0016,.0002],steps=5)
+    opposite=[scalp(.89,.30,.004),point(.067,-.058,1.649),point(.078,-.044,1.608),
+              point(.078,-.036,1.559),point(.067,-.047,1.520)]
+    card('Hair | wispy ear-side edge',[p+Vector((.0015,-.0013,0)) for p in opposite],
+         [.001,.007,.007,.006,.001],steps=5)
+
+    # Separated long rear groups grow from the low half-tie, not a straight sheet.
     back_paths=[]
-    for index in range(13):
-        x=(index-6)*.0118
-        root_angle=math.pi - x/.078
-        origin=scalp(root_angle,.43,.0025)
-        end=1.045+.085*(abs(index-6)/6)**1.25+.035*math.sin(index*1.3)
-        bend=.009*math.sin(index*.71)
-        path=[origin,point(x*.93,.087,1.565),point(x*1.16+bend*.5,.107,1.470),
-              point(x*1.24+bend,.120+.003*math.sin(index),1.355),
-              point(x*1.18+.010+bend*.8,.136,1.235),point(x*1.04+.019+bend*.4,.152,end)]
+    for index in range(15):
+        x=(index-7)*.0105
+        root_angle=math.pi-x/.08
+        radial=Vector((math.sin(root_angle),-math.cos(root_angle),0))
+        origin=scalp(root_angle,.54,.001)-radial*.016
+        nape=scalp(root_angle,.075,.001)-radial*.012
+        end=1.035+.105*(abs(index-7)/7)**1.3+.025*math.sin(index*1.5)
+        sway=.012*math.sin(index*.68)
+        path=[origin,nape,point(x*1.12+sway*.4,.111,1.483),
+              point(x*1.35+sway,.139+.005*math.sin(index),1.365),
+              point(x*1.37+sway*.8+.010,.157,1.225),point(x*1.18+.029+sway*.7,.178,end)]
         back_paths.append(path)
-        lock('Hair | flowing back layer %02d'%index,path,
-             [.003,.013,.017,.016,.011,.00010],depth=.045,normal='back',skin_mode='hair_back',
-             sides=10,steps=5)
-    # Raised secondary groups break up a uniform curtain without separate materials.
-    for index in range(25):
-        source=back_paths[min(12,round(index/24*12))]
-        path=[Vector(p)+Vector((.0025*math.sin(index*.9+j*.58),
-                               .0011+.0003*(index%3),.001*math.sin(j+index)))
-              for j,p in enumerate(source)]
-        path[-1].z+=.012+.021*(index%3);path[-1].x+=.005*math.sin(index)
-        lock('Hair | back tapered strand group %02d'%index,path,
-             [.0003,.0018,.0026,.0024,.0018,.00005],depth=.075,normal='back',
-             skin_mode='hair_back',sides=6,steps=4)
-        if index%4==0:
-            path=[p+Vector((.001,.0014,0)) for p in path]
-            lock('Hair | fine back filament %02d'%index,path,
-                 [.00005,.00028,.00032,.00030,.00023,.00004],depth=.55,mat='hair_fine',
-                 normal='back',skin_mode='hair_back',sides=4,steps=3)
+        lock('Hair | tapered loose back mass %02d'%index,path,
+             [.004,.010,.014,.015,.011,.00012],depth=.055,
+             normal='back',skin_mode='hair_back',sides=8,steps=5)
+        card('Hair | feathered long back layer %02d'%index,
+             [p+Vector((.001*math.sin(index),.0013,0)) for p in path],
+             [.004,.011,.017,.018,.014,.003],normal='back',skin_mode='hair_back',steps=6)
+    for index in (0,3,6,9,12,14):
+        source=back_paths[index]
+        stray=[p+Vector(((-.006 if index<7 else .006)*(j/5),.002,-.004*j)) for j,p in enumerate(source)]
+        card('Hair | back silhouette loose wisp %02d'%index,stray,
+             [.0008,.0025,.004,.0045,.004,.0007],normal='back',skin_mode='hair_back',steps=5)
 
-    # Narrow locks pass beside the neck and rest in front of the high collar.
+    # Shoulder locks are broad, curved, asymmetric and split into fine ends.
+    # The path stays forward of the neck and garment throughout the rest pose.
     for side in (-1,1):
-        path=[scalp(side*1.71,.28,.002),point(side*.079,.012,1.548),
-              point(side*.088,-.030,1.468),point(side*.096,-.092,1.398),
-              point(side*.105,-.131,1.323),point(side*.114,-.132,1.244)]
-        lock('Hair | long temple lock %s'%side,path,[.0015,.0045,.005,.0044,.003,.00010],
-             depth=.13,normal='front',skin_mode='hair_front',sides=10,steps=5)
-        thin=[Vector(p)+Vector((side*.003,-.002,0)) for p in path]
-        thin[-1].x+=side*.005;thin[-1].z+=.035
-        lock('Hair | loose temple fine lock %s'%side,thin,[.0004,.0018,.0020,.0017,.001,.00005],
-             depth=.25,normal='front',skin_mode='hair_front',sides=6,steps=4)
-        stray=[Vector(p)+Vector((-side*.002,-.0014,0)) for p in path]
-        stray[-2].x-=side*.005;stray[-1].x-=side*.009;stray[-1].z+=.064
-        lock('Hair | inner temple stray %s'%side,stray,
-             [.0002,.0008,.0010,.0008,.00055,.000035],depth=.16,
-             normal='front',skin_mode='hair_front',sides=5,steps=4)
+        length_shift=.027 if side>0 else 0
+        path=[scalp(side*1.65,.26,.004),point(side*.081,.005,1.553),
+              point(side*.087,-.035,1.477),point(side*.099,-.102,1.405),
+              point(side*.117,-.137,1.323),point(side*.126,-.146,1.237+length_shift)]
+        lock('Hair | broad flowing shoulder lock %s'%side,path,
+             [.001,.014,.018,.017,.012,.00012],depth=.10,
+             normal='front',skin_mode='hair_front',sides=8,steps=6)
+        card('Hair | transparent shoulder lock edges %s'%side,
+             [p+Vector((side*.0015,-.0012,0)) for p in path],
+             [.002,.016,.020,.021,.017,.004],skin_mode='hair_front',steps=6)
+        for index in range(2):
+            stray=[p+Vector((side*(.003+index*.002),-.002-index*.0007,-.002*j)) for j,p in enumerate(path)]
+            stray[-1].x+=side*(.007+index*.006);stray[-1].z+=.022*(index+1)
+            card('Hair | fine shoulder tail %s %s'%(side,index),stray,
+                 [.0004,.002,.0026,.0025,.002,.0006],skin_mode='hair_front',steps=5)
 
-    # The tie is a shallow gathered fold at the rear, not a spherical topknot.
+    # Shallow gathered half-tie follows the occipital curve. Antique pin is kept.
     for index in range(4):
-        z=1.625+index*.004
-        path=[point(-.033,.071,z+.004),point(-.020,.089,z+.001),
-              point(0,.096,z),point(.020,.089,z+.001),point(.033,.071,z+.004)]
+        z=1.625+index*.0035
+        path=[point(-.033,.049,z+.004),point(-.020,.059,z+.001),
+              point(0,.064,z),point(.020,.059,z+.001),point(.033,.049,z+.004)]
         lock('Hair | low gathered tie %02d'%index,path,[.0005,.003,.0033,.003,.0005],
-             depth=.5,normal='back',sides=6,steps=3)
-    tube('Hair | slender antique hairpin',[point(-.071,.066,1.655),point(.065,.079,1.661)],
+             depth=.4,normal='back',sides=6,steps=3)
+    tube('Hair | slender antique hairpin',[point(-.074,.038,1.658),point(.068,.050,1.664)],
          .00145,'gold','head',radii=[.55,1])
-    sphere('Hair | small hairpin end',point(.067,.079,1.661),(.0030,.0024,.0024),
+    sphere('Hair | small hairpin end',point(.070,.050,1.664),(.0030,.0024,.0024),
            'gold_dark','head',segments=12,rings=8)
 
     created=parts[start:]
     tris=sum(sum(len(poly.vertices)-2 for poly in obj.data.polygons)
              for obj in created if obj.type=='MESH')
     assert tris<50000, ('Hair triangle budget exceeded',tris)
-    return {'objects':len(created),'mesh_triangles':tris,'materials':3,
-            'style':'asymmetric half-tied long hair, low occipital tie, no topknot',
+    return {'objects':len(created),'mesh_triangles':tris,'materials':len({m.name for ob in created for m in ob.data.materials}),
+            'style':'sculpted side part, broad S forelock, feathered alpha cards, low half-tie',
             'coordinates':'unshifted face space; head offset is applied by the main pipeline',
             'long_hair_modes':['hair_back','hair_front'],'textures':[im.name for im in images]}

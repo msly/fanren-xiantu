@@ -1,0 +1,279 @@
+{
+  "method": "Compare exported geometry by material with bidirectional nearest-position queries, independent of exporter vertex/index reordering; tolerance 0.1 micrometer. This measures point sets, not exact topology correspondence.",
+  "old_sha256": "cbeabf1fd03803bfc45972f8b4699c51421cc7770f80a44fcca9be149794414a",
+  "new_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+  "primitives": [
+    {
+      "material": "Charcoal linen | trousers",
+      "vertices": 400,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Worn black leather",
+      "vertices": 1307,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Boot soles",
+      "vertices": 405,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Patinated bronze",
+      "vertices": 5904,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Ink green | layered lining",
+      "vertices": 294,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Charcoal silk | inset lining",
+      "vertices": 1993,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Silver blue | woven shadow panels",
+      "vertices": 3694,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Ice blue | overlapping inner silk",
+      "vertices": 3585,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Muted blue | woven embroidery",
+      "vertices": 861,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Blue jade | open silk coat",
+      "vertices": 13606,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Pale champagne | repouss\u00e9 fittings",
+      "vertices": 5648,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Midnight peacock | fitted woven sleeves",
+      "vertices": 8849,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Warm silver | raised feather edges",
+      "vertices": 4988,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Skin | warm natural complexion",
+      "vertices": 1829,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Aged champagne | recessed carving",
+      "vertices": 1918,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Pale jade | suspension beads",
+      "vertices": 1421,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Crimson | silk tassels and beads",
+      "vertices": 2384,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Palm-heaven bottle | green jade",
+      "vertices": 617,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Antique bronze | engraved fittings",
+      "vertices": 665,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Jade engraving",
+      "vertices": 140,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Skin | anatomical young male",
+      "vertices": 70258,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 1000,
+      "max_bidirectional_nearest_delta_m": 0.01669713451816589,
+      "affected_height_range_m": [
+        1.3365063667297363,
+        1.4431689977645874
+      ],
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Eyes | fitted dark brown anatomical globes",
+      "vertices": 552,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Brows | natural tapered dark hair",
+      "vertices": 4176,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Hair | close dark underlayer",
+      "vertices": 2626,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Hair | feathered fine strand cards",
+      "vertices": 6400,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Hair | soft black-brown silk bundles",
+      "vertices": 5223,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0.0
+    },
+    {
+      "material": "Tempered steel | sword flats",
+      "vertices": 20,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Polished cutting edge",
+      "vertices": 182,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    },
+    {
+      "material": "Sage silk | lapels and cuffs",
+      "vertices": 294,
+      "index_count_unchanged": true,
+      "changed_over_0_1_micrometer": 0,
+      "max_bidirectional_nearest_delta_m": 0.0,
+      "affected_height_range_m": null,
+      "max_delta_at_or_above_1_445m": 0
+    }
+  ],
+  "joint_names_equal": true,
+  "joint_count": 21,
+  "animation_names": [
+    "Attack",
+    "Idle",
+    "Walk"
+  ],
+  "animation_samples_identical": true
+}

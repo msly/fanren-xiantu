@@ -1,539 +1,329 @@
 {
-  "result": "PASS for four reviewed regression poses",
-  "reviewed_at": "2026-11-22T18:49:41.288674+08:00",
+  "model_revision": 6,
+  "result": "PASS for four reviewed regression poses across six actual GLB renders",
+  "reviewed_at": "2026-11-22T13:03:31.296789+00:00",
+  "archived_at": "2026-11-22T13:03:31.296789+00:00",
+  "rendered_at": null,
+  "render_time_note": "Original renderer reports contain no render timestamp. Per-report and per-image source mtimes are retained; reviewed_at and archived_at describe this audit and archive only.",
   "asset": "assets/3d/hanli.glb",
-  "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
-  "method": "Actual exported GLB reimported into Blender 4.3.2, source studio, CPU Cycles, 24 samples; each resulting image visually inspected.",
+  "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+  "studio_source": "art/hanli.blend",
+  "studio_source_sha256": "be0a68c87a374989a2b107a83a7e35d4daa68ef952890c107f83b96fe7c7e969",
+  "method": "Actual exported GLB reimported into Blender 4.3.2; source studio, CPU Cycles, 32 samples, no denoising, resolution scale 0.75. Each archived motion image visually inspected.",
   "webgl_tested": false,
   "frames": [
     {
       "clip": "Walk",
       "frame": 7.0,
-      "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
       "image": "docs/hanli-walk-7-preview.png",
-      "image_sha256": "59faaecd566609553f38829bd03ab3979f3955aedba9098c6b1118eded9cc82c",
-      "result": "PASS for this reviewed full-body view",
+      "image_sha256": "dc2b6704d1096c280b351049b01c44d60683e972abe8d250cbe8500c27b74957",
+      "result": "PASS for the archived view(s) of this sampled pose",
       "observations": [
-        "Visible forward shin remains inside the opened skirt silhouette; no leg breaks through a front cloth surface.",
-        "Shoulder ornament and front hair remain attached; sword grip stays aligned.",
-        "Raised forward foot is flatter than the superseded d5d2e857 pose; no visible floor penetration."
+        "The forward boot and shin are visible within the opened skirt silhouette; no visible leg emerges through a front cloth panel.",
+        "The back view retains the long hair and shoulder surfaces; the moving skirt remains continuous around the visible supporting leg.",
+        "Sword grip and sleeve remain aligned in the reviewed full-body view."
       ],
+      "images": [
+        {
+          "view": "full",
+          "file": "docs/hanli-walk-7-preview.png",
+          "camera_location": [
+            2.5,
+            -4.5,
+            2.049999952316284
+          ],
+          "camera_rotation": [
+            1.354178547859192,
+            1.809414840181489e-10,
+            0.5085173845291138
+          ],
+          "ortho_scale": 2.180000066757202,
+          "resolution": [
+            540,
+            675
+          ],
+          "sha256": "dc2b6704d1096c280b351049b01c44d60683e972abe8d250cbe8500c27b74957",
+          "bytes": 573638,
+          "source_image": {
+            "path": "/workspace/scratch/707c0f302038/qa-final/walk-7/hanli-glb-full.png",
+            "sha256": "dc2b6704d1096c280b351049b01c44d60683e972abe8d250cbe8500c27b74957",
+            "bytes": 573638,
+            "mtime_utc": "2026-11-22T12:58:59.068103+00:00",
+            "mtime_ns": 1795352339068103411
+          }
+        },
+        {
+          "view": "back",
+          "file": "docs/hanli-walk-back-preview.png",
+          "camera_location": [
+            -2.5,
+            4.5,
+            2.049999952316284
+          ],
+          "camera_rotation": [
+            1.354712963104248,
+            -1.6337024533186195e-07,
+            -2.6344940662384033
+          ],
+          "ortho_scale": 2.180000066757202,
+          "resolution": [
+            540,
+            675
+          ],
+          "sha256": "cdfab97f9603545d768409b0a130e17c3f323348e8a08a21b13d1a47eea4919a",
+          "bytes": 566785,
+          "source_image": {
+            "path": "/workspace/scratch/707c0f302038/qa-final/walk-7/hanli-glb-back.png",
+            "sha256": "cdfab97f9603545d768409b0a130e17c3f323348e8a08a21b13d1a47eea4919a",
+            "bytes": 566785,
+            "mtime_utc": "2026-11-22T12:59:06.468188+00:00",
+            "mtime_ns": 1795352346468187510
+          }
+        }
+      ],
+      "render_report": "docs/render-v6/walk-7.json",
+      "render_report_sha256": "692d01861364076c07fe89de17627c3f6e5a6ef1ed796f324b534f91f8d46b23",
       "render_settings": {
-        "asset": "assets/3d/hanli.glb",
-        "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
-        "studio_source": "art/hanli.blend",
         "blender": "4.3.2",
         "method": "Import runtime GLB and render using source studio, CPU Cycles",
-        "webgl_tested": false,
-        "mesh_objects": 2,
-        "samples": 24,
-        "clip": "Walk",
-        "frame": 7.0,
-        "studio": {
-          "camera": {
-            "location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "rotation_euler": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "type": "ORTHO",
-            "ortho_scale": 2.180000066757202
-          },
-          "color": {
-            "view_transform": "AgX",
-            "look": "AgX - Medium High Contrast",
-            "exposure": -0.10000000149011612,
-            "gamma": 1.0
-          },
-          "lights": [
-            {
-              "name": "Key | warm silk",
-              "type": "AREA",
-              "location": [
-                -2.200000047683716,
-                -3.200000047683716,
-                4.199999809265137
-              ],
-              "rotation_euler": [
-                0.8892838358879089,
-                3.8414611935877474e-08,
-                -0.6022875308990479
-              ],
-              "color": [
-                1.0,
-                0.8899999856948853,
-                0.7400000095367432
-              ],
-              "energy": 430.0,
-              "size": 3.0
-            },
-            {
-              "name": "Fill | cloud light",
-              "type": "AREA",
-              "location": [
-                2.799999952316284,
-                -1.399999976158142,
-                2.0999999046325684
-              ],
-              "rotation_euler": [
-                1.2471776008605957,
-                -1.4298318262717657e-07,
-                1.1071486473083496
-              ],
-              "color": [
-                0.75,
-                0.8399999737739563,
-                1.0
-              ],
-              "energy": 110.0,
-              "size": 3.0
-            },
-            {
-              "name": "Rim | jade edge",
-              "type": "AREA",
-              "location": [
-                1.2999999523162842,
-                2.0,
-                3.0999999046325684
-              ],
-              "rotation_euler": [
-                0.8608677387237549,
-                -1.2617989320062861e-08,
-                2.5652174949645996
-              ],
-              "color": [
-                0.7200000286102295,
-                0.8799999952316284,
-                1.0
-              ],
-              "energy": 360.0,
-              "size": 2.0
-            }
-          ]
-        },
-        "renders": [
-          {
-            "view": "full",
-            "file": "docs/hanli-walk-7-preview.png",
-            "camera_location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "camera_rotation": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "ortho_scale": 2.180000066757202
-          }
-        ]
+        "samples": 32,
+        "denoised": false,
+        "resolution_scale": 0.75,
+        "webgl_tested": false
+      },
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/walk-7/hanli-glb-review.json",
+        "sha256": "277a2473647705dbede37ff509f7d0d6e0994a7c06e484ab5d5370b95f6c7014",
+        "bytes": 3263,
+        "mtime_utc": "2026-11-22T12:59:06.486377+00:00",
+        "mtime_ns": 1795352346486376968
       }
     },
     {
       "clip": "Walk",
       "frame": 19.0,
-      "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
       "image": "docs/hanli-walk-19-preview.png",
-      "image_sha256": "5d32d86db76cf114134d67eb870a4b8b167afa00340652672800b571aa23f19a",
-      "result": "PASS for this reviewed full-body view",
+      "image_sha256": "5e030bbb4bba53e9ec47b957ac8d35ad1d526e9e3156d6dbe82ec312ea522f35",
+      "result": "PASS for the archived view(s) of this sampled pose",
       "observations": [
-        "The opposite stride retains cloth clearance around both visible shins.",
-        "Foot orientation compensation removes the strongly upturned sole seen in the superseded d5d2e857 render; support reads more naturally.",
-        "No visible detached shoulder ornament, hair/collar intersection or sword/hand separation."
+        "The opposite stride retains separation of the visible boots and the robe opening.",
+        "Hair, shoulder ornaments and the sword hand remain connected in the reviewed view.",
+        "The lower hem remains angular, but no new visible leg-through-cloth or floor penetration appears in this pose."
       ],
+      "images": [
+        {
+          "view": "full",
+          "file": "docs/hanli-walk-19-preview.png",
+          "camera_location": [
+            2.5,
+            -4.5,
+            2.049999952316284
+          ],
+          "camera_rotation": [
+            1.354178547859192,
+            1.809414840181489e-10,
+            0.5085173845291138
+          ],
+          "ortho_scale": 2.180000066757202,
+          "resolution": [
+            540,
+            675
+          ],
+          "sha256": "5e030bbb4bba53e9ec47b957ac8d35ad1d526e9e3156d6dbe82ec312ea522f35",
+          "bytes": 571126,
+          "source_image": {
+            "path": "/workspace/scratch/707c0f302038/qa-final/walk-19/hanli-glb-full.png",
+            "sha256": "5e030bbb4bba53e9ec47b957ac8d35ad1d526e9e3156d6dbe82ec312ea522f35",
+            "bytes": 571126,
+            "mtime_utc": "2026-11-22T12:59:15.780293+00:00",
+            "mtime_ns": 1795352355780293459
+          }
+        }
+      ],
+      "render_report": "docs/render-v6/walk-19.json",
+      "render_report_sha256": "cedfdec302826ae6ee0dac740bf7524ea0971b8ce2969d1b6d3e2df69fd07db1",
       "render_settings": {
-        "asset": "assets/3d/hanli.glb",
-        "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
-        "studio_source": "art/hanli.blend",
         "blender": "4.3.2",
         "method": "Import runtime GLB and render using source studio, CPU Cycles",
-        "webgl_tested": false,
-        "mesh_objects": 2,
-        "samples": 24,
-        "clip": "Walk",
-        "frame": 19.0,
-        "studio": {
-          "camera": {
-            "location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "rotation_euler": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "type": "ORTHO",
-            "ortho_scale": 2.180000066757202
-          },
-          "color": {
-            "view_transform": "AgX",
-            "look": "AgX - Medium High Contrast",
-            "exposure": -0.10000000149011612,
-            "gamma": 1.0
-          },
-          "lights": [
-            {
-              "name": "Key | warm silk",
-              "type": "AREA",
-              "location": [
-                -2.200000047683716,
-                -3.200000047683716,
-                4.199999809265137
-              ],
-              "rotation_euler": [
-                0.8892838358879089,
-                3.8414611935877474e-08,
-                -0.6022875308990479
-              ],
-              "color": [
-                1.0,
-                0.8899999856948853,
-                0.7400000095367432
-              ],
-              "energy": 430.0,
-              "size": 3.0
-            },
-            {
-              "name": "Fill | cloud light",
-              "type": "AREA",
-              "location": [
-                2.799999952316284,
-                -1.399999976158142,
-                2.0999999046325684
-              ],
-              "rotation_euler": [
-                1.2471776008605957,
-                -1.4298318262717657e-07,
-                1.1071486473083496
-              ],
-              "color": [
-                0.75,
-                0.8399999737739563,
-                1.0
-              ],
-              "energy": 110.0,
-              "size": 3.0
-            },
-            {
-              "name": "Rim | jade edge",
-              "type": "AREA",
-              "location": [
-                1.2999999523162842,
-                2.0,
-                3.0999999046325684
-              ],
-              "rotation_euler": [
-                0.8608677387237549,
-                -1.2617989320062861e-08,
-                2.5652174949645996
-              ],
-              "color": [
-                0.7200000286102295,
-                0.8799999952316284,
-                1.0
-              ],
-              "energy": 360.0,
-              "size": 2.0
-            }
-          ]
-        },
-        "renders": [
-          {
-            "view": "full",
-            "file": "docs/hanli-walk-19-preview.png",
-            "camera_location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "camera_rotation": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "ortho_scale": 2.180000066757202
-          }
-        ]
+        "samples": 32,
+        "denoised": false,
+        "resolution_scale": 0.75,
+        "webgl_tested": false
+      },
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/walk-19/hanli-glb-review.json",
+        "sha256": "64d73b7128867153d03613fd15b6b959b10fcbd9f1cc7a2ee684f4c68da9b0d4",
+        "bytes": 2838,
+        "mtime_utc": "2026-11-22T12:59:15.803841+00:00",
+        "mtime_ns": 1795352355803840629
       }
     },
     {
       "clip": "Attack",
       "frame": 11.0,
-      "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
       "image": "docs/hanli-attack-11-preview.png",
-      "image_sha256": "9b2a84bf531ded28d2db9c055bf402f786e6b5b3de552771e4196856ef89b3d5",
-      "result": "PASS for this reviewed full-body view",
+      "image_sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+      "result": "PASS for the archived view(s) of this sampled pose",
       "observations": [
-        "Raised sword arm retains its cuff, hand grip and shoulder surface.",
-        "Shoulder ornaments stay on the chest/shoulder region; no floating strips are visible.",
-        "Hair stays outside the raised collar; visible legs and soles remain clear of skirt penetration and the floor."
+        "The full-body and reference views show the raised sword hand aligned with its grip and cuff.",
+        "The raised shoulder decoration remains connected to the shoulder region in the reference view.",
+        "Front hair and the visible collar remain separated in these views; the robe silhouette remains continuous."
       ],
+      "images": [
+        {
+          "view": "full",
+          "file": "docs/hanli-attack-11-preview.png",
+          "camera_location": [
+            2.5,
+            -4.5,
+            2.049999952316284
+          ],
+          "camera_rotation": [
+            1.354178547859192,
+            1.809414840181489e-10,
+            0.5085173845291138
+          ],
+          "ortho_scale": 2.180000066757202,
+          "resolution": [
+            540,
+            675
+          ],
+          "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+          "bytes": 563140,
+          "source_image": {
+            "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-full.png",
+            "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+            "bytes": 563140,
+            "mtime_utc": "2026-11-22T12:59:24.384391+00:00",
+            "mtime_ns": 1795352364384391356
+          }
+        },
+        {
+          "view": "reference",
+          "file": "docs/hanli-attack-11-reference-preview.png",
+          "camera_location": [
+            -1.4500000476837158,
+            -4.0,
+            1.5299999713897705
+          ],
+          "camera_rotation": [
+            1.5013427734375,
+            -2.619671057857431e-08,
+            -0.34897249937057495
+          ],
+          "ortho_scale": 1.0399999618530273,
+          "resolution": [
+            675,
+            900
+          ],
+          "sha256": "b304135f2b01caf9e494ecce9594c8bb34b00b7d84afe48537c12c7a1ded6aad",
+          "bytes": 926089,
+          "source_image": {
+            "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-reference.png",
+            "sha256": "b304135f2b01caf9e494ecce9594c8bb34b00b7d84afe48537c12c7a1ded6aad",
+            "bytes": 926089,
+            "mtime_utc": "2026-11-22T12:59:37.492540+00:00",
+            "mtime_ns": 1795352377492540391
+          }
+        }
+      ],
+      "render_report": "docs/render-v6/attack-11.json",
+      "render_report_sha256": "89beb6af90f75ff0fa068b9da9bd7e2a34d790ed54a6be8185b6f565271f2f7e",
       "render_settings": {
-        "asset": "assets/3d/hanli.glb",
-        "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
-        "studio_source": "art/hanli.blend",
         "blender": "4.3.2",
         "method": "Import runtime GLB and render using source studio, CPU Cycles",
-        "webgl_tested": false,
-        "mesh_objects": 2,
-        "samples": 24,
-        "clip": "Attack",
-        "frame": 11.0,
-        "studio": {
-          "camera": {
-            "location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "rotation_euler": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "type": "ORTHO",
-            "ortho_scale": 2.180000066757202
-          },
-          "color": {
-            "view_transform": "AgX",
-            "look": "AgX - Medium High Contrast",
-            "exposure": -0.10000000149011612,
-            "gamma": 1.0
-          },
-          "lights": [
-            {
-              "name": "Key | warm silk",
-              "type": "AREA",
-              "location": [
-                -2.200000047683716,
-                -3.200000047683716,
-                4.199999809265137
-              ],
-              "rotation_euler": [
-                0.8892838358879089,
-                3.8414611935877474e-08,
-                -0.6022875308990479
-              ],
-              "color": [
-                1.0,
-                0.8899999856948853,
-                0.7400000095367432
-              ],
-              "energy": 430.0,
-              "size": 3.0
-            },
-            {
-              "name": "Fill | cloud light",
-              "type": "AREA",
-              "location": [
-                2.799999952316284,
-                -1.399999976158142,
-                2.0999999046325684
-              ],
-              "rotation_euler": [
-                1.2471776008605957,
-                -1.4298318262717657e-07,
-                1.1071486473083496
-              ],
-              "color": [
-                0.75,
-                0.8399999737739563,
-                1.0
-              ],
-              "energy": 110.0,
-              "size": 3.0
-            },
-            {
-              "name": "Rim | jade edge",
-              "type": "AREA",
-              "location": [
-                1.2999999523162842,
-                2.0,
-                3.0999999046325684
-              ],
-              "rotation_euler": [
-                0.8608677387237549,
-                -1.2617989320062861e-08,
-                2.5652174949645996
-              ],
-              "color": [
-                0.7200000286102295,
-                0.8799999952316284,
-                1.0
-              ],
-              "energy": 360.0,
-              "size": 2.0
-            }
-          ]
-        },
-        "renders": [
-          {
-            "view": "full",
-            "file": "docs/hanli-attack-11-preview.png",
-            "camera_location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "camera_rotation": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "ortho_scale": 2.180000066757202
-          }
-        ]
+        "samples": 32,
+        "denoised": false,
+        "resolution_scale": 0.75,
+        "webgl_tested": false
+      },
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-review.json",
+        "sha256": "23d6617f93a79826bed9b39aa4f9af65ac12906f9f242b847c381a70bddfdb32",
+        "bytes": 3298,
+        "mtime_utc": "2026-11-22T12:59:37.515493+00:00",
+        "mtime_ns": 1795352377515493024
       }
     },
     {
       "clip": "Attack",
       "frame": 17.0,
-      "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
       "image": "docs/hanli-attack-17-preview.png",
-      "image_sha256": "4405684d7aad288a443999d7b4c7b31292f72de9410166d6992b9f7563e81246",
-      "result": "PASS for this reviewed full-body view",
+      "image_sha256": "9162ab1ebfd528dfb3218fcd3118932e991aa7aad48f10ddcbf532c4a09076b3",
+      "result": "PASS for the archived view(s) of this sampled pose",
       "observations": [
-        "Sword recovery retains hand alignment and the continuous sleeve.",
-        "No visible detached shoulder strips, hair/collar intersections or leg-through-skirt defects.",
-        "Both visible boots remain above the floor surface."
+        "The recovering sword remains aligned with the hand and sleeve.",
+        "The shoulder ornament, front hair and robe remain attached in the reviewed view.",
+        "No visible leg-through-skirt or floor penetration appears in this sampled pose."
       ],
+      "images": [
+        {
+          "view": "full",
+          "file": "docs/hanli-attack-17-preview.png",
+          "camera_location": [
+            2.5,
+            -4.5,
+            2.049999952316284
+          ],
+          "camera_rotation": [
+            1.354178547859192,
+            1.809414840181489e-10,
+            0.5085173845291138
+          ],
+          "ortho_scale": 2.180000066757202,
+          "resolution": [
+            540,
+            675
+          ],
+          "sha256": "9162ab1ebfd528dfb3218fcd3118932e991aa7aad48f10ddcbf532c4a09076b3",
+          "bytes": 572797,
+          "source_image": {
+            "path": "/workspace/scratch/707c0f302038/qa-final/attack-17/hanli-glb-full.png",
+            "sha256": "9162ab1ebfd528dfb3218fcd3118932e991aa7aad48f10ddcbf532c4a09076b3",
+            "bytes": 572797,
+            "mtime_utc": "2026-11-22T12:59:44.856624+00:00",
+            "mtime_ns": 1795352384856624107
+          }
+        }
+      ],
+      "render_report": "docs/render-v6/attack-17.json",
+      "render_report_sha256": "f0ea8e86bbffc2d60d6125ea42595bdd573712188533f39f872a2d7306a6c289",
       "render_settings": {
-        "asset": "assets/3d/hanli.glb",
-        "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
-        "studio_source": "art/hanli.blend",
         "blender": "4.3.2",
         "method": "Import runtime GLB and render using source studio, CPU Cycles",
-        "webgl_tested": false,
-        "mesh_objects": 2,
-        "samples": 24,
-        "clip": "Attack",
-        "frame": 17.0,
-        "studio": {
-          "camera": {
-            "location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "rotation_euler": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "type": "ORTHO",
-            "ortho_scale": 2.180000066757202
-          },
-          "color": {
-            "view_transform": "AgX",
-            "look": "AgX - Medium High Contrast",
-            "exposure": -0.10000000149011612,
-            "gamma": 1.0
-          },
-          "lights": [
-            {
-              "name": "Key | warm silk",
-              "type": "AREA",
-              "location": [
-                -2.200000047683716,
-                -3.200000047683716,
-                4.199999809265137
-              ],
-              "rotation_euler": [
-                0.8892838358879089,
-                3.8414611935877474e-08,
-                -0.6022875308990479
-              ],
-              "color": [
-                1.0,
-                0.8899999856948853,
-                0.7400000095367432
-              ],
-              "energy": 430.0,
-              "size": 3.0
-            },
-            {
-              "name": "Fill | cloud light",
-              "type": "AREA",
-              "location": [
-                2.799999952316284,
-                -1.399999976158142,
-                2.0999999046325684
-              ],
-              "rotation_euler": [
-                1.2471776008605957,
-                -1.4298318262717657e-07,
-                1.1071486473083496
-              ],
-              "color": [
-                0.75,
-                0.8399999737739563,
-                1.0
-              ],
-              "energy": 110.0,
-              "size": 3.0
-            },
-            {
-              "name": "Rim | jade edge",
-              "type": "AREA",
-              "location": [
-                1.2999999523162842,
-                2.0,
-                3.0999999046325684
-              ],
-              "rotation_euler": [
-                0.8608677387237549,
-                -1.2617989320062861e-08,
-                2.5652174949645996
-              ],
-              "color": [
-                0.7200000286102295,
-                0.8799999952316284,
-                1.0
-              ],
-              "energy": 360.0,
-              "size": 2.0
-            }
-          ]
-        },
-        "renders": [
-          {
-            "view": "full",
-            "file": "docs/hanli-attack-17-preview.png",
-            "camera_location": [
-              2.5,
-              -4.5,
-              2.049999952316284
-            ],
-            "camera_rotation": [
-              1.354178547859192,
-              1.809414840181489e-10,
-              0.5085173845291138
-            ],
-            "ortho_scale": 2.180000066757202
-          }
-        ]
+        "samples": 32,
+        "denoised": false,
+        "resolution_scale": 0.75,
+        "webgl_tested": false
+      },
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-17/hanli-glb-review.json",
+        "sha256": "3a368f9f066bff454f318d71c4cc2d1a1d503074ad225f334bb969e99619b6b8",
+        "bytes": 2842,
+        "mtime_utc": "2026-11-22T12:59:44.877583+00:00",
+        "mtime_ns": 1795352384877583175
       }
     }
   ],
-  "improvements": [
-    "Sleeves have a narrower, continuous cloth silhouette and local elbow/cuff folds.",
-    "Raised collar reduces the exposed neck length without visible intersection in the reviewed poses.",
-    "Separated hair groups and narrower shoulder ornaments preserve the reference silhouette.",
-    "Walk sole orientation compensation visibly reduces the previous floating/strongly tilted-foot appearance."
-  ],
-  "remaining_limits": [
-    "Four fixed viewpoints/frames are not exhaustive collision detection.",
-    "Skirt motion remains authored skinning; the lower hem forms an angular folded silhouette at maximum stride.",
-    "Walking still lacks physical foot locking and a full heel/toe weight transfer; the baked sole clearance remains visible in close inspection.",
-    "Hair remains closed geometric locks rather than strand hair or production hair cards.",
-    "This is offline asset verification; browser GPU, CSS and device frame rate are separate checks."
+  "scope": "Four sampled poses (Walk 7/19, Attack 11/17) and two supplemental views. Full animation sweeps and numerical foot/cloth checks are separate reports; this report does not certify browser rendering or every frame and angle.",
+  "legacy_preview_aliases": [
+    {
+      "file": "docs/hanli-walk-preview.png",
+      "alias_of": "docs/hanli-walk-7-preview.png",
+      "sha256": "dc2b6704d1096c280b351049b01c44d60683e972abe8d250cbe8500c27b74957",
+      "bytes": 573638,
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2"
+    },
+    {
+      "file": "docs/hanli-attack-preview.png",
+      "alias_of": "docs/hanli-attack-11-preview.png",
+      "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+      "bytes": 563140,
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2"
+    }
   ]
 }

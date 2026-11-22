@@ -1,0 +1,173 @@
+{
+  "asset": "assets/3d/hanli.glb",
+  "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+  "studio_source": "art/hanli.blend",
+  "blender": "4.3.2",
+  "method": "Import runtime GLB and render using source studio, CPU Cycles",
+  "webgl_tested": false,
+  "mesh_objects": 2,
+  "samples": 32,
+  "denoised": false,
+  "resolution_scale": 0.75,
+  "clip": "Attack",
+  "frame": 11.0,
+  "studio": {
+    "camera": {
+      "location": [
+        2.5,
+        -4.5,
+        2.049999952316284
+      ],
+      "rotation_euler": [
+        1.354178547859192,
+        1.809414840181489e-10,
+        0.5085173845291138
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 2.180000066757202
+    },
+    "color": {
+      "view_transform": "AgX",
+      "look": "AgX - Medium High Contrast",
+      "exposure": -0.10000000149011612,
+      "gamma": 1.0
+    },
+    "lights": [
+      {
+        "name": "Key | warm silk",
+        "type": "AREA",
+        "location": [
+          -2.200000047683716,
+          -3.200000047683716,
+          4.199999809265137
+        ],
+        "rotation_euler": [
+          0.8892838358879089,
+          3.8414611935877474e-08,
+          -0.6022875308990479
+        ],
+        "color": [
+          1.0,
+          0.8899999856948853,
+          0.7400000095367432
+        ],
+        "energy": 430.0,
+        "size": 3.0
+      },
+      {
+        "name": "Fill | cloud light",
+        "type": "AREA",
+        "location": [
+          2.799999952316284,
+          -1.399999976158142,
+          2.0999999046325684
+        ],
+        "rotation_euler": [
+          1.2471776008605957,
+          -1.4298318262717657e-07,
+          1.1071486473083496
+        ],
+        "color": [
+          0.75,
+          0.8399999737739563,
+          1.0
+        ],
+        "energy": 110.0,
+        "size": 3.0
+      },
+      {
+        "name": "Rim | jade edge",
+        "type": "AREA",
+        "location": [
+          1.2999999523162842,
+          2.0,
+          3.0999999046325684
+        ],
+        "rotation_euler": [
+          0.8608677387237549,
+          -1.2617989320062861e-08,
+          2.5652174949645996
+        ],
+        "color": [
+          0.7200000286102295,
+          0.8799999952316284,
+          1.0
+        ],
+        "energy": 360.0,
+        "size": 2.0
+      }
+    ]
+  },
+  "renders": [
+    {
+      "view": "full",
+      "file": "docs/hanli-attack-11-preview.png",
+      "camera_location": [
+        2.5,
+        -4.5,
+        2.049999952316284
+      ],
+      "camera_rotation": [
+        1.354178547859192,
+        1.809414840181489e-10,
+        0.5085173845291138
+      ],
+      "ortho_scale": 2.180000066757202,
+      "resolution": [
+        540,
+        675
+      ],
+      "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+      "bytes": 563140,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-full.png",
+        "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+        "bytes": 563140,
+        "mtime_utc": "2026-11-22T12:59:24.384391+00:00",
+        "mtime_ns": 1795352364384391356
+      }
+    },
+    {
+      "view": "reference",
+      "file": "docs/hanli-attack-11-reference-preview.png",
+      "camera_location": [
+        -1.4500000476837158,
+        -4.0,
+        1.5299999713897705
+      ],
+      "camera_rotation": [
+        1.5013427734375,
+        -2.619671057857431e-08,
+        -0.34897249937057495
+      ],
+      "ortho_scale": 1.0399999618530273,
+      "resolution": [
+        675,
+        900
+      ],
+      "sha256": "b304135f2b01caf9e494ecce9594c8bb34b00b7d84afe48537c12c7a1ded6aad",
+      "bytes": 926089,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-reference.png",
+        "sha256": "b304135f2b01caf9e494ecce9594c8bb34b00b7d84afe48537c12c7a1ded6aad",
+        "bytes": 926089,
+        "mtime_utc": "2026-11-22T12:59:37.492540+00:00",
+        "mtime_ns": 1795352377492540391
+      }
+    }
+  ],
+  "model_revision": 6,
+  "studio_source_sha256": "be0a68c87a374989a2b107a83a7e35d4daa68ef952890c107f83b96fe7c7e969",
+  "archived_at": "2026-11-22T13:03:31.296789+00:00",
+  "rendered_at": null,
+  "render_time_note": "The original renderer report did not record a render timestamp. Source file mtimes are preserved as filesystem evidence; archived_at is the archive operation time, not a render time.",
+  "source_record": {
+    "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-review.json",
+    "sha256": "23d6617f93a79826bed9b39aa4f9af65ac12906f9f242b847c381a70bddfdb32",
+    "bytes": 3298,
+    "mtime_utc": "2026-11-22T12:59:37.515493+00:00",
+    "mtime_ns": 1795352377515493024
+  },
+  "original_asset_path": "/workspace/scratch/707c0f302038/fanren-xiantu/assets/3d/hanli.glb",
+  "original_studio_source_path": "/workspace/scratch/707c0f302038/fanren-xiantu/art/hanli.blend"
+}

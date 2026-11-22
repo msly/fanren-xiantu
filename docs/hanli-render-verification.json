@@ -1,12 +1,14 @@
 {
   "asset": "assets/3d/hanli.glb",
-  "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
+  "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
   "studio_source": "art/hanli.blend",
   "blender": "4.3.2",
   "method": "Import runtime GLB and render using source studio, CPU Cycles",
   "webgl_tested": false,
   "mesh_objects": 2,
   "samples": 48,
+  "denoised": false,
+  "resolution_scale": 0.75,
   "clip": null,
   "frame": 1,
   "studio": {
@@ -98,36 +100,60 @@
   },
   "renders": [
     {
+      "view": "reference",
+      "file": "docs/hanli-reference-preview.png",
+      "camera_location": [
+        -1.4500000476837158,
+        -4.0,
+        1.5299999713897705
+      ],
+      "camera_rotation": [
+        1.5013427734375,
+        -2.619671057857431e-08,
+        -0.34897249937057495
+      ],
+      "ortho_scale": 1.0399999618530273,
+      "resolution": [
+        675,
+        900
+      ],
+      "sha256": "4173adc5b8deb6133b58c39720a04a49a6bfafcd9bdab86c5433b10644eee447",
+      "bytes": 916441,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-reference.png",
+        "sha256": "4173adc5b8deb6133b58c39720a04a49a6bfafcd9bdab86c5433b10644eee447",
+        "bytes": 916441,
+        "mtime_utc": "2026-11-22T12:59:06.356186+00:00",
+        "mtime_ns": 1795352346356186235
+      }
+    },
+    {
       "view": "head",
       "file": "docs/hanli-head-preview.png",
       "camera_location": [
-        1.2999999523162842,
+        -1.2999999523162842,
         -3.0,
         1.7200000286102295
       ],
       "camera_rotation": [
         1.523224949836731,
-        -1.0309545217523919e-08,
-        0.4107397794723511
+        1.0309545217523919e-08,
+        -0.4107397794723511
       ],
       "ortho_scale": 0.5299999713897705,
-      "sha256": "e838d0e25e2c14efde0429e7f7fda1b84cc164c8293e8830fb76ce09f28d8cc5"
-    },
-    {
-      "view": "portrait",
-      "file": "docs/hanli-portrait-preview.png",
-      "camera_location": [
-        0.949999988079071,
-        -4.0,
-        1.4800000190734863
+      "resolution": [
+        675,
+        675
       ],
-      "camera_rotation": [
-        1.4926576614379883,
-        -1.5284404852877742e-09,
-        0.23459331691265106
-      ],
-      "ortho_scale": 1.2000000476837158,
-      "sha256": "55775db170d04f89d93eb69b0548368b381c87c8b1b00c7226c9058b424dbcae"
+      "sha256": "3db4ec3ebe699b6c8a98130571acb4ff6a0531131169fe04c6d086c9773072cf",
+      "bytes": 622566,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-head.png",
+        "sha256": "3db4ec3ebe699b6c8a98130571acb4ff6a0531131169fe04c6d086c9773072cf",
+        "bytes": 622566,
+        "mtime_utc": "2026-11-22T12:59:15.912295+00:00",
+        "mtime_ns": 1795352355912294961
+      }
     },
     {
       "view": "full",
@@ -143,7 +169,47 @@
         0.5085173845291138
       ],
       "ortho_scale": 2.180000066757202,
-      "sha256": "e81556f01823ce099ddf2bddb3302fc4bf6504b6f603965969e96f18b73504cf"
+      "resolution": [
+        540,
+        675
+      ],
+      "sha256": "a2a35a99aa2be72cb1994d17083b3414fbc311dd8f1b21ddfe28f9f41852556f",
+      "bytes": 549220,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-full.png",
+        "sha256": "a2a35a99aa2be72cb1994d17083b3414fbc311dd8f1b21ddfe28f9f41852556f",
+        "bytes": 549220,
+        "mtime_utc": "2026-11-22T12:59:21.404357+00:00",
+        "mtime_ns": 1795352361404357406
+      }
+    },
+    {
+      "view": "portrait",
+      "file": "docs/hanli-portrait-preview.png",
+      "camera_location": [
+        -0.949999988079071,
+        -4.0,
+        1.4800000190734863
+      ],
+      "camera_rotation": [
+        1.4926576614379883,
+        1.5284404852877742e-09,
+        -0.23459331691265106
+      ],
+      "ortho_scale": 1.2000000476837158,
+      "resolution": [
+        675,
+        900
+      ],
+      "sha256": "8e9d9959588d7a8a63ae4895839e0321ec1728ac389ede7eac32bf5d814e4994",
+      "bytes": 901859,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-portrait.png",
+        "sha256": "8e9d9959588d7a8a63ae4895839e0321ec1728ac389ede7eac32bf5d814e4994",
+        "bytes": 901859,
+        "mtime_utc": "2026-11-22T12:59:37.196537+00:00",
+        "mtime_ns": 1795352377196537026
+      }
     },
     {
       "view": "back",
@@ -159,7 +225,141 @@
         -2.6344940662384033
       ],
       "ortho_scale": 2.180000066757202,
-      "sha256": "6e8abc265d97e85435f49a1d06b03b91cbdd6de5723e7ccb59ccd0fdd23b595d"
+      "resolution": [
+        540,
+        675
+      ],
+      "sha256": "12374a6c14a5a773d8954470db1930fb203307e35ecc1e1dbb4aaa4bbf7a07c1",
+      "bytes": 552373,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-back.png",
+        "sha256": "12374a6c14a5a773d8954470db1930fb203307e35ecc1e1dbb4aaa4bbf7a07c1",
+        "bytes": 552373,
+        "mtime_utc": "2026-11-22T12:59:42.708600+00:00",
+        "mtime_ns": 1795352382708599691
+      }
+    },
+    {
+      "view": "face-profile",
+      "file": "docs/hanli-face-profile-preview.png",
+      "camera_location": [
+        4.0,
+        -0.03500000014901161,
+        1.600000023841858
+      ],
+      "camera_rotation": [
+        1.5620468854904175,
+        9.024955005543234e-08,
+        1.5657964944839478
+      ],
+      "ortho_scale": 0.3799999952316284,
+      "resolution": [
+        675,
+        675
+      ],
+      "sha256": "62af8cfd03d6fcddacf4017ce69f7206499366590513b72179d55871ac4378f3",
+      "bytes": 477462,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-face-profile.png",
+        "sha256": "62af8cfd03d6fcddacf4017ce69f7206499366590513b72179d55871ac4378f3",
+        "bytes": 477462,
+        "mtime_utc": "2026-11-22T12:57:45.211271+00:00",
+        "mtime_ns": 1795352265211271021
+      }
+    },
+    {
+      "view": "face-front",
+      "file": "docs/hanli-face-front-preview.png",
+      "camera_location": [
+        0.0,
+        -4.0,
+        1.600000023841858
+      ],
+      "camera_rotation": [
+        1.5620137453079224,
+        -0.0,
+        0.0
+      ],
+      "ortho_scale": 0.3799999952316284,
+      "resolution": [
+        675,
+        675
+      ],
+      "sha256": "aaca384025686d78ea71609ec831c8712e8fd938bd355423003353100d13475a",
+      "bytes": 528218,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-face-front.png",
+        "sha256": "aaca384025686d78ea71609ec831c8712e8fd938bd355423003353100d13475a",
+        "bytes": 528218,
+        "mtime_utc": "2026-11-22T12:57:49.727321+00:00",
+        "mtime_ns": 1795352269727320806
+      }
     }
-  ]
+  ],
+  "model_revision": 6,
+  "studio_source_sha256": "be0a68c87a374989a2b107a83a7e35d4daa68ef952890c107f83b96fe7c7e969",
+  "archived_at": "2026-11-22T13:03:31.296789+00:00",
+  "rendered_at": null,
+  "render_time_note": "The original renderer report did not record a render timestamp. Source file mtimes are preserved as filesystem evidence; archived_at is the archive operation time, not a render time.",
+  "original_asset_path": "/workspace/scratch/707c0f302038/fanren-xiantu/assets/3d/hanli.glb",
+  "original_studio_source_path": "/workspace/scratch/707c0f302038/fanren-xiantu/art/hanli.blend",
+  "result": "PASS for seven inspected static views",
+  "reviewed_at": "2026-11-22T13:03:31.296789+00:00",
+  "source_render_reports": [
+    {
+      "group": "static",
+      "file": "docs/render-v6/static.json",
+      "sha256": "fce7a23ecc940efcaec5fca0bbe0e51d19c579607629f88ac4ce937161f585de",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-review.json",
+        "sha256": "7918a12f3e8d18b56c1b8cd656c3e87096fe4886e26f19192fe84523688f03da",
+        "bytes": 4609,
+        "mtime_utc": "2026-11-22T12:59:42.730581+00:00",
+        "mtime_ns": 1795352382730581388
+      }
+    },
+    {
+      "group": "face-details",
+      "file": "docs/render-v6/face-details.json",
+      "sha256": "978d2d194f68188a0845c357c636a33d3a41ceeed1e9ea56a994708cccffc7ea",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-review.json",
+        "sha256": "fc4576671da86941fc5e272be59296ec7dbcdac530c18c4c1c1da0525423b1de",
+        "bytes": 3274,
+        "mtime_utc": "2026-11-22T12:57:49.745585+00:00",
+        "mtime_ns": 1795352269745584982
+      }
+    }
+  ],
+  "visual_review": {
+    "reviewed_images": [
+      "docs/hanli-reference-preview.png",
+      "docs/hanli-head-preview.png",
+      "docs/hanli-3d-preview.png",
+      "docs/hanli-portrait-preview.png",
+      "docs/hanli-back-preview.png",
+      "docs/hanli-face-profile-preview.png",
+      "docs/hanli-face-front-preview.png"
+    ],
+    "observations": [
+      "Front, three-quarter and profile views retain visible eyes, nose, lips, ear and jaw geometry, with the same face silhouette after the local neck correction.",
+      "The former skin-coloured oval on the right posterior collar is absent in the final profile. The visible collar surface is continuous in the reviewed profile and front views.",
+      "Hair, shoulder ornaments, waist fittings, robe layers and sword remain attached in the reviewed standing front and back views.",
+      "The full-body standing view shows the boots above the studio floor without visible floor penetration."
+    ],
+    "remaining_visual_limitations": [
+      "Hair masses and some sleeve and hem contours remain stylized rather than film-quality hair or cloth."
+    ],
+    "scope": "Manual inspection of the seven archived images. This is actual exported-GLB CPU rendering evidence, not a browser/WebGL, frame-rate or all-angle animation certification."
+  },
+  "collar_regression": {
+    "report": "docs/collar-verification.json",
+    "report_sha256": "76b0e0de8a70f594edbb3861c041c45702baf873ebf9541ed3a9d4a47e439866",
+    "validator": "tools/validate-collar.mjs",
+    "validator_sha256": "4293cff8310d2299bb9f766187b100430265c989e7674594a3308ff36953339b",
+    "result": "PASS",
+    "passed_probes": 7,
+    "total_probes": 7,
+    "scope": "Fixed-ray regression of the previously observed right posterior neck-base skin protrusion; exported default pose only. No complete collision, animation, all-angle, browser or GPU certification."
+  }
 }

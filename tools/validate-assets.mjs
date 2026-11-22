@@ -25,12 +25,18 @@ function inspectPixels(image){
   ctx.drawImage(image,0,0);
   const rgba=ctx.getImageData(0,0,image.width,image.height).data;
   const min=[255,255,255],max=[0,0,0],sum=[0,0,0],sum2=[0,0,0];
+  let alphaMin=255,alphaMax=0,clearPixels=0,opaquePixels=0;
+  for(let i=3;i<rgba.length;i+=4){
+    const a=rgba[i];alphaMin=Math.min(alphaMin,a);alphaMax=Math.max(alphaMax,a);
+    if(a===0)clearPixels++;if(a===255)opaquePixels++;
+  }
   for(let i=0;i<rgba.length;i+=4)for(let c=0;c<3;c++){
     const value=rgba[i+c];min[c]=Math.min(min[c],value);max[c]=Math.max(max[c],value);
     sum[c]+=value;sum2[c]+=value*value;
   }
   const n=rgba.length/4,mean=sum.map(value=>value/n);
-  return {min,max,mean,std:sum2.map((value,c)=>Math.sqrt(Math.max(0,value/n-mean[c]**2)))};
+  return {min,max,mean,std:sum2.map((value,c)=>Math.sqrt(Math.max(0,value/n-mean[c]**2))),
+    alpha:{min:alphaMin,max:alphaMax,clearFraction:clearPixels/n,opaqueFraction:opaquePixels/n}};
 }
 globalThis.self=globalThis;
 globalThis.ProgressEvent??=class ProgressEvent extends Event {
@@ -81,7 +87,7 @@ async function validateAsset(filename){
   placement.add(gltf.scene);
   placement.updateMatrixWorld(true);
   let meshes=0,skinnedMeshes=0,vertices=0,triangles=0,normals=0,uvVertices=0,skinWeightRows=0;
-  const bones=new Set(),materials=new Set(),textures=new Set();
+  const bones=new Set(),materials=new Set(),textures=new Set(),maskedMaterials=new Map();
   gltf.scene.traverse(o=>{
     if(o.isBone)bones.add(o.uuid);
     if(!o.isMesh)return;
@@ -112,6 +118,13 @@ async function validateAsset(filename){
           const stats=pixelStats.get(tex.image);
           assert(stats&&stats.mean[2]>128,m.name+' invalid tangent normal map: expected a positive mean Z component; check for an empty black texture');
         }
+      }
+      if(m.alphaTest>0&&m.map){
+        const stats=pixelStats.get(m.map.image),cutoff=m.alphaTest*255;
+        assert(stats&&stats.alpha.min<cutoff&&stats.alpha.max>=cutoff,
+          m.name+' alpha mask must contain both discarded and visible texels');
+        assert.equal(m.transparent,false,m.name+' cutout must not enable blend sorting');
+        maskedMaterials.set(m.name,{material:m.name,alphaTest:m.alphaTest,...stats.alpha});
       }
     }
     if(o.isSkinnedMesh){
@@ -167,7 +180,7 @@ async function validateAsset(filename){
   const a=mixer.clipAction(gltf.animations.find(c=>c.name==='Idle')).reset().play();
   const b=mixer.clipAction(gltf.animations.find(c=>c.name==='Walk')).reset().play();b.crossFadeFrom(a,.25,true);
   for(let i=0;i<20;i++){mixer.update(1/60);placement.updateMatrixWorld(true);checkTransforms(gltf.scene);}
-  return {file:filename,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length,meshes,skinned_meshes:skinnedMeshes,bones:bones.size,vertices,triangles,normal_vertices:normals,uv_vertices:uvVertices,validated_skin_weight_rows:skinWeightRows,materials:materials.size,textures:textures.size,decoded_images:decoded.slice(textureStart),bind_world_bounds:boxInfo(bindBox),animations:samples,crossfade:'Idle to Walk, 20 finite samples',embedded_dependencies:true};
+  return {file:filename,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length,meshes,skinned_meshes:skinnedMeshes,bones:bones.size,vertices,triangles,normal_vertices:normals,uv_vertices:uvVertices,validated_skin_weight_rows:skinWeightRows,materials:materials.size,textures:textures.size,masked_materials:[...maskedMaterials.values()],decoded_images:decoded.slice(textureStart),bind_world_bounds:boxInfo(bindBox),animations:samples,crossfade:'Idle to Walk, 20 finite samples',embedded_dependencies:true};
 }
 
 assert.equal(THREE.REVISION,'180','Unexpected Three revision');

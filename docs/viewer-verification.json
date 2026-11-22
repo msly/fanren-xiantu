@@ -1,14 +1,14 @@
 {
   "result": "PASS",
-  "validatedAt": "2026-11-22T11:04:30.894Z",
+  "validatedAt": "2026-11-22T12:58:03.104Z",
   "node": "v24.22.3",
   "source_sha256": {
-    "assets/3d/hanli.glb": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
+    "assets/3d/hanli.glb": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
     "assets/3d/mojiao.glb": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
-    "web3d/main.js": "edc5ff935d81bc27fcef4d2d34831e9ce65e05161dee88f814d5eb56a33e1745",
+    "web3d/main.js": "9f546f40e5ab2d6e7f074f20375f74a215e843e2cd9ca6391402c16dfc1731b3",
     "web3d/style.css": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
-    "game3d.html": "e4b3764095a1e109b1aa7eafe72b921686d50397e4bd25e27196e18a9414ca00",
-    "tools/validate-viewer.mjs": "5141f460a70bede870359be5501b06a2dbd9e9984d2c5a15fb47c2d783349a02"
+    "game3d.html": "ab51c615cb95a802f3e46fd864d8755b241d32877da8fb2fbdd3747a7902975f",
+    "tools/validate-viewer.mjs": "6e39a30604085563f82cea3e5b6361c6be3d39aae9a5e39a2e4cd5d0cd144861"
   },
   "runtime": "Unmodified Three.js r180 GLTFLoader, AnimationMixer, OrbitControls and production state functions with deterministic DOM rectangle fixtures; no browser GPU or CSS layout certification",
   "checks": [
@@ -19,7 +19,8 @@
     "Real OrbitControls auto rotation starts and stops with finite camera state",
     "25 repeated viewer/scene cycles reuse one studio and restore world, lights, fog, exposure, camera projection, actor placement and orbit state",
     "Battle starts from portrait mode with default framing and controls",
-    "Boss windup/lunge telegraph, projectile direction, blur/click/Esc pause, victory/defeat cancel and retry state retain prior behavior"
+    "Boss windup/lunge telegraph, projectile direction, blur/click/Esc pause, victory/defeat cancel and retry state retain prior behavior",
+    "14 combat and input regressions execute production events, frame updates and real model animation mixers"
   ],
   "reflowFixtures": [
     {
@@ -49,9 +50,9 @@
       ],
       "mode": "hero",
       "fullBodyBounds": [
-        784.7,
-        1099.3,
-        170,
+        785.9,
+        1098.1,
+        169.5,
         882.9
       ],
       "reservedRegion": [
@@ -87,9 +88,9 @@
       ],
       "mode": "hero",
       "fullBodyBounds": [
-        99.8,
-        290.2,
-        135,
+        100.5,
+        289.5,
+        134.6,
         556.6
       ],
       "reservedRegion": [
@@ -125,9 +126,9 @@
       ],
       "mode": "hero",
       "fullBodyBounds": [
-        116.1,
-        203.9,
-        104.3,
+        116.4,
+        203.6,
+        104.2,
         299
       ],
       "reservedRegion": [
@@ -163,9 +164,9 @@
       ],
       "mode": "hero",
       "fullBodyBounds": [
-        539.7,
-        633.6,
-        110.3,
+        540.1,
+        633.3,
+        110.1,
         318.9
       ],
       "reservedRegion": [
@@ -201,9 +202,9 @@
       ],
       "mode": "hero",
       "fullBodyBounds": [
-        395.6,
-        493.2,
-        111.3,
+        396,
+        492.8,
+        111.1,
         328.2
       ],
       "reservedRegion": [
@@ -237,5 +238,21 @@
     0.9999999999999998,
     1,
     1
+  ],
+  "battleRegressionCases": [
+    "Lethal melee synchronizes the health bar before showing victory and settles once",
+    "Lethal projectile synchronizes the health bar in the same animation frame",
+    "Dodge cancels an unfinished melee hit without delayed damage or spell consumption",
+    "Retry clears the previous movement direction before the first dodge",
+    "Dodge uses a newly pressed direction before the next movement frame",
+    "Touch release preserves a held keyboard direction",
+    "Keyboard release preserves a held touch direction",
+    "Multiple fingers on one direction remain independent",
+    "Late lostpointercapture from a released finger cannot cancel a new finger",
+    "Opposing input sources cancel until one is released",
+    "Active scene navigation preserves battle progress and pause state",
+    "Visibility loss pauses battle without requiring a window blur",
+    "Back-forward cache pagehide pauses without destroying the reusable viewer",
+    "Retry removes old effects and resets combat resources"
   ]
 }

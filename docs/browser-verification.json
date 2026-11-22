@@ -1,13 +1,30 @@
 {
   "status": "BLOCKED",
-  "revision": "hanli-character-5",
-  "attempted_launch_at": "2026-11-22T10:36:55.012Z",
-  "local_stage": "chromium-launch",
-  "local_error": "Chromium process_singleton_posix.cc socket() failed: Operation not permitted before navigation",
-  "cloud_error": "net::ERR_CERT_COMMON_NAME_INVALID followed by browser URL authority policy denial; no bypass attempted",
+  "startedAt": "2026-11-22T12:58:00.983Z",
+  "stage": "chromium-launch",
+  "scope": "Real Chromium, exported GLB loading, WebGL rendering, browser controls and measured DOM layout; mobile viewport is emulated.",
   "webgl_verified": false,
   "css_layout_verified": false,
   "fps_measured": false,
   "mobile_performance_verified": false,
-  "note": "Launch/access failed before a model could be displayed; no claim is made about final-model browser execution."
+  "inputs": {
+    "game3d.html": "ab51c615cb95a802f3e46fd864d8755b241d32877da8fb2fbdd3747a7902975f",
+    "web3d/main.js": "9f546f40e5ab2d6e7f074f20375f74a215e843e2cd9ca6391402c16dfc1731b3",
+    "web3d/style.css": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
+    "web3d/environment.js": "9721a5f5f65f85a4b967046151d31fa7f7c849e6054a84ac261c286ef3d01f6e",
+    "assets/3d/hanli.glb": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+    "assets/3d/mojiao.glb": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+    "tools/validate-browser.mjs": "27421ed6f99878c11ac1a924d61263ebfe3c44b647dcc263208fd675fb91ca53"
+  },
+  "checks": [],
+  "screenshots": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "networkErrors": [],
+  "httpServer": {
+    "bind": "127.0.0.1",
+    "port": 39073
+  },
+  "error": "browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-ZuFBql --remote-debugging-pipe --no-startup-window\n<launched> pid=17\n[pid=17][err] /usr/bin/chromium: 9: [: 5225713664: unexpected operator\n[pid=17][err] [17:17:1122/045801.409761:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\n[pid=17][err] [1122/045801.410571:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)\nCall log:\n\u001b[2m  - <launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-ZuFBql --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=17\u001b[22m\n\u001b[2m  - [pid=17][err] /usr/bin/chromium: 9: [: 5225713664: unexpected operator\u001b[22m\n\u001b[2m  - [pid=17][err] [17:17:1122/045801.409761:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=17][err] [1122/045801.410571:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=17] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=17] <kill>\u001b[22m\n\u001b[2m  - [pid=17] <will force kill>\u001b[22m\n\u001b[2m  - [pid=17] <process did exit: exitCode=null, signal=SIGABRT>\u001b[22m\n\u001b[2m  - [pid=17] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=17] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=17] <gracefully close end>\u001b[22m\n\n    at /workspace/scratch/707c0f302038/fanren-xiantu/tools/validate-browser.mjs:139:28",
+  "finishedAt": "2026-11-22T12:58:01.417Z"
 }

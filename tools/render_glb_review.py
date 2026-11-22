@@ -25,8 +25,10 @@ def parse_args():
     parser.add_argument('--asset', type=Path, required=True)
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--name', choices=('hanli', 'mojiao'), required=True)
-    parser.add_argument('--views', nargs='+', choices=('full', 'portrait', 'head', 'back'), default=['full', 'head'])
+    parser.add_argument('--views', nargs='+', choices=('full', 'portrait', 'head', 'back', 'reference', 'face-front', 'face-profile'), default=['full', 'head'])
     parser.add_argument('--samples', type=int, default=48)
+    parser.add_argument('--resolution-scale', type=float, default=1.0,
+                        help='Scale output dimensions for quick shape reviews')
     parser.add_argument('--clip', choices=('Idle', 'Walk', 'Attack'),
                         help='Pose the imported Han Li rig using this exported clip')
     parser.add_argument('--frame', type=float, default=1)
@@ -34,6 +36,8 @@ def parse_args():
 
 
 args = parse_args()
+if not 0 < args.resolution_scale <= 2:
+    raise ValueError('resolution-scale must be greater than zero and at most two')
 source_path = args.studio.resolve()
 asset_path = args.asset.resolve()
 output_dir = args.output_dir.resolve()
@@ -111,7 +115,7 @@ for view in args.views:
     scene.render.resolution_x, scene.render.resolution_y = original[3:]
     if view == 'head':
         if args.name == 'hanli':
-            camera.location = (1.3, -3.0, 1.72)
+            camera.location = (-1.3, -3.0, 1.72)
             target = Vector((0, -.015, 1.565))
             camera.data.ortho_scale = .53
         else:
@@ -123,7 +127,7 @@ for view in args.views:
         scene.render.resolution_y = 900
     elif view == 'portrait':
         if args.name == 'hanli':
-            camera.location = (.95, -4.0, 1.48)
+            camera.location = (-.95, -4.0, 1.48)
             target = Vector((0, -.025, 1.16))
             camera.data.ortho_scale = 1.20
         else:
@@ -133,23 +137,42 @@ for view in args.views:
         camera.rotation_euler = (target - camera.location).to_track_quat('-Z', 'Y').to_euler()
         scene.render.resolution_x = 900
         scene.render.resolution_y = 1200
+    elif view in ('reference', 'face-front', 'face-profile'):
+        if args.name != 'hanli':
+            raise ValueError('Reference and facial review views are defined for Han Li')
+        if view == 'reference':
+            # Match the reference's visible side, including its long forelock.
+            camera.location = (-1.45, -4.0, 1.53)
+            target = Vector((0, -.015, 1.235))
+            camera.data.ortho_scale = 1.04
+            scene.render.resolution_x, scene.render.resolution_y = 900, 1200
+        else:
+            camera.location = (0, -4.0, 1.60) if view == 'face-front' else (4.0, -.035, 1.60)
+            target = Vector((0, -.015, 1.565))
+            camera.data.ortho_scale = .38
+            scene.render.resolution_x = scene.render.resolution_y = 900
+        camera.rotation_euler = (target - camera.location).to_track_quat('-Z', 'Y').to_euler()
     elif view == 'back':
         camera.location.x *= -1
         camera.location.y *= -1
         target = Vector((0, 0, .92 if args.name == 'hanli' else 1.1))
         camera.rotation_euler = (target - camera.location).to_track_quat('-Z', 'Y').to_euler()
+    scene.render.resolution_x = max(64, round(scene.render.resolution_x * args.resolution_scale))
+    scene.render.resolution_y = max(64, round(scene.render.resolution_y * args.resolution_scale))
     path = output_dir / (args.name + '-glb-' + view + '.png')
     scene.render.filepath = str(path)
     bpy.ops.render.render(write_still=True)
     renders.append({'view': view, 'file': str(path), 'camera_location': list(camera.location),
                     'camera_rotation': list(camera.rotation_euler),
-                    'ortho_scale': camera.data.ortho_scale})
+                    'ortho_scale': camera.data.ortho_scale,
+                    'resolution': [scene.render.resolution_x, scene.render.resolution_y]})
 
 manifest = {
     'asset': str(asset_path), 'asset_sha256': hashlib.sha256(asset_path.read_bytes()).hexdigest(),
     'studio_source': str(source_path), 'blender': bpy.app.version_string,
     'method': 'Import runtime GLB and render using source studio, CPU Cycles',
     'webgl_tested': False, 'mesh_objects': len(mesh_objects), 'samples': args.samples,
+    'denoised': False, 'resolution_scale': args.resolution_scale,
     'clip': args.clip, 'frame': args.frame,
     'studio': studio, 'renders': renders,
 }

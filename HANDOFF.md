@@ -1,40 +1,38 @@
-# 凡人仙途 · 3D 接手记录
+# 凡人仙途 · 接手记录
 
-更新：2026-11-22 19:05，北京时间；本轮发布收尾完成。当前韩立资产 revision 5，基础提交为 `e51eda5e2957b3555b117bab9e62aaeac58bf3c7`；本次一并接上第四轮未完成发布的参考图改造。
+更新：2026-11-22T21:02:05+08:00（北京时间）。**候选已验收，待完成部署核验**。当前韩立 revision 6，运行时 `20261122-runtime1`；共同基线 `8c552c0fc6dc7f976d9aeb97fb08ae5bf009a832`。
 
-## 已完成
+## 本轮完成
 
-- 发布已完成：两包全部上传、整包 SHA256 与 33 个文件校验通过，已同步至 `/home/appops/fanren-game`。2026-11-22 19:05（北京时间）从公网入口下载全部 18 个部署文件，HTTP 200，响应字节与仓库和部署目录一致；证据见 `docs/release-delivery.json`。
-- 本次接续重新执行资产加载、CPU 动画、观察模式和 JS 语法检查，全部通过；细项报告已更新。
+- 接续此前完整上传但未进入主线的 v6 人物包；保留 CC0 头部/贴图来源文件、21 骨骼和 Idle/Walk/Attack 接口。
+- 修复最终侧面渲染发现的右后低颈穿领；旧模型四条缺陷射线失败，新模型 7/7 通过。脸部、非皮肤网格及动作采样未改。
+- 修复击杀 HUD、闪避补发旧斩击、陈旧闪避方向、键盘与多触点归属、当前标签重置和隐藏页面暂停；新增 14 组生产事件/状态回归通过。
+- 最终资产、CPU 动作、观察模式与战斗回归全部通过。最终 GLB 重新导入 Blender，13 张独立静态/动作图片与报告统一到同一资产哈希。
+- 浏览器验收脚本 `tools/validate-browser.mjs` 已纳入；本次 Chromium 在导航前 socket EPERM，GPU/CSS/FPS/手机性能仍未验收。
 
-- 韩立真实 Blender/GLB：短下颌、眉眼鼻唇体积、暖肤色分区、发际碎束与背发分层、收敛袖型、抬高衣领、自然弯指和精简肩腰饰。
-- 21 根骨骼及 Idle/Walk/Attack 保留；三角面 181,170，35 个材质分片，13 张内嵌纹理。
-- 半身观察已接入；页面和模型 URL 使用 `20261122-character5` 缓存版本。
-- 脚部倾角补偿及实际鞋底蒙皮顶点驱动的骨盆高度烘焙；稳定行走支撑脚最高约 10 mm，新增硬门为 12 mm。
-- 资产加载、CPU 动画和观察模式三份报告 PASS。96 组起始相位/淡化组合、2,592 时刻，最坏脚底 +0.4919 mm。四个定点动作渲染未见已知穿插回退。
-- 实际资产 SHA256：`25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558`。发布核对结果见 `docs/3d-verification.json`。
+## 当前资产与证据
 
-## 验证口径与继续方向
+- 韩立 GLB：`e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2`，16,520,736 字节，268,652 三角面，29 材质分片、15 纹理。
+- 韩立 BLEND：`be0a68c87a374989a2b107a83a7e35d4daa68ef952890c107f83b96fe7c7e969`。
+- 验收：`docs/3d-verification.json`；运行时：`docs/viewer-verification.json`；领口：`docs/collar-verification.json`；最终图片：`docs/hanli-v6-render-manifest.json`。
+- 部署结果：`docs/runtime-release-delivery.json`。旧 `docs/release-delivery.json` 是 revision 5 的历史发布凭据。
 
-- 实际 GLB 导回 Blender 渲染，图片与报告绑定相同资产哈希；对照使用相同灯光和相机。不要用未导出的源材质效果代替运行时资产验证。
-- GPU/CSS/FPS/手机性能尚未验收。Chromium 在启动阶段受环境限制，Cloud Browser 的证书/访问限制也未绕过。可在具备浏览器权限的开发环境补做真实页面验收。
-- 面部神态、皮肤细节仍是程序化风格；头发为封闭发束，尚非生产级发卡或真实发丝。裙摆使用蒙皮，最大步幅仍可见角状折面。
-- 行走有烘焙离地余量，没有物理脚锁、完整脚跟—脚尖重心转移，也未按游戏移动速度重建跑步动作。后续应优先做面部及毛发资产质量，再处理动作和布料。
-- 墨蛟本轮保持原资产；3D 仍是独立单场试炼，不是完整 3D 剧情迁移。
+## 下一阶段
 
-## 路径与重建
+1. 在可启动浏览器的环境运行 `tools/validate-browser.mjs`，补真实 WebGL、CSS 和交互截图；单独在目标手机测帧率和加载耗时。
+2. revision 6 相对 v5 三角面 +48.3%、GLB 文件 +86.4%；先测真实渲染预算，再决定纹理压缩和 LOD。
+3. 继续面部神态、头发体积和衣摆折面；随后改进动作重量转移、移动速度与步幅匹配。3D 仍是单场试炼，完整剧情迁移未完成。
 
-- 服务器仓库：`/data1/workspace/github/fanren-xiantu`
-- 静态部署目录：`/home/appops/fanren-game`，8090 端口。
-- `tools/hanli_face.py`、`hanli_hair.py`、`hanli_costume.py` 为组件；`tools/build_hanli.py` 统一组装、蒙皮、动作和导出。
-- `FANREN_SKIP_RENDER=1 blender -b --factory-startup --python tools/build_hanli.py`
-- 依次执行 `tools/validate-assets.mjs`、`tools/validate-model-polish.mjs`、`tools/validate-viewer.mjs`，通过后重新导入最终 GLB 渲染关键姿势。
-- `./deploy.sh` 使用现有发布目录。同步前后核对 Git HEAD 与工作区，避免覆盖其他会话的新改动。
+## 路径与交接约束
 
-## 当前线上入口
+- 主仓库：`/data1/workspace/github/fanren-xiantu`。
+- 静态部署：`/home/appops/fanren-game`，8090 端口。
+- 本轮隔离分支：`fix/combat-runtime-707c`，工作树 `../fanren-runtime-707c`；此前 `../fanren-xiantu-v6-8c9b281c` 与传输包未被修改。
+- 后续接手以最新 main 为准，不要把旧 v6 `core.tar.gz` 整包再次覆盖：它含已修复前的颈部网格，也没有本轮战斗修复。
+- 重建会改变 GLB/Blend 与生成器哈希，须重新验证、重渲并更新报告。脚底数值检查不代表物理脚锁；固定射线回归不代表所有角度/所有动作都已自动验证。
 
-- [韩立半身](http://23.82.99.226:8090/game3d.html?v=20261122-character5&view=hero&frame=portrait)
-- [韩立头部](http://23.82.99.226:8090/game3d.html?v=20261122-character5&view=hero&frame=head)
-- [3D 山门试炼](http://23.82.99.226:8090/game3d.html?v=20261122-character5)
+## 入口
 
-下一阶段先补真实浏览器画面、CSS 和设备帧率验收，再继续面部、毛发与布料质量；本轮没有将这些未验收项标为通过。旧 reference-4 背面行走预览未纳入本轮发布。
+- [3D 试炼](http://23.82.99.226:8090/game3d.html?v=20261122-character6-runtime1)
+- [韩立半身](http://23.82.99.226:8090/game3d.html?v=20261122-character6-runtime1&view=hero&frame=portrait)
+- [韩立头部](http://23.82.99.226:8090/game3d.html?v=20261122-character6-runtime1&view=hero&frame=head)

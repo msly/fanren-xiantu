@@ -18,13 +18,13 @@ def build_costume(ctx):
     PARTS, QA = ctx['PARTS'], ctx['QA']
     start = len(PARTS)
     palette = {
-        'costume_outer': ('Blue jade | open silk coat', '#145b6e', .68, 0),
-        'costume_sleeve': ('Deep peacock | draped sleeves', '#193d50', .74, 0),
-        'costume_ink': ('Charcoal silk | inset lining', '#27323a', .90, 0),
-        'costume_ice': ('Ice blue | overlapping inner silk', '#a2bcc2', .73, 0),
-        'costume_blue': ('Silver blue | woven shadow panels', '#697f8d', .77, 0),
-        'costume_thread': ('Muted blue | woven embroidery', '#608b97', .81, 0),
-        'costume_gold': ('Pale champagne | repoussé fittings', '#bfb38e', .31, .82),
+        'costume_outer': ('Blue jade | open silk coat', '#16576a', .64, 0),
+        'costume_sleeve': ('Midnight peacock | fitted woven sleeves', '#122d3e', .78, 0),
+        'costume_ink': ('Charcoal silk | inset lining', '#202b35', .86, 0),
+        'costume_ice': ('Ice blue | overlapping inner silk', '#8faeb7', .70, 0),
+        'costume_blue': ('Silver blue | woven shadow panels', '#5b7584', .75, 0),
+        'costume_thread': ('Muted blue | woven embroidery', '#59808b', .81, 0),
+        'costume_gold': ('Pale champagne | repoussé fittings', '#b8ad8d', .35, .76),
         'costume_gold_shadow': ('Aged champagne | recessed carving', '#7a806c', .49, .56),
         'costume_silver': ('Warm silver | raised feather edges', '#cbc9b3', .31, .76),
         'costume_red': ('Crimson | silk tassels and beads', '#a02d40', .68, 0),
@@ -47,10 +47,11 @@ def build_costume(ctx):
     yy, xx = np.mgrid[:size, :size].astype(np.float32)
     weave = np.sin(xx * math.pi / 2) * np.cos(yy * math.pi / 2)
     grain = np.random.default_rng(720).random((size, size), dtype=np.float32) - .5
-    damask = np.sin(xx * .086 + np.sin(yy * .04)) * np.sin(yy * .071)
+    damask = np.sin(xx * .074 + 1.8 * np.sin(yy * .038)) * np.sin(yy * .064)
+    damask = np.clip((damask - .25) * 2.1, 0, 1)
     normal = np.ones((size, size, 4), dtype=np.float32)
-    normal[:, :, 0] = .5 + .018 * np.sin(xx * math.pi / 2)
-    normal[:, :, 1] = .5 + .018 * np.sin(yy * math.pi / 2)
+    normal[:, :, 0] = .5 + .042 * np.sin(xx * math.pi / 2)
+    normal[:, :, 1] = .5 + .042 * np.sin(yy * math.pi / 2)
     normal[:, :, 2] = .999
 
     def packed_image(name, pixels, color_space):
@@ -81,16 +82,30 @@ def build_costume(ctx):
         base = np.array([int(color[i:i+2], 16)/255 for i in (1,3,5)], dtype=np.float32)
         pixels = np.ones((size, size, 4), dtype=np.float32)
         pixels[:, :, :3] = base[None, None, :] * (
-            1 + .012 * weave[:, :, None] + .015 * grain[:, :, None] + .012 * damask[:, :, None])
+            1 + .018 * weave[:, :, None] + .012 * grain[:, :, None] + .045 * damask[:, :, None])
+        if key == 'costume_sleeve':
+            diagonal_a=np.mod(xx+yy*1.45,64)
+            diagonal_b=np.mod(xx-yy*1.45,64)
+            lattice=np.maximum(np.exp(-np.minimum(diagonal_a,64-diagonal_a)**2/1.8),
+                               np.exp(-np.minimum(diagonal_b,64-diagonal_b)**2/1.8))
+            stitched=lattice[:,:,None]*.16
+            thread=np.array((.43,.40,.28),dtype=np.float32)
+            pixels[:,:,:3]=pixels[:,:,:3]*(1-stitched)+thread[None,None,:]*stitched
         tex = nodes.new('ShaderNodeTexImage')
         tex.image = packed_image('Hanli_' + key + '_color', pixels, 'sRGB')
         links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
         tex = nodes.new('ShaderNodeTexImage')
         tex.image = normal_image
         nm = nodes.new('ShaderNodeNormalMap')
-        nm.inputs['Strength'].default_value = .25
+        nm.inputs['Strength'].default_value = .45
         links.new(tex.outputs['Color'], nm.inputs['Color'])
         links.new(nm.outputs['Normal'], bsdf.inputs['Normal'])
+        rough = np.ones((size, size, 4), dtype=np.float32)
+        rough[:, :, :3] = np.clip(palette[key][2] + .045 * weave[:, :, None]
+                                  - .055 * damask[:, :, None], .35, .92)
+        rt = nodes.new('ShaderNodeTexImage')
+        rt.image = packed_image('Hanli_' + key + '_roughness', rough, 'Non-Color')
+        links.new(rt.outputs['Color'], bsdf.inputs['Roughness'])
 
     def weighted(obj, mode):
         obj['skin_mode'] = mode
@@ -198,40 +213,54 @@ def build_costume(ctx):
                     ff.append((q,q+9,q+10,q+1))
         return solid(mesh(name,vv,ff,mat,bone,skin,uv),.0017)
 
-    tailored('Silver blue diagonal underlap',
-             [(1.433,-.047,-.028),(1.383,-.069,-.014),(1.36,-.091,-.010),(1.31,-.112,.020),
-              (1.25,-.115,.045),(1.20,-.110,.081),(1.08,-.119,.118)],
+    tailored('Slate silk diagonal underlap',
+             [(1.399,-.055,-.030),(1.383,-.069,-.029),(1.36,-.087,-.026),(1.31,-.106,-.026),
+              (1.25,-.109,-.026),(1.20,-.108,.016),(1.08,-.115,.075)],
              'costume_blue',.005)
-    tailored('Broad ice silk crossed inner robe',
-             [(1.433,.025,.047),(1.383,.019,.069),(1.36,.014,.093),(1.29,-.015,.111),
-              (1.19,-.061,.113),(1.09,-.110,.117),(1.010,-.127,.123)],
+    tailored('Narrow diagonal ice silk overlap',
+             [(1.399,.031,.055),(1.383,.027,.067),(1.36,.022,.088),(1.29,-.006,.104),
+              (1.23,-.050,.108),(1.19,-.073,.111),(1.09,-.108,.117),(1.010,-.123,.121)],
              'costume_ice',.009)
-    # A double cloth roll defines the collar and the full diagonal overlap.
+    # One continuous turned collar covers the lapel ends. Its elliptical rings
+    # fit the anatomical neck's wider, rear-shifted base; using torso_y above
+    # its last body ring used to split this seam into several upright tabs.
+    def collar_point(a,f):
+        rx=.084*(1-f)+.067*f
+        ry=.063*(1-f)+.041*f
+        cy=.005*(1-f)+.021*f
+        front=max(0,math.cos(a))
+        bottom=1.374-.008*front
+        top=1.421-.018*front*front
+        return Vector((math.sin(a)*rx,cy-math.cos(a)*ry,bottom*(1-f)+top*f))
+
+    collar_v,collar_f,collar_uv=[],[],[]
+    for j in range(9):
+        for i in range(65):
+            a=.67+i/64*(math.tau-1.34)
+            collar_v.append(tuple(collar_point(a,j/8)))
+            collar_uv.append((i/64,j/8))
+            if i<64 and j<8:
+                q=j*65+i;collar_f.append((q,q+1,q+66,q+65))
+    solid(mesh('Continuous turned neck collar',collar_v,collar_f,
+               'costume_ice','chest','torso',collar_uv),.0023)
+    cord('Continuous rounded collar rim',
+         [collar_point(.67+i/64*(math.tau-1.34),1) for i in range(65)],
+         .0013,'costume_ice',steps=1)
     for side in (-1,1):
-        pts = [(side*x,torso_y(side*x,z,.014),z) for x,z in
-               [( .035,1.434),(.041,1.410),(.048,1.386),(.062,1.356),(.072,1.33)]]
+        a=.67 if side>0 else math.tau-.67
+        pts = [collar_point(a,f) for f in (1,.75,.5,.25,0)]
+        pts += [Vector((side*x,torso_y(side*x,z,.014),z)) for x,z in
+                [(.064,1.356),(.074,1.33)]]
         cord('Pale collar folded edge',pts,.0019,'costume_ice')
-    diagonal=[(.026,1.430),(.019,1.383),(.014,1.36),(-.015,1.29),(-.061,1.19),(-.110,1.09)]
+    diagonal=[(.031,1.399),(.027,1.383),(.022,1.36),(-.006,1.29),(-.050,1.23),(-.108,1.09)]
     cord('Long woven overlap seam',[(x,torso_y(x,z,.013),z) for x,z in diagonal],
          .0011,'costume_thread',steps=6)
-    collar_v,collar_f,collar_uv=[],[],[]
-    for j in range(7):
-        z=1.373+j*.0105
-        for i in range(41):
-            a=.68+i/40*(math.tau-1.36)
-            collar_v.append((math.sin(a)*(.047-j*.0007),-math.cos(a)*(.044-j*.0007),
-                             z-.012*(j/6)**2*max(0,math.cos(a))))
-            collar_uv.append((i/40,j/6))
-            if i<40 and j<6:
-                q=j*41+i;collar_f.append((q,q+1,q+42,q+41))
-    solid(mesh('Raised pale silk collar',collar_v,collar_f,'costume_ice','chest','torso',collar_uv))
-
     # Deep open coat, continuous around the back and neck.  Its front edges
     # frame the pale inner layers rather than covering them with a closed tunic.
-    mantle_profile=[(1.023,.148,.109,.86),(1.10,.155,.111,.75),
-                    (1.20,.181,.120,.62),(1.29,.191,.106,.55),
-                    (1.345,.162,.088,.48),(1.385,.084,.061,.47),
-                    (1.410,.048,.042,.50)]
+    mantle_profile=[(1.023,.148,.109,.58),(1.10,.155,.111,.47),
+                    (1.20,.181,.120,.45),(1.29,.191,.106,.43),
+                    (1.345,.171,.088,.43),(1.385,.084,.061,.47),
+                    (1.400,.060,.046,.50)]
     mantle_rows=[]
     for a,b in zip(mantle_profile,mantle_profile[1:]):
         for k in range(5):
@@ -275,7 +304,7 @@ def build_costume(ctx):
         suffix='L' if side>0 else 'R';bone='robe.'+suffix
         rows,n=24,28
         def coord(u,f):
-            a=(.86-.13*f)+(1.78-(.86-.13*f))*u
+            a=(.58+.15*f)+(1.78-(.58+.15*f))*u
             rx=.148+.137*f**.9;ry=.111+.080*f**1.1
             folds=(.0015+.0045*f)*(math.sin(a*10+f*.9)+.25*math.sin(a*23-f))
             folds+=.0030*f**.7*math.sin(a*5-f*1.4)
@@ -333,13 +362,14 @@ def build_costume(ctx):
                     ff.append(face if side>0 else tuple(reversed(face)))
         return solid(mesh(name,vv,ff,mat,bone,skin,uv),.0008)
 
-    # Smooth full sleeves start inside the torso, preventing shoulder holes.
+    # The sleeve follows the arm instead of forming a padded cylinder. The
+    # shoulder yoke below supplies the angular silhouette independently.
     for side,suffix in [(-1,'R'),(1,'L')]:
-        path=[(side*.076,.002,1.294,.046,.058),(side*.127,0,1.310,.052,.061),
-              (side*.174,-.002,1.292,.055,.060),(side*.210,-.004,1.246,.053,.057),
-              (side*.244,-.006,1.190,.053,.055),(side*.269,-.007,1.123,.054,.055),
-              (side*.283,-.017,1.065,.056,.056),(side*.295,-.029,1.002,.053,.053),
-              (side*.300,-.037,.947,.046,.046)]
+        path=[(side*.076,.002,1.294,.040,.049),(side*.127,0,1.310,.041,.049),
+              (side*.174,-.002,1.292,.043,.048),(side*.210,-.004,1.246,.042,.047),
+              (side*.244,-.006,1.190,.041,.045),(side*.269,-.007,1.123,.043,.045),
+              (side*.283,-.017,1.065,.045,.047),(side*.295,-.029,1.002,.043,.044),
+              (side*.300,-.037,.947,.038,.039)]
         path=sample_path(path,4)
         vv,ff,uv=[],[],[]
         n=36
@@ -352,28 +382,45 @@ def build_costume(ctx):
             inward=max(0,-side*radial.x)
             # A few broad compression folds collect at the elbow and cuff;
             # the outer upper arm remains a smoother hanging cloth surface.
-            elbow=.0044*math.exp(-((z-1.125)/.052)**2)*math.sin((z-1.12)*107+a*1.6)*( .25+.75*front)
-            armpit=.0036*math.exp(-((z-1.235)/.045)**2)*math.sin(z*101+a*1.3)*inward
-            cuff=.0032*math.exp(-((z-.988)/.033)**2)*math.sin((z-.97)*128+a*1.8)
-            fold=.0016*math.sin(a*5+j*.10)+elbow+armpit+cuff
+            elbow=.0027*math.exp(-((z-1.125)/.045)**2)*math.sin((z-1.12)*95+a*1.5)*( .25+.75*front)
+            armpit=.0024*math.exp(-((z-1.235)/.045)**2)*math.sin(z*87+a*1.3)*inward
+            cuff=.0021*math.exp(-((z-.988)/.033)**2)*math.sin((z-.97)*112+a*1.8)
+            fold=.0012*math.sin(a*5+j*.10)+elbow+armpit+cuff
             return center+u*math.cos(a)*(ru+fold)+v*math.sin(a)*(rv+fold)
         for j in range(len(path)):
             for i in range(n+1):
                 vv.append(tuple(sleeve_coord(j,i/n*math.tau)));uv.append((i/n,j/(len(path)-1)))
                 if i<n and j<len(path)-1:
                     q=j*(n+1)+i;ff.append((q,q+1,q+n+2,q+n+1))
-        solid(mesh('Wide continuous silk sleeve.'+suffix,vv,ff,'costume_sleeve',
+        solid(mesh('Fitted midnight silk sleeve.'+suffix,vv,ff,'costume_sleeve',
                    'upper_arm.'+suffix,'arm.'+suffix,uv),.002)
+        # A separate peacock-blue forearm wrap leaves the dark upper sleeve
+        # visible beneath the hard shoulder. Its top edge follows a diagonal cut.
+        vv,ff,uv=[],[],[]
+        wrap_rows=list(range(21,len(path)))
+        for j,index in enumerate(wrap_rows):
+            for i in range(n+1):
+                a=i/n*math.tau
+                p=sleeve_coord(index,a)
+                radial=p-Vector(path[index][:3])
+                p+=radial.normalized()*(.0028+.001*math.sin(a*2))
+                if j<3:
+                    p.z+=.018*math.sin(a-.5)*(1-j/3)
+                vv.append(tuple(p));uv.append((i/n,j/(len(wrap_rows)-1)))
+                if i<n and j<len(wrap_rows)-1:
+                    q=j*(n+1)+i;ff.append((q,q+1,q+n+2,q+n+1))
+        solid(mesh('Tailored blue forearm wrap.'+suffix,vv,ff,'costume_outer',
+                   'upper_arm.'+suffix,'arm.'+suffix,uv),.0015)
         # The folded cuff is made from the actual sleeve rings, not a detached
         # cylinder; it shares the host skin weights all the way around the arm.
         vv,ff,uv=[],[],[]
-        js=[len(path)-4,len(path)-3,len(path)-2,len(path)-1]
+        js=[len(path)-3,len(path)-2,len(path)-1]
         for j,index in enumerate(js):
             for i in range(n+1):
                 p=sleeve_coord(index,i/n*math.tau)
-                radial=p-Vector(path[index][:3]);p+=radial.normalized()*.0022
-                vv.append(tuple(p));uv.append((i/n,j/3))
-                if i<n and j<3:
+                radial=p-Vector(path[index][:3]);p+=radial.normalized()*.0052
+                vv.append(tuple(p));uv.append((i/n,j/2))
+                if i<n and j<2:
                     q=j*(n+1)+i;ff.append((q,q+1,q+n+2,q+n+1))
         solid(mesh('Silver blue turned cuff.'+suffix,vv,ff,'costume_blue',
                    'upper_arm.'+suffix,'arm.'+suffix,uv),.0015)
@@ -411,8 +458,79 @@ def build_costume(ctx):
                      .0066 if i<3 else .0058,'skin','hand.L',radii=[1.02,1,.88,.72,.48])
             tube('Relaxed thumb.L',[(.281,-.035,.931),(.272,-.056,.910),(.276,-.065,.892)],.008,'skin','hand.L',radii=[1.2,1,.65])
 
-    # The reference's pale botanical trim is concentrated on the cloth shoulders
-    # and lapel edges.  Thin convex blades replace round armour-like ornaments.
+    # A sculpted shoulder shell wraps front to back. It has a crisp outer point,
+    # a real metal rim and separate inset plates; decoration is attached to the
+    # same parametrized surface and shares its shoulder weights.
+    for side,suffix in ((1,'L'),(-1,'R')):
+        bone='upper_arm.'+suffix
+        skin='shoulder.'+suffix
+
+        def cap_coord(u,v,offset=0):
+            a=-math.pi/2+v*math.pi
+            edge=.248-.021*abs(math.sin(a))**1.3
+            x=.078+(edge-.078)*u
+            depth=.096*(1-u)+.070*u
+            y=.005+math.sin(a)*depth
+            z=1.374-.037*u+.009*math.sin(math.pi*u)
+            z-=.054*abs(math.sin(a))**1.25
+            p=Vector((side*x,y,z))
+            if offset:
+                h=.0001
+                du=cap_coord(u+h,v)-cap_coord(u-h,v)
+                dv=cap_coord(u,v+h)-cap_coord(u,v-h)
+                normal=du.cross(dv).normalized()*side
+                p+=normal*offset
+            return p
+
+        def cap_patch(name,umin,umax,vmin,vmax,mat,offset,nu=16,nv=20,thickness=.002):
+            vv,ff,uv=[],[],[]
+            for j in range(nu+1):
+                u=umin+(umax-umin)*j/nu
+                for i in range(nv+1):
+                    v=vmin+(vmax-vmin)*i/nv
+                    vv.append(tuple(cap_coord(u,v,offset)));uv.append((j/nu,i/nv))
+                    if i<nv and j<nu:
+                        q=j*(nv+1)+i;face=(q,q+nv+1,q+nv+2,q+1)
+                        ff.append(face if side>0 else tuple(reversed(face)))
+            return solid(mesh(name+'.'+suffix,vv,ff,mat,bone,skin,uv),thickness)
+
+        cap_patch('Rigid tapered shoulder rim',0,1,0,1,'costume_gold_shadow',.001,thickness=.003)
+        cap_patch('Teal sculpted shoulder inset',.035,.944,.045,.955,'costume_outer',.0034)
+        for v in (.025,.975):
+            cord('Pale shoulder rolled edge.'+suffix,
+                 [cap_coord(j/22,v,.0044) for j in range(23)],.0028,
+                 'costume_silver',bone,skin,steps=1)
+        cord('Outward shoulder blade edge.'+suffix,
+             [cap_coord(.986,j/24,.0033) for j in range(25)],.0027,
+             'costume_gold',bone,skin,steps=1)
+
+        def cap_relief(name,points,width,mat):
+            path=sample_path(points,6);vv,ff,uv=[],[],[]
+            for j,p in enumerate(path):
+                t=path[min(j+1,len(path)-1)]-path[max(0,j-1)]
+                cross=np.array([-t[1],t[0]])/max(np.linalg.norm(t),1e-8)
+                f=j/(len(path)-1)
+                r=width*(.22+.78*math.sin(math.pi*f)**.55)
+                for k in range(5):
+                    w=k/2-1;q=p+cross*r*w
+                    vv.append(tuple(cap_coord(q[0],q[1],.0045+.0035*(1-w*w))))
+                    uv.append((k/4,f))
+                    if k<4 and j<len(path)-1:
+                        q0=j*5+k;face=(q0,q0+5,q0+6,q0+1)
+                        ff.append(face if side>0 else tuple(reversed(face)))
+            solid(mesh(name+'.'+suffix,vv,ff,mat,bone,skin,uv),.0012)
+
+        for index,(points,width) in enumerate([
+            ([(.10,.13),(.26,.22),(.49,.20),(.68,.12),(.94,.08)],.046),
+            ([(.14,.15),(.24,.36),(.48,.39),(.68,.29),(.89,.15)],.038),
+            ([(.21,.27),(.32,.51),(.57,.54),(.78,.40),(.95,.26)],.041),
+            ([(.28,.45),(.41,.65),(.62,.64),(.83,.54),(.94,.43)],.035),
+            ([(.36,.62),(.48,.80),(.70,.82),(.90,.69)],.033),
+        ]):
+            cap_relief('Raised botanical shoulder plate %d'%index,points,width,
+                       'costume_silver' if index%2==0 else 'costume_gold')
+
+    # Broad sculpted chest feathers continue the shoulder plates onto the coat.
     def mantle_y(x,z):
         for a,b in zip(mantle_profile,mantle_profile[1:]):
             if a[0]<=z<=b[0]:
@@ -422,31 +540,22 @@ def build_costume(ctx):
 
     for side,suffix in ((1,'L'),(-1,'R')):
         # Feather paths extend down the chest but remain outside the opening.
-        main=[(.052,1.395),(.082,1.356),(.123,1.309),(.145,1.245),(.137,1.154)]
-        relief_ribbon('Flowing silver shoulder stem.'+suffix,main,.0042,'costume_silver',mantle_y,side)
+        main=[(.060,1.385),(.089,1.349),(.125,1.299),(.144,1.235),(.129,1.129)]
+        relief_ribbon('Sculpted silver lapel blade.'+suffix,main,.0068,'costume_silver',mantle_y,side)
         for points,width in [
-            ([(.061,1.388),(.088,1.378),(.126,1.358),(.157,1.330)],.008),
-            ([(.076,1.365),(.118,1.356),(.153,1.334),(.175,1.302)],.009),
-            ([(.093,1.342),(.136,1.328),(.165,1.291),(.172,1.257)],.0075),
-            ([(.110,1.316),(.145,1.288),(.160,1.244),(.155,1.209)],.0065),
-            ([(.126,1.278),(.142,1.256),(.150,1.208),(.144,1.170)],.005),
-            ([(.108,1.334),(.096,1.319),(.100,1.297),(.122,1.286)],.005),
-            ([(.132,1.304),(.139,1.329),(.158,1.332),(.173,1.315)],.005),
-            ([(.150,1.279),(.164,1.300),(.179,1.288),(.176,1.266)],.0045),
+            ([(.084,1.348),(.116,1.331),(.153,1.303),(.175,1.275)],.012),
+            ([(.101,1.319),(.137,1.297),(.161,1.255),(.164,1.211)],.010),
+            ([(.117,1.286),(.143,1.251),(.151,1.204),(.139,1.159)],.008),
+            ([(.111,1.317),(.097,1.302),(.105,1.277),(.132,1.270)],.007),
+            ([(.140,1.285),(.160,1.297),(.178,1.274),(.169,1.247)],.007),
         ]:
-            relief_ribbon('Pale embroidered feather.'+suffix,points,width*.78,'costume_gold',mantle_y,side)
-        # Long scroll on the pale inner cloth adds textile pattern without
-        # changing its silhouette into a plate.
-        surface=lambda x,z:torso_y(x,z,.014)
-        relief_ribbon('Woven inner robe cloud.'+suffix,
-                      [(.040,1.322),(.052,1.294),(.037,1.274),(.025,1.247),(.036,1.222)],
-                      .0012,'costume_thread',surface,side)
+            relief_ribbon('Broad cast lapel feather.'+suffix,points,width,'costume_gold',mantle_y,side)
         # Two quiet vertical fastening cords frame the lapel opening.
         pts=[(side*x,mantle_y(side*x,z)-.003,z) for x,z in
-             [(.108,1.275),(.116,1.204),(.120,1.125),(.119,1.069)]]
+             [(.086,1.275),(.087,1.204),(.091,1.125),(.097,1.069)]]
         cord('Lapel woven fastening cord.'+suffix,pts,.0014,'costume_gold','chest','torso',steps=5)
         for k in range(3):
-            z=1.158-k*.034;x=side*(.119+k*.001)
+            z=1.158-k*.034;x=side*(.091+k*.002)
             sphere('Lapel fastening bead.'+suffix,(x,mantle_y(x,z)-.005,z),
                    (.0028,.0022,.0038),'costume_pearl','chest',segments=12,rings=8)['skin_mode']='torso'
 
@@ -459,7 +568,12 @@ def build_costume(ctx):
                                       [i/48*math.tau for i in range(49)]],
              .0015,'costume_gold','pelvis','rigid',steps=1)
 
-    def relief_patch(name,outline,center,mat,depth=.009):
+    def sash_y(x,z):
+        if z>=1.010:
+            return -.114*math.sqrt(max(.04,1-(x/.153)**2))-.007
+        return -.123-.022*max(0,1.01-z)
+
+    def relief_patch(name,outline,center,mat,depth=.009,offset=0):
         """Three convex inset rings retain an organic, embossed silhouette."""
         ring=sample_path(outline+[outline[0]],3)[:-1]
         n=len(ring);vv,ff,uv=[],[],[]
@@ -467,11 +581,11 @@ def build_costume(ctx):
         for j,t in enumerate((1,.68,.28)):
             for i,p in enumerate(ring):
                 q=center+(p-center)*t;x,z=q
-                y=-.118-depth*(1-t*t)
+                y=sash_y(x,z)-offset-depth*(1-t*t)
                 vv.append((x,y,z));uv.append((x/.30+.5,(z-.80)/.27))
                 if j<2:
                     ff.append((j*n+i,j*n+(i+1)%n,(j+1)*n+(i+1)%n,(j+1)*n+i))
-        vv.append((center[0],-.118-depth,center[1]));uv.append((.5,.5))
+        vv.append((center[0],sash_y(center[0],center[1])-offset-depth,center[1]));uv.append((.5,.5))
         for i in range(n):ff.append((2*n+i,2*n+(i+1)%n,3*n))
         return solid(mesh(name,vv,ff,mat,'pelvis','rigid',uv),.002)
 
@@ -480,28 +594,40 @@ def build_costume(ctx):
                   (0,1.047),(.024,1.053),(.059,1.047),(.100,1.043),(.128,1.030),
                   (.091,1.017),(.049,1.020),(0,1.009),(-.049,1.020),(-.091,1.017)],
                  (0,1.031),'costume_gold',.005)
-    relief_patch('Long organic central sash pendant',
-                 [(-.020,1.012),(-.056,.988),(-.070,.962),(-.053,.939),
-                  (-.072,.923),(-.049,.896),(-.024,.888),(-.020,.855),(0,.834),
-                  (.020,.855),(.024,.888),(.049,.896),(.072,.923),(.053,.939),
-                  (.070,.962),(.056,.988),(.020,1.012)],
-                 (0,.938),'costume_gold',.006)
-    pendant_surface=lambda x,z:-.124
+    relief_patch('Recessed central sash backing',
+                 [(-.016,1.014),(-.049,.991),(-.059,.963),(-.048,.938),
+                  (-.059,.920),(-.038,.897),(-.019,.887),(-.015,.861),(0,.847),
+                  (.015,.861),(.019,.887),(.038,.897),(.059,.920),(.048,.938),
+                  (.059,.963),(.049,.991),(.016,1.014)],
+                 (0,.943),'costume_gold_shadow',.004)
+    relief_patch('Upper overlapping lotus clasp',
+                 [(-.008,1.011),(-.032,.997),(-.051,.977),(-.043,.958),(-.021,.951),
+                  (0,.938),(.021,.951),(.043,.958),(.051,.977),(.032,.997),(.008,1.011)],
+                 (0,.974),'costume_gold',.008,.003)
+    relief_patch('Lower overlapping leaf clasp',
+                 [(-.009,.957),(-.036,.947),(-.052,.928),(-.033,.910),(-.017,.907),
+                  (0,.884),(.017,.907),(.033,.910),(.052,.928),(.036,.947),(.009,.957)],
+                 (0,.925),'costume_gold',.007,.004)
+    relief_patch('Small suspended teardrop plate',
+                 [(0,.892),(-.015,.879),(-.018,.867),(-.010,.857),(0,.845),
+                  (.010,.857),(.018,.867),(.015,.879)],
+                 (0,.870),'costume_silver',.006,.004)
+    pendant_surface=lambda x,z:sash_y(x,z)-(.012 if z<1.010 else .007)
     for side in (-1,1):
         for pts,width in [
             ([(.004,1.050),(.028,1.045),(.047,1.028),(.083,1.028),(.119,1.031)],.004),
-            ([(.009,1.024),(.029,1.014),(.047,.987),(.059,.974),(.046,.958)],.0045),
-            ([(.018,.994),(.024,.970),(.040,.951),(.055,.935),(.045,.914)],.0055),
+            ([(.009,1.024),(.029,1.014),(.044,.987),(.049,.976),(.039,.962)],.0045),
+            ([(.018,.994),(.024,.970),(.036,.951),(.045,.935),(.035,.917)],.0050),
             ([(.048,.986),(.035,.989),(.031,.976),(.043,.965)],.003),
             ([(.018,.953),(.007,.938),(.015,.914),(.031,.904),(.042,.918)],.004),
             ([(.008,.902),(.012,.878),(.008,.857),(0,.848)],.0038),
         ]:
             relief_ribbon('Raised sash scrollwork',pts,width,'costume_silver',
                           pendant_surface,side,'pelvis','rigid',steps=4)
-        cord('Fine sash engraved groove',[(side*x,-.128,z) for x,z in
+        cord('Fine sash engraved groove',[(side*x,sash_y(side*x,z)-.008,z) for x,z in
                                          [(.016,1.048),(.028,1.037),(.045,1.035),(.062,1.042)]],
              .0008,'costume_gold_shadow','pelvis','rigid',steps=4)
-    sphere('Central pale jade clasp inset',(0,-.136,.982),(.010,.0045,.014),
+    sphere('Central pale jade clasp inset',(0,-.146,.982),(.008,.0035,.011),
            'costume_pearl','pelvis',segments=20,rings=12)
     # Two red bead chains and fine tassel bundles; they follow the front robe
     # deformation so they remain outside the moving inner skirt.

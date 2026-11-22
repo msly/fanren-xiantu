@@ -1,0 +1,414 @@
+{
+  "model_revision": 6,
+  "asset": "assets/3d/hanli.glb",
+  "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+  "asset_bytes": 16520736,
+  "studio_source": "art/hanli.blend",
+  "studio_source_sha256": "be0a68c87a374989a2b107a83a7e35d4daa68ef952890c107f83b96fe7c7e969",
+  "studio_source_bytes": 11990924,
+  "archived_at": "2026-11-22T13:03:31.296789+00:00",
+  "rendered_at": null,
+  "render_time_note": "No original renderer report contains a render timestamp. Source mtimes are filesystem evidence, not asserted exact render times. All PNGs were copied byte-for-byte; no generated or retouched preview imagery was used.",
+  "method": "Actual runtime GLB imported into Blender 4.3.2 and rendered in the source studio using CPU Cycles.",
+  "webgl_tested": false,
+  "unique_render_count": 13,
+  "compatibility_alias_count": 2,
+  "images": [
+    {
+      "group": "static",
+      "view": "reference",
+      "clip": null,
+      "frame": 1,
+      "file": "docs/hanli-reference-preview.png",
+      "sha256": "4173adc5b8deb6133b58c39720a04a49a6bfafcd9bdab86c5433b10644eee447",
+      "bytes": 916441,
+      "resolution": [
+        675,
+        900
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/static.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-reference.png",
+        "sha256": "4173adc5b8deb6133b58c39720a04a49a6bfafcd9bdab86c5433b10644eee447",
+        "bytes": 916441,
+        "mtime_utc": "2026-11-22T12:59:06.356186+00:00",
+        "mtime_ns": 1795352346356186235
+      }
+    },
+    {
+      "group": "static",
+      "view": "head",
+      "clip": null,
+      "frame": 1,
+      "file": "docs/hanli-head-preview.png",
+      "sha256": "3db4ec3ebe699b6c8a98130571acb4ff6a0531131169fe04c6d086c9773072cf",
+      "bytes": 622566,
+      "resolution": [
+        675,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/static.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-head.png",
+        "sha256": "3db4ec3ebe699b6c8a98130571acb4ff6a0531131169fe04c6d086c9773072cf",
+        "bytes": 622566,
+        "mtime_utc": "2026-11-22T12:59:15.912295+00:00",
+        "mtime_ns": 1795352355912294961
+      }
+    },
+    {
+      "group": "static",
+      "view": "full",
+      "clip": null,
+      "frame": 1,
+      "file": "docs/hanli-3d-preview.png",
+      "sha256": "a2a35a99aa2be72cb1994d17083b3414fbc311dd8f1b21ddfe28f9f41852556f",
+      "bytes": 549220,
+      "resolution": [
+        540,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/static.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-full.png",
+        "sha256": "a2a35a99aa2be72cb1994d17083b3414fbc311dd8f1b21ddfe28f9f41852556f",
+        "bytes": 549220,
+        "mtime_utc": "2026-11-22T12:59:21.404357+00:00",
+        "mtime_ns": 1795352361404357406
+      }
+    },
+    {
+      "group": "static",
+      "view": "portrait",
+      "clip": null,
+      "frame": 1,
+      "file": "docs/hanli-portrait-preview.png",
+      "sha256": "8e9d9959588d7a8a63ae4895839e0321ec1728ac389ede7eac32bf5d814e4994",
+      "bytes": 901859,
+      "resolution": [
+        675,
+        900
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/static.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-portrait.png",
+        "sha256": "8e9d9959588d7a8a63ae4895839e0321ec1728ac389ede7eac32bf5d814e4994",
+        "bytes": 901859,
+        "mtime_utc": "2026-11-22T12:59:37.196537+00:00",
+        "mtime_ns": 1795352377196537026
+      }
+    },
+    {
+      "group": "static",
+      "view": "back",
+      "clip": null,
+      "frame": 1,
+      "file": "docs/hanli-back-preview.png",
+      "sha256": "12374a6c14a5a773d8954470db1930fb203307e35ecc1e1dbb4aaa4bbf7a07c1",
+      "bytes": 552373,
+      "resolution": [
+        540,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/static.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-back.png",
+        "sha256": "12374a6c14a5a773d8954470db1930fb203307e35ecc1e1dbb4aaa4bbf7a07c1",
+        "bytes": 552373,
+        "mtime_utc": "2026-11-22T12:59:42.708600+00:00",
+        "mtime_ns": 1795352382708599691
+      }
+    },
+    {
+      "group": "face-details",
+      "view": "face-profile",
+      "clip": null,
+      "frame": 1,
+      "file": "docs/hanli-face-profile-preview.png",
+      "sha256": "62af8cfd03d6fcddacf4017ce69f7206499366590513b72179d55871ac4378f3",
+      "bytes": 477462,
+      "resolution": [
+        675,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/face-details.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-face-profile.png",
+        "sha256": "62af8cfd03d6fcddacf4017ce69f7206499366590513b72179d55871ac4378f3",
+        "bytes": 477462,
+        "mtime_utc": "2026-11-22T12:57:45.211271+00:00",
+        "mtime_ns": 1795352265211271021
+      }
+    },
+    {
+      "group": "face-details",
+      "view": "face-front",
+      "clip": null,
+      "frame": 1,
+      "file": "docs/hanli-face-front-preview.png",
+      "sha256": "aaca384025686d78ea71609ec831c8712e8fd938bd355423003353100d13475a",
+      "bytes": 528218,
+      "resolution": [
+        675,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/face-details.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-face-front.png",
+        "sha256": "aaca384025686d78ea71609ec831c8712e8fd938bd355423003353100d13475a",
+        "bytes": 528218,
+        "mtime_utc": "2026-11-22T12:57:49.727321+00:00",
+        "mtime_ns": 1795352269727320806
+      }
+    },
+    {
+      "group": "walk-7",
+      "view": "full",
+      "clip": "Walk",
+      "frame": 7,
+      "file": "docs/hanli-walk-7-preview.png",
+      "sha256": "dc2b6704d1096c280b351049b01c44d60683e972abe8d250cbe8500c27b74957",
+      "bytes": 573638,
+      "resolution": [
+        540,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/walk-7.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/walk-7/hanli-glb-full.png",
+        "sha256": "dc2b6704d1096c280b351049b01c44d60683e972abe8d250cbe8500c27b74957",
+        "bytes": 573638,
+        "mtime_utc": "2026-11-22T12:58:59.068103+00:00",
+        "mtime_ns": 1795352339068103411
+      }
+    },
+    {
+      "group": "walk-7",
+      "view": "back",
+      "clip": "Walk",
+      "frame": 7,
+      "file": "docs/hanli-walk-back-preview.png",
+      "sha256": "cdfab97f9603545d768409b0a130e17c3f323348e8a08a21b13d1a47eea4919a",
+      "bytes": 566785,
+      "resolution": [
+        540,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/walk-7.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/walk-7/hanli-glb-back.png",
+        "sha256": "cdfab97f9603545d768409b0a130e17c3f323348e8a08a21b13d1a47eea4919a",
+        "bytes": 566785,
+        "mtime_utc": "2026-11-22T12:59:06.468188+00:00",
+        "mtime_ns": 1795352346468187510
+      }
+    },
+    {
+      "group": "walk-19",
+      "view": "full",
+      "clip": "Walk",
+      "frame": 19,
+      "file": "docs/hanli-walk-19-preview.png",
+      "sha256": "5e030bbb4bba53e9ec47b957ac8d35ad1d526e9e3156d6dbe82ec312ea522f35",
+      "bytes": 571126,
+      "resolution": [
+        540,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/walk-19.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/walk-19/hanli-glb-full.png",
+        "sha256": "5e030bbb4bba53e9ec47b957ac8d35ad1d526e9e3156d6dbe82ec312ea522f35",
+        "bytes": 571126,
+        "mtime_utc": "2026-11-22T12:59:15.780293+00:00",
+        "mtime_ns": 1795352355780293459
+      }
+    },
+    {
+      "group": "attack-11",
+      "view": "full",
+      "clip": "Attack",
+      "frame": 11,
+      "file": "docs/hanli-attack-11-preview.png",
+      "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+      "bytes": 563140,
+      "resolution": [
+        540,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/attack-11.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-full.png",
+        "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+        "bytes": 563140,
+        "mtime_utc": "2026-11-22T12:59:24.384391+00:00",
+        "mtime_ns": 1795352364384391356
+      }
+    },
+    {
+      "group": "attack-11",
+      "view": "reference",
+      "clip": "Attack",
+      "frame": 11,
+      "file": "docs/hanli-attack-11-reference-preview.png",
+      "sha256": "b304135f2b01caf9e494ecce9594c8bb34b00b7d84afe48537c12c7a1ded6aad",
+      "bytes": 926089,
+      "resolution": [
+        675,
+        900
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/attack-11.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-reference.png",
+        "sha256": "b304135f2b01caf9e494ecce9594c8bb34b00b7d84afe48537c12c7a1ded6aad",
+        "bytes": 926089,
+        "mtime_utc": "2026-11-22T12:59:37.492540+00:00",
+        "mtime_ns": 1795352377492540391
+      }
+    },
+    {
+      "group": "attack-17",
+      "view": "full",
+      "clip": "Attack",
+      "frame": 17,
+      "file": "docs/hanli-attack-17-preview.png",
+      "sha256": "9162ab1ebfd528dfb3218fcd3118932e991aa7aad48f10ddcbf532c4a09076b3",
+      "bytes": 572797,
+      "resolution": [
+        540,
+        675
+      ],
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "render_report": "docs/render-v6/attack-17.json",
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-17/hanli-glb-full.png",
+        "sha256": "9162ab1ebfd528dfb3218fcd3118932e991aa7aad48f10ddcbf532c4a09076b3",
+        "bytes": 572797,
+        "mtime_utc": "2026-11-22T12:59:44.856624+00:00",
+        "mtime_ns": 1795352384856624107
+      }
+    }
+  ],
+  "aliases": [
+    {
+      "file": "docs/hanli-walk-preview.png",
+      "alias_of": "docs/hanli-walk-7-preview.png",
+      "sha256": "dc2b6704d1096c280b351049b01c44d60683e972abe8d250cbe8500c27b74957",
+      "bytes": 573638,
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2"
+    },
+    {
+      "file": "docs/hanli-attack-preview.png",
+      "alias_of": "docs/hanli-attack-11-preview.png",
+      "sha256": "5dd0713cf14ba986396391236b5d405b652b446103e6ed43fb5a14a0ee0e1283",
+      "bytes": 563140,
+      "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2"
+    }
+  ],
+  "render_reports": [
+    {
+      "group": "static",
+      "file": "docs/render-v6/static.json",
+      "sha256": "fce7a23ecc940efcaec5fca0bbe0e51d19c579607629f88ac4ce937161f585de",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/static/hanli-glb-review.json",
+        "sha256": "7918a12f3e8d18b56c1b8cd656c3e87096fe4886e26f19192fe84523688f03da",
+        "bytes": 4609,
+        "mtime_utc": "2026-11-22T12:59:42.730581+00:00",
+        "mtime_ns": 1795352382730581388
+      }
+    },
+    {
+      "group": "face-details",
+      "file": "docs/render-v6/face-details.json",
+      "sha256": "978d2d194f68188a0845c357c636a33d3a41ceeed1e9ea56a994708cccffc7ea",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-review.json",
+        "sha256": "fc4576671da86941fc5e272be59296ec7dbcdac530c18c4c1c1da0525423b1de",
+        "bytes": 3274,
+        "mtime_utc": "2026-11-22T12:57:49.745585+00:00",
+        "mtime_ns": 1795352269745584982
+      }
+    },
+    {
+      "group": "walk-7",
+      "file": "docs/render-v6/walk-7.json",
+      "sha256": "692d01861364076c07fe89de17627c3f6e5a6ef1ed796f324b534f91f8d46b23",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/walk-7/hanli-glb-review.json",
+        "sha256": "277a2473647705dbede37ff509f7d0d6e0994a7c06e484ab5d5370b95f6c7014",
+        "bytes": 3263,
+        "mtime_utc": "2026-11-22T12:59:06.486377+00:00",
+        "mtime_ns": 1795352346486376968
+      }
+    },
+    {
+      "group": "walk-19",
+      "file": "docs/render-v6/walk-19.json",
+      "sha256": "cedfdec302826ae6ee0dac740bf7524ea0971b8ce2969d1b6d3e2df69fd07db1",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/walk-19/hanli-glb-review.json",
+        "sha256": "64d73b7128867153d03613fd15b6b959b10fcbd9f1cc7a2ee684f4c68da9b0d4",
+        "bytes": 2838,
+        "mtime_utc": "2026-11-22T12:59:15.803841+00:00",
+        "mtime_ns": 1795352355803840629
+      }
+    },
+    {
+      "group": "attack-11",
+      "file": "docs/render-v6/attack-11.json",
+      "sha256": "89beb6af90f75ff0fa068b9da9bd7e2a34d790ed54a6be8185b6f565271f2f7e",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-11/hanli-glb-review.json",
+        "sha256": "23d6617f93a79826bed9b39aa4f9af65ac12906f9f242b847c381a70bddfdb32",
+        "bytes": 3298,
+        "mtime_utc": "2026-11-22T12:59:37.515493+00:00",
+        "mtime_ns": 1795352377515493024
+      }
+    },
+    {
+      "group": "attack-17",
+      "file": "docs/render-v6/attack-17.json",
+      "sha256": "f0ea8e86bbffc2d60d6125ea42595bdd573712188533f39f872a2d7306a6c289",
+      "source_record": {
+        "path": "/workspace/scratch/707c0f302038/qa-final/attack-17/hanli-glb-review.json",
+        "sha256": "3a368f9f066bff454f318d71c4cc2d1a1d503074ad225f334bb969e99619b6b8",
+        "bytes": 2842,
+        "mtime_utc": "2026-11-22T12:59:44.877583+00:00",
+        "mtime_ns": 1795352384877583175
+      }
+    }
+  ],
+  "visual_reviews": [
+    {
+      "file": "docs/hanli-render-verification.json",
+      "sha256": "832baf0dbfeaa6458bd56be59063224a12b4612df249d8117af2c7a30077d14e"
+    },
+    {
+      "file": "docs/hanli-motion-review.json",
+      "sha256": "5fe97c36352f585b55381cd8a81480e7efbffb8f2e3f901499cb27b43b47cdc0"
+    }
+  ],
+  "collar_regression": {
+    "report": "docs/collar-verification.json",
+    "report_sha256": "76b0e0de8a70f594edbb3861c041c45702baf873ebf9541ed3a9d4a47e439866",
+    "validator": "tools/validate-collar.mjs",
+    "validator_sha256": "4293cff8310d2299bb9f766187b100430265c989e7674594a3308ff36953339b",
+    "result": "PASS",
+    "passed_probes": 7,
+    "total_probes": 7,
+    "scope": "Fixed-ray regression of the previously observed right posterior neck-base skin protrusion; exported default pose only. No complete collision, animation, all-angle, browser or GPU certification."
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "asset": "assets/3d/hanli.glb",
+  "asset_sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+  "studio_source": "art/hanli.blend",
+  "blender": "4.3.2",
+  "method": "Import runtime GLB and render using source studio, CPU Cycles",
+  "webgl_tested": false,
+  "mesh_objects": 2,
+  "samples": 48,
+  "denoised": false,
+  "resolution_scale": 0.75,
+  "clip": null,
+  "frame": 1,
+  "studio": {
+    "camera": {
+      "location": [
+        2.5,
+        -4.5,
+        2.049999952316284
+      ],
+      "rotation_euler": [
+        1.354178547859192,
+        1.809414840181489e-10,
+        0.5085173845291138
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 2.180000066757202
+    },
+    "color": {
+      "view_transform": "AgX",
+      "look": "AgX - Medium High Contrast",
+      "exposure": -0.10000000149011612,
+      "gamma": 1.0
+    },
+    "lights": [
+      {
+        "name": "Key | warm silk",
+        "type": "AREA",
+        "location": [
+          -2.200000047683716,
+          -3.200000047683716,
+          4.199999809265137
+        ],
+        "rotation_euler": [
+          0.8892838358879089,
+          3.8414611935877474e-08,
+          -0.6022875308990479
+        ],
+        "color": [
+          1.0,
+          0.8899999856948853,
+          0.7400000095367432
+        ],
+        "energy": 430.0,
+        "size": 3.0
+      },
+      {
+        "name": "Fill | cloud light",
+        "type": "AREA",
+        "location": [
+          2.799999952316284,
+          -1.399999976158142,
+          2.0999999046325684
+        ],
+        "rotation_euler": [
+          1.2471776008605957,
+          -1.4298318262717657e-07,
+          1.1071486473083496
+        ],
+        "color": [
+          0.75,
+          0.8399999737739563,
+          1.0
+        ],
+        "energy": 110.0,
+        "size": 3.0
+      },
+      {
+        "name": "Rim | jade edge",
+        "type": "AREA",
+        "location": [
+          1.2999999523162842,
+          2.0,
+          3.0999999046325684
+        ],
+        "rotation_euler": [
+          0.8608677387237549,
+          -1.2617989320062861e-08,
+          2.5652174949645996
+        ],
+        "color": [
+          0.7200000286102295,
+          0.8799999952316284,
+          1.0
+        ],
+        "energy": 360.0,
+        "size": 2.0
+      }
+    ]
+  },
+  "renders": [
+    {
+      "view": "face-profile",
+      "file": "docs/hanli-face-profile-preview.png",
+      "camera_location": [
+        4.0,
+        -0.03500000014901161,
+        1.600000023841858
+      ],
+      "camera_rotation": [
+        1.5620468854904175,
+        9.024955005543234e-08,
+        1.5657964944839478
+      ],
+      "ortho_scale": 0.3799999952316284,
+      "resolution": [
+        675,
+        675
+      ],
+      "sha256": "62af8cfd03d6fcddacf4017ce69f7206499366590513b72179d55871ac4378f3",
+      "bytes": 477462,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-face-profile.png",
+        "sha256": "62af8cfd03d6fcddacf4017ce69f7206499366590513b72179d55871ac4378f3",
+        "bytes": 477462,
+        "mtime_utc": "2026-11-22T12:57:45.211271+00:00",
+        "mtime_ns": 1795352265211271021
+      }
+    },
+    {
+      "view": "face-front",
+      "file": "docs/hanli-face-front-preview.png",
+      "camera_location": [
+        0.0,
+        -4.0,
+        1.600000023841858
+      ],
+      "camera_rotation": [
+        1.5620137453079224,
+        -0.0,
+        0.0
+      ],
+      "ortho_scale": 0.3799999952316284,
+      "resolution": [
+        675,
+        675
+      ],
+      "sha256": "aaca384025686d78ea71609ec831c8712e8fd938bd355423003353100d13475a",
+      "bytes": 528218,
+      "source_image": {
+        "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-face-front.png",
+        "sha256": "aaca384025686d78ea71609ec831c8712e8fd938bd355423003353100d13475a",
+        "bytes": 528218,
+        "mtime_utc": "2026-11-22T12:57:49.727321+00:00",
+        "mtime_ns": 1795352269727320806
+      }
+    }
+  ],
+  "model_revision": 6,
+  "studio_source_sha256": "be0a68c87a374989a2b107a83a7e35d4daa68ef952890c107f83b96fe7c7e969",
+  "archived_at": "2026-11-22T13:03:31.296789+00:00",
+  "rendered_at": null,
+  "render_time_note": "The original renderer report did not record a render timestamp. Source file mtimes are preserved as filesystem evidence; archived_at is the archive operation time, not a render time.",
+  "source_record": {
+    "path": "/workspace/scratch/707c0f302038/qa-collar/render/hanli-glb-review.json",
+    "sha256": "fc4576671da86941fc5e272be59296ec7dbcdac530c18c4c1c1da0525423b1de",
+    "bytes": 3274,
+    "mtime_utc": "2026-11-22T12:57:49.745585+00:00",
+    "mtime_ns": 1795352269745584982
+  },
+  "original_asset_path": "/workspace/scratch/707c0f302038/fanren-xiantu/assets/3d/hanli.glb",
+  "original_studio_source_path": "/workspace/scratch/707c0f302038/fanren-xiantu/art/hanli.blend"
+}

@@ -12,8 +12,8 @@
   "assets": [
     {
       "file": "hanli.glb",
-      "sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
-      "bytes": 8864356,
+      "sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "bytes": 16520736,
       "footSelection": "Every Boot soles vertex with at least 0.5 weight on footL/footR (exported bone names).",
       "footVertexCounts": {
         "footR": 203,
@@ -24,7 +24,7 @@
           "mesh": "Hanli_editable_character_mesh_6",
           "material": "Silver blue | woven shadow panels",
           "uv": "uv",
-          "triangles": 5484,
+          "triangles": 5188,
           "singularTriangles": 0,
           "singularAreaFraction": 0
         },
@@ -32,7 +32,7 @@
           "mesh": "Hanli_editable_character_mesh_7",
           "material": "Ice blue | overlapping inner silk",
           "uv": "uv",
-          "triangles": 2656,
+          "triangles": 4996,
           "singularTriangles": 0,
           "singularAreaFraction": 0
         },
@@ -40,39 +40,31 @@
           "mesh": "Hanli_editable_character_mesh_9",
           "material": "Blue jade | open silk coat",
           "uv": "uv",
-          "triangles": 14840,
+          "triangles": 21232,
           "singularTriangles": 0,
           "singularAreaFraction": 0
         },
         {
           "mesh": "Hanli_editable_character_mesh_11",
-          "material": "Deep peacock | draped sleeves",
+          "material": "Midnight peacock | fitted woven sleeves",
           "uv": "uv",
           "triangles": 14220,
           "singularTriangles": 0,
           "singularAreaFraction": 0
         },
         {
-          "mesh": "Hanli_editable_character_mesh_20",
-          "material": "Skin | sculpted young complexion",
-          "uv": "uv",
-          "triangles": 37364,
-          "singularTriangles": 0,
-          "singularAreaFraction": 0
-        },
-        {
-          "mesh": "Hanli_editable_character_mesh_29",
-          "material": "Hair | soft dark underlayer",
+          "mesh": "Hanli_editable_character_mesh_23",
+          "material": "Hair | close dark underlayer",
           "uv": "uv",
           "triangles": 4608,
           "singularTriangles": 0,
           "singularAreaFraction": 0
         },
         {
-          "mesh": "Hanli_editable_character_mesh_30",
-          "material": "Hair | blue-black longitudinal strands",
+          "mesh": "Hanli_editable_character_mesh_25",
+          "material": "Hair | soft black-brown silk bundles",
           "uv": "uv",
-          "triangles": 37824,
+          "triangles": 8596,
           "singularTriangles": 0,
           "singularAreaFraction": 0
         }
@@ -104,13 +96,13 @@
               -0.230028
             ],
             "max": [
-              0.2917344,
-              1.6784676,
+              0.2858645,
+              1.6840391,
               1.1332689
             ],
             "size": [
-              0.9433186,
-              1.668479,
+              0.9374488,
+              1.6740505,
               1.3632969
             ]
           }
@@ -132,7 +124,7 @@
             "footL": 0.0099999
           },
           "wholeGeometryMinY": 0.0099999,
-          "maxSampledVertexMovementM": 0.0117141,
+          "maxSampledVertexMovementM": 0.0117538,
           "loopEndpointMaxDeltaM": 1e-7,
           "wholeGeometryBounds": {
             "min": [
@@ -141,13 +133,13 @@
               -0.230028
             ],
             "max": [
-              0.2929209,
-              1.6778328,
+              0.2856432,
+              1.6836164,
               0.1724761
             ],
             "size": [
-              0.6785587,
-              1.6678329,
+              0.6712809,
+              1.6736165,
               0.4025041
             ]
           }
@@ -178,13 +170,13 @@
               -0.4175937
             ],
             "max": [
-              0.3003843,
-              1.6776596,
+              0.2934522,
+              1.6832311,
               0.5104214
             ],
             "size": [
-              0.725664,
-              1.6683067,
+              0.7187318,
+              1.6738782,
               0.9280151
             ]
           },
