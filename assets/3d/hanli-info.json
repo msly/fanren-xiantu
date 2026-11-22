@@ -1,0 +1,18 @@
+{
+  "asset": "hanli.glb",
+  "source": "art/hanli.blend",
+  "generator": "tools/build_hanli.py",
+  "blender": "4.3.2",
+  "forward": "glTF +Z",
+  "height_m": 1.754,
+  "vertices": 52529,
+  "triangles": 102546,
+  "materials": 21,
+  "bones": 21,
+  "clips": [
+    "Idle",
+    "Walk",
+    "Attack"
+  ],
+  "quality_scope": "Original editable procedural prototype; not a AAA-ready production character."
+}

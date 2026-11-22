@@ -1,3 +1,7 @@
 server.log
 *.b64
 *.patch.gz
+*.blend1
+*.blend2
+__pycache__/
+node_modules/

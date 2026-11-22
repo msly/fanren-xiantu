@@ -1,0 +1,16 @@
+{
+  "asset": "Mojiao",
+  "blender_version": "4.3.2",
+  "source": "original procedural geometry",
+  "orientation": "Blender -Y forward, glTF +Z forward; Blender Z up to glTF Y up",
+  "vertices": 6906,
+  "triangles": 11069,
+  "mesh_objects": 46,
+  "animations": [
+    "Idle",
+    "Walk",
+    "Attack"
+  ],
+  "glb_bytes": 1456712,
+  "notes": "Editable layered mesh and articulated transform animation; production-style prototype, not a AAA finished asset."
+}

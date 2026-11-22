@@ -1,0 +1,431 @@
+{
+  "date": "2026-11-22",
+  "scope": "Independent Three.js 3D trial prototype; not AAA final art, not a full 3D port of the 2D campaign.",
+  "runtime": "Three.js 0.180.0",
+  "blender": "4.3.2",
+  "asset_loader": {
+    "result": "PASS",
+    "three_revision": "180",
+    "loader": "Unmodified vendored GLTFLoader r180",
+    "animation": "Unmodified Three.js AnimationMixer r180",
+    "image_decode": "@napi-rs/canvas through createImageBitmap shim",
+    "scope": "CPU GLB parse, real texture decode, geometry/skin/material validation and animation sampling; no WebGL renderer or GPU context",
+    "webgl_tested": false,
+    "assets": [
+      {
+        "file": "mojiao.glb",
+        "sha256": "8b125366dbb89211343b27dd69c1c19f31dcebc8f922897c17372978fd5d5b08",
+        "bytes": 1456712,
+        "meshes": 46,
+        "skinned_meshes": 0,
+        "bones": 0,
+        "vertices": 7528,
+        "triangles": 11069,
+        "normal_vertices": 7528,
+        "uv_vertices": 5644,
+        "validated_skin_weight_rows": 0,
+        "materials": 11,
+        "textures": 3,
+        "decoded_images": [
+          {
+            "bytes": 319504,
+            "width": 512,
+            "height": 512,
+            "options": {
+              "premultiplyAlpha": "none",
+              "colorSpaceConversion": "none"
+            }
+          },
+          {
+            "bytes": 267957,
+            "width": 512,
+            "height": 512,
+            "options": {
+              "premultiplyAlpha": "none",
+              "colorSpaceConversion": "none"
+            }
+          },
+          {
+            "bytes": 525875,
+            "width": 512,
+            "height": 512,
+            "options": {
+              "premultiplyAlpha": "none",
+              "colorSpaceConversion": "none"
+            }
+          }
+        ],
+        "bind_world_bounds": {
+          "min": [
+            5.649751,
+            0.015479,
+            -6.846097
+          ],
+          "max": [
+            8.779347,
+            2.481767,
+            -1.87875
+          ],
+          "size": [
+            3.129596,
+            2.466288,
+            4.967347
+          ]
+        },
+        "animations": [
+          {
+            "clip": "Idle",
+            "duration": 4,
+            "tracks": 5,
+            "sample_count": 12,
+            "all_finite": true,
+            "placement_unchanged": true,
+            "scene_root_unchanged": true,
+            "sampled_world_bounds": {
+              "min": [
+                5.649751,
+                0.001495,
+                -7.667203
+              ],
+              "max": [
+                11.403676,
+                2.506921,
+                -1.87875
+              ],
+              "size": [
+                5.753925,
+                2.505426,
+                5.788453
+              ]
+            }
+          },
+          {
+            "clip": "Walk",
+            "duration": 1.2000000476837158,
+            "tracks": 13,
+            "sample_count": 12,
+            "all_finite": true,
+            "placement_unchanged": true,
+            "scene_root_unchanged": true,
+            "sampled_world_bounds": {
+              "min": [
+                5.649751,
+                -0.174122,
+                -7.622535
+              ],
+              "max": [
+                11.39592,
+                2.528376,
+                -1.87875
+              ],
+              "size": [
+                5.746169,
+                2.702498,
+                5.743785
+              ]
+            }
+          },
+          {
+            "clip": "Attack",
+            "duration": 1.399999976158142,
+            "tracks": 7,
+            "sample_count": 12,
+            "all_finite": true,
+            "placement_unchanged": true,
+            "scene_root_unchanged": true,
+            "sampled_world_bounds": {
+              "min": [
+                5.649751,
+                -0.112765,
+                -7.619279
+              ],
+              "max": [
+                11.435685,
+                2.502758,
+                -1.87875
+              ],
+              "size": [
+                5.785934,
+                2.615523,
+                5.740529
+              ]
+            }
+          }
+        ],
+        "crossfade": "Idle to Walk, 20 finite samples",
+        "embedded_dependencies": true
+      },
+      {
+        "file": "hanli.glb",
+        "sha256": "b6581f09b5dff75f986cd1cb7c2cb94efd1879615a505686875669ae1b0b62b1",
+        "bytes": 3780324,
+        "meshes": 21,
+        "skinned_meshes": 21,
+        "bones": 21,
+        "vertices": 57692,
+        "triangles": 102546,
+        "normal_vertices": 57692,
+        "uv_vertices": 57692,
+        "validated_skin_weight_rows": 57692,
+        "materials": 21,
+        "textures": 2,
+        "decoded_images": [
+          {
+            "bytes": 1781,
+            "width": 256,
+            "height": 256,
+            "options": {
+              "premultiplyAlpha": "none",
+              "colorSpaceConversion": "none"
+            }
+          },
+          {
+            "bytes": 67383,
+            "width": 256,
+            "height": 256,
+            "options": {
+              "premultiplyAlpha": "none",
+              "colorSpaceConversion": "none"
+            }
+          }
+        ],
+        "bind_world_bounds": {
+          "min": [
+            6.716421,
+            0.008,
+            -4.210494
+          ],
+          "max": [
+            7.30497,
+            1.754,
+            -3.623246
+          ],
+          "size": [
+            0.58855,
+            1.746,
+            0.587248
+          ]
+        },
+        "animations": [
+          {
+            "clip": "Attack",
+            "duration": 1.2916666269302368,
+            "tracks": 63,
+            "sample_count": 12,
+            "all_finite": true,
+            "placement_unchanged": true,
+            "scene_root_unchanged": true,
+            "sampled_world_bounds": {
+              "min": [
+                6.716421,
+                0.006975,
+                -5.368412
+              ],
+              "max": [
+                10.27543,
+                1.754,
+                -3.535554
+              ],
+              "size": [
+                3.55901,
+                1.747025,
+                1.832857
+              ]
+            }
+          },
+          {
+            "clip": "Idle",
+            "duration": 3.0416667461395264,
+            "tracks": 63,
+            "sample_count": 12,
+            "all_finite": true,
+            "placement_unchanged": true,
+            "scene_root_unchanged": true,
+            "sampled_world_bounds": {
+              "min": [
+                6.716421,
+                0.008,
+                -5.42557
+              ],
+              "max": [
+                9.541437,
+                1.754323,
+                -3.623246
+              ],
+              "size": [
+                2.825016,
+                1.746323,
+                1.802324
+              ]
+            }
+          },
+          {
+            "clip": "Walk",
+            "duration": 1.0416666269302368,
+            "tracks": 63,
+            "sample_count": 12,
+            "all_finite": true,
+            "placement_unchanged": true,
+            "scene_root_unchanged": true,
+            "sampled_world_bounds": {
+              "min": [
+                6.729508,
+                0.005055,
+                -5.421742
+              ],
+              "max": [
+                9.677259,
+                1.765884,
+                -3.582987
+              ],
+              "size": [
+                2.947751,
+                1.76083,
+                1.838755
+              ]
+            }
+          }
+        ],
+        "crossfade": "Idle to Walk, 20 finite samples",
+        "embedded_dependencies": true
+      }
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "character_source": {
+    "blend_reopen": "pass",
+    "weights": "all vertices normalized",
+    "pose_deformation": {
+      "Idle": [
+        [
+          -0.4469031095504761,
+          0.3442067503929138
+        ],
+        [
+          -0.16668601334095,
+          0.19778679311275482
+        ],
+        [
+          0.008000005967915058,
+          1.7540000677108765
+        ]
+      ],
+      "Walk": [
+        [
+          -0.5470635890960693,
+          0.3148868978023529
+        ],
+        [
+          -0.5313044786453247,
+          0.3159777522087097
+        ],
+        [
+          0.024567950516939163,
+          1.7660001516342163
+        ]
+      ],
+      "Attack": [
+        [
+          -0.2270345687866211,
+          0.2772040367126465
+        ],
+        [
+          -0.9948499202728271,
+          0.19778679311275482
+        ],
+        [
+          0.008000005967915058,
+          1.7540000677108765
+        ]
+      ]
+    },
+    "glb_clips": [
+      "Attack",
+      "Idle",
+      "Walk"
+    ],
+    "skins": 1,
+    "joints": 21,
+    "textures_embedded": 2,
+    "glb_bytes": 3780324,
+    "glb_sha256": "b6581f09b5dff75f986cd1cb7c2cb94efd1879615a505686875669ae1b0b62b1",
+    "blend_bytes": 2012522
+  },
+  "environment": {
+    "runtime": "Three.js r180 object construction with native Canvas; no browser renderer",
+    "constructMs": 259.750126,
+    "nodes": 94,
+    "meshes": 89,
+    "draws": 92,
+    "instances": 2098,
+    "lights": 2,
+    "triangles": 89408,
+    "materialCount": 20,
+    "textureCount": 5,
+    "invalidGeometry": [],
+    "bounds": 16,
+    "spawn": [
+      0,
+      0,
+      3
+    ],
+    "bossSpawn": [
+      0,
+      0,
+      -5
+    ]
+  },
+  "interaction_regressions": {
+    "engine": "Three.js r180 state functions plus deterministic DOM event harness; not browser rendering",
+    "result": "PASS",
+    "checks": [
+      "lunge clears telegraph at transition and next update",
+      "blur pause recoverable via touch/click button without resetting battle",
+      "Esc and clickable pause share state",
+      "victory and defeat dialog cancel return safely to ready scene",
+      "spell long axis follows three different velocity directions"
+    ],
+    "projectileAlignmentDotProducts": [
+      0.9999999999999998,
+      1,
+      1
+    ]
+  },
+  "visual_review": {
+    "method": "Real Blender CPU renders of delivered character assets",
+    "files": [
+      "docs/hanli-3d-preview.png",
+      "docs/mojiao-3d-preview.png"
+    ],
+    "web_screenshots": false
+  },
+  "browser_verification": {
+    "status": "blocked",
+    "error": "ERR_CERT_COMMON_NAME_INVALID on cloud browser navigation; subsequent error-page observation blocked by browser URL policy",
+    "bypassed": false,
+    "webgl_verified": false,
+    "css_layout_verified": false,
+    "fps_measured": false,
+    "mobile_performance_verified": false
+  },
+  "source_sha256": {
+    "game3d.html": "e9fad11ab02d01b66420a1177ad967dae097f1553977b7929b567e0330730e52",
+    "web3d/main.js": "66641e6a442e480da93e19ec5713fe63deb1516405f86c5b7187727e18871ff8",
+    "web3d/style.css": "520ee6a0cb98ee948d3eef8661e51c19a8243e6be9cb8c932a783cd9b412445f",
+    "web3d/environment.js": "9721a5f5f65f85a4b967046151d31fa7f7c849e6054a84ac261c286ef3d01f6e",
+    "art/hanli.blend": "839bfd3fad9a1e1a250a206b4c8c8f9c8544d431366056fab4bd87213aa7b3cc",
+    "art/mojiao.blend": "f4da3fee2303217a39ec550b1a173b16d0dbd64d9a331524196bca80bdba08b7",
+    "assets/3d/hanli.glb": "b6581f09b5dff75f986cd1cb7c2cb94efd1879615a505686875669ae1b0b62b1",
+    "assets/3d/mojiao.glb": "8b125366dbb89211343b27dd69c1c19f31dcebc8f922897c17372978fd5d5b08"
+  },
+  "http_delivery": {
+    "url": "http://23.82.99.226:8090/game3d.html",
+    "method": "HTTP GET from the deployment server to its public address",
+    "runtime_resources_verified": 13,
+    "all_downloaded_sha256_match_source": true,
+    "javascript_content_type": "application/javascript",
+    "ui_rendering_verified": false
+  },
+  "original_2d_change": "One navigation link added to the title screen; no gameplay or storage code changed."
+}
