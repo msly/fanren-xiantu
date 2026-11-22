@@ -5,14 +5,15 @@
   "groundToleranceM": 0.005,
   "loopEndpointToleranceM": 0.01,
   "footSamplingHz": 60,
+  "hanliWalkSupportClearanceLimitM": 0.012,
   "wholeMeshSampling": "25 evenly spaced times per clip; all vertices, including the sword and cloth.",
   "footContactInterpretation": "Reported footMinY checks penetration. footMaxLowestY is the maximum height of the lowest foot, not a claim of physically correct weight transfer or planted contact.",
   "webglTested": false,
   "assets": [
     {
       "file": "hanli.glb",
-      "sha256": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
-      "bytes": 5937792,
+      "sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
+      "bytes": 8864356,
       "footSelection": "Every Boot soles vertex with at least 0.5 weight on footL/footR (exported bone names).",
       "footVertexCounts": {
         "footR": 203,
@@ -20,10 +21,58 @@
       },
       "normalMappedUVs": [
         {
-          "mesh": "Hanli_editable_character_mesh_5",
-          "material": "Jade silk | woven outer robe",
+          "mesh": "Hanli_editable_character_mesh_6",
+          "material": "Silver blue | woven shadow panels",
           "uv": "uv",
-          "triangles": 15180,
+          "triangles": 5484,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Hanli_editable_character_mesh_7",
+          "material": "Ice blue | overlapping inner silk",
+          "uv": "uv",
+          "triangles": 2656,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Hanli_editable_character_mesh_9",
+          "material": "Blue jade | open silk coat",
+          "uv": "uv",
+          "triangles": 14840,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Hanli_editable_character_mesh_11",
+          "material": "Deep peacock | draped sleeves",
+          "uv": "uv",
+          "triangles": 14220,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Hanli_editable_character_mesh_20",
+          "material": "Skin | sculpted young complexion",
+          "uv": "uv",
+          "triangles": 37364,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Hanli_editable_character_mesh_29",
+          "material": "Hair | soft dark underlayer",
+          "uv": "uv",
+          "triangles": 4608,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Hanli_editable_character_mesh_30",
+          "material": "Hair | blue-black longitudinal strands",
+          "uv": "uv",
+          "triangles": 37824,
           "singularTriangles": 0,
           "singularAreaFraction": 0
         }
@@ -34,35 +83,35 @@
           "duration": 1.2916666,
           "footSamples": 79,
           "wholeMeshSamples": 25,
-          "footMinY": 0.0071856,
-          "footMaxLowestY": 0.008,
+          "footMinY": 0.009989,
+          "footMaxLowestY": 0.0100645,
           "worstFoot": {
-            "time": 0.2166667,
+            "time": 0.2333333,
             "foot": "footL",
-            "y": 0.0071856
+            "y": 0.009989
           },
           "perFootMinY": {
-            "footR": 0.008,
-            "footL": 0.0071856
+            "footR": 0.0099999,
+            "footL": 0.009989
           },
-          "wholeGeometryMinY": 0.0071858,
-          "maxSampledVertexMovementM": 1.5139928,
+          "wholeGeometryMinY": 0.0099886,
+          "maxSampledVertexMovementM": 1.513993,
           "loopEndpointMaxDeltaM": 3e-7,
           "wholeGeometryBounds": {
             "min": [
               -0.6515842,
-              0.0071858,
-              -0.1960539
+              0.0099886,
+              -0.230028
             ],
             "max": [
-              0.2778707,
-              1.738027,
-              1.1332688
+              0.2917344,
+              1.6784676,
+              1.1332689
             ],
             "size": [
-              0.9294549,
-              1.7308412,
-              1.3293227
+              0.9433186,
+              1.668479,
+              1.3632969
             ]
           }
         },
@@ -71,35 +120,35 @@
           "duration": 3.0416667,
           "footSamples": 184,
           "wholeMeshSamples": 25,
-          "footMinY": 0.008,
-          "footMaxLowestY": 0.008,
+          "footMinY": 0.0099999,
+          "footMaxLowestY": 0.0099999,
           "worstFoot": {
             "time": 0,
             "foot": "footR",
-            "y": 0.008
+            "y": 0.0099999
           },
           "perFootMinY": {
-            "footR": 0.008,
-            "footL": 0.008
+            "footR": 0.0099999,
+            "footL": 0.0099999
           },
-          "wholeGeometryMinY": 0.008,
-          "maxSampledVertexMovementM": 0.0111922,
+          "wholeGeometryMinY": 0.0099999,
+          "maxSampledVertexMovementM": 0.0117141,
           "loopEndpointMaxDeltaM": 1e-7,
           "wholeGeometryBounds": {
             "min": [
               -0.3856378,
-              0.008,
-              -0.2041134
+              0.0099999,
+              -0.230028
             ],
             "max": [
-              0.2788341,
-              1.7383274,
-              0.166759
+              0.2929209,
+              1.6778328,
+              0.1724761
             ],
             "size": [
-              0.6644719,
-              1.7303274,
-              0.3708724
+              0.6785587,
+              1.6678329,
+              0.4025041
             ]
           }
         },
@@ -108,37 +157,38 @@
           "duration": 1.0416666,
           "footSamples": 64,
           "wholeMeshSamples": 25,
-          "footMinY": 0.00342,
-          "footMaxLowestY": 0.023952,
+          "footMinY": 0.0093788,
+          "footMaxLowestY": 0.0100001,
           "worstFoot": {
-            "time": 0.5,
-            "foot": "footL",
-            "y": 0.00342
+            "time": 1.0166667,
+            "foot": "footR",
+            "y": 0.0093788
           },
           "perFootMinY": {
-            "footR": 0.00342,
-            "footL": 0.00342
+            "footR": 0.0093788,
+            "footL": 0.0093788
           },
-          "wholeGeometryMinY": 0.0042282,
-          "maxSampledVertexMovementM": 0.4521952,
+          "wholeGeometryMinY": 0.0093529,
+          "maxSampledVertexMovementM": 0.3781818,
           "loopEndpointMaxDeltaM": 2e-7,
           "wholeGeometryBounds": {
             "min": [
-              -0.431223,
-              0.0042282,
-              -0.308978
+              -0.4252796,
+              0.0093529,
+              -0.4175937
             ],
             "max": [
-              0.2910197,
-              1.7499111,
-              0.5293293
+              0.3003843,
+              1.6776596,
+              0.5104214
             ],
             "size": [
-              0.7222427,
-              1.7456829,
-              0.8383074
+              0.725664,
+              1.6683067,
+              0.9280151
             ]
-          }
+          },
+          "supportFootClearanceLimitM": 0.012
         }
       ],
       "crossfades": [
@@ -146,31 +196,1012 @@
           "from": "Idle",
           "to": "Walk",
           "samples": 31,
-          "minFootY": 0.00342,
-          "maxLowestFootY": 0.023952
+          "minFootY": 0.0053801,
+          "maxLowestFootY": 0.0100001
         },
         {
           "from": "Walk",
           "to": "Idle",
           "samples": 31,
-          "minFootY": 0.0043418,
-          "maxLowestFootY": 0.0147192
+          "minFootY": 0.0007157,
+          "maxLowestFootY": 0.0099999
         },
         {
           "from": "Idle",
           "to": "Attack",
           "samples": 31,
-          "minFootY": 0.0071858,
-          "maxLowestFootY": 0.008
+          "minFootY": 0.0098885,
+          "maxLowestFootY": 0.0100645
         },
         {
           "from": "Attack",
           "to": "Idle",
           "samples": 31,
-          "minFootY": 0.0071934,
-          "maxLowestFootY": 0.008
+          "minFootY": 0.0094156,
+          "maxLowestFootY": 0.0099999
         }
-      ]
+      ],
+      "walkTransitionPhaseSweep": {
+        "phases": 24,
+        "samplingHz": 120,
+        "fadeDurationsS": [
+          0.16,
+          0.25
+        ],
+        "scope": "Idle/Walk in both directions over a full cycle; .16 s matches production actor crossfades and .25 s is a longer transition stress case.",
+        "minFootY": 0.0004919,
+        "maxLowestFootY": 0.0100001,
+        "worst": {
+          "from": "Walk",
+          "to": "Idle",
+          "duration": 0.16,
+          "sourcePhase": 0.2083333,
+          "time": 0.075
+        },
+        "samples": 2592,
+        "cases": [
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0,
+            "samples": 22,
+            "minFootY": 0.008347,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.0416667,
+            "samples": 22,
+            "minFootY": 0.0064816,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.0833333,
+            "samples": 22,
+            "minFootY": 0.0043417,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1083333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.125,
+            "samples": 22,
+            "minFootY": 0.0023828,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.1666667,
+            "samples": 22,
+            "minFootY": 0.0009838,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0833333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.2083333,
+            "samples": 22,
+            "minFootY": 0.0004919,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.075
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.25,
+            "samples": 22,
+            "minFootY": 0.0011972,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.075
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.2916667,
+            "samples": 22,
+            "minFootY": 0.0028222,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0583333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.3333333,
+            "samples": 22,
+            "minFootY": 0.0048092,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.05
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.375,
+            "samples": 22,
+            "minFootY": 0.0067825,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0416667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.4166667,
+            "samples": 22,
+            "minFootY": 0.0084116,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0416667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.4583333,
+            "samples": 22,
+            "minFootY": 0.0089778,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.125
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.5,
+            "samples": 22,
+            "minFootY": 0.0074999,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.5416667,
+            "samples": 22,
+            "minFootY": 0.0054828,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1083333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.5833333,
+            "samples": 22,
+            "minFootY": 0.003287,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.625,
+            "samples": 22,
+            "minFootY": 0.0015464,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0916667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.6666667,
+            "samples": 22,
+            "minFootY": 0.0006671,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0833333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.7083333,
+            "samples": 22,
+            "minFootY": 0.0008035,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.075
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.75,
+            "samples": 22,
+            "minFootY": 0.0018944,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0666667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.7916667,
+            "samples": 22,
+            "minFootY": 0.0037098,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0583333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.8333333,
+            "samples": 22,
+            "minFootY": 0.0059176,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.05
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.875,
+            "samples": 22,
+            "minFootY": 0.0076729,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.0333333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.9166667,
+            "samples": 22,
+            "minFootY": 0.0088115,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.025
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.16,
+            "sourcePhase": 0.9583333,
+            "samples": 22,
+            "minFootY": 0.0093674,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.0166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.0416667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.0833333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.125,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.1666667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.2083333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.25,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.2916667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.3333333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.375,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.4166667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.4583333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.5,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.5416667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.5833333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.625,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.6666667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.7083333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.75,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.7916667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.8333333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.875,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.9166667,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.16,
+            "sourcePhase": 0.9583333,
+            "samples": 22,
+            "minFootY": 0.0081847,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0,
+            "samples": 32,
+            "minFootY": 0.0054699,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.0416667,
+            "samples": 32,
+            "minFootY": 0.0035334,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1666667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.0833333,
+            "samples": 32,
+            "minFootY": 0.0018814,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1583333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.125,
+            "samples": 32,
+            "minFootY": 0.0008998,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1416667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.1666667,
+            "samples": 32,
+            "minFootY": 0.0005128,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.2083333,
+            "samples": 32,
+            "minFootY": 0.0011232,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.1083333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.25,
+            "samples": 32,
+            "minFootY": 0.002412,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0916667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.2916667,
+            "samples": 32,
+            "minFootY": 0.0041186,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.075
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.3333333,
+            "samples": 32,
+            "minFootY": 0.0060045,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0583333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.375,
+            "samples": 32,
+            "minFootY": 0.007552,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.05
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.4166667,
+            "samples": 32,
+            "minFootY": 0.0080921,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.2083333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.4583333,
+            "samples": 32,
+            "minFootY": 0.0064521,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1916667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.5,
+            "samples": 32,
+            "minFootY": 0.0045336,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.175
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.5416667,
+            "samples": 32,
+            "minFootY": 0.00275,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1583333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.5833333,
+            "samples": 32,
+            "minFootY": 0.0012558,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1416667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.625,
+            "samples": 32,
+            "minFootY": 0.0005919,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1333333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.6666667,
+            "samples": 32,
+            "minFootY": 0.0007826,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1166667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.7083333,
+            "samples": 32,
+            "minFootY": 0.001613,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.1
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.75,
+            "samples": 32,
+            "minFootY": 0.0032068,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.0833333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.7916667,
+            "samples": 32,
+            "minFootY": 0.0049949,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.0666667
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.8333333,
+            "samples": 32,
+            "minFootY": 0.006793,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.0583333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.875,
+            "samples": 32,
+            "minFootY": 0.0082583,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.0333333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.9166667,
+            "samples": 32,
+            "minFootY": 0.0087366,
+            "maxLowestFootY": 0.0099999,
+            "worstTime": 0.2083333
+          },
+          {
+            "from": "Walk",
+            "to": "Idle",
+            "duration": 0.25,
+            "sourcePhase": 0.9583333,
+            "samples": 32,
+            "minFootY": 0.0072777,
+            "maxLowestFootY": 0.01,
+            "worstTime": 0.2
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.0416667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.0833333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.125,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.1666667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.2083333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.25,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.2916667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.3333333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.375,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.4166667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.4583333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.5,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.5416667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.5833333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.625,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.6666667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.7083333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.75,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.7916667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.8333333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.875,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.9166667,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          },
+          {
+            "from": "Idle",
+            "to": "Walk",
+            "duration": 0.25,
+            "sourcePhase": 0.9583333,
+            "samples": 32,
+            "minFootY": 0.0053801,
+            "maxLowestFootY": 0.0100001,
+            "worstTime": 0.1833333
+          }
+        ]
+      }
     },
     {
       "file": "mojiao.glb",

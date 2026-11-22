@@ -32,7 +32,7 @@ function createViewerStudio(){
  return {root,dispose(){floor.geometry.dispose();floor.material.dispose();rim.geometry.dispose();rim.material.dispose();key.shadow.map?.dispose();root.removeFromParent();}};
 }
 function updateViewerButtons(){
- for(const b of document.querySelectorAll('[data-frame]')){const selected=b.dataset.frame===viewerState.frame;b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected));}
+ for(const b of document.querySelectorAll('[data-frame]')){const selected=b.dataset.frame===viewerState.frame;b.classList.toggle('active',selected);b.classList.toggle('hidden',b.dataset.frame==='portrait'&&state.mode!=='hero');b.setAttribute('aria-pressed',String(selected));}
  $('viewer-spin').classList.toggle('active',viewerState.autoRotate);$('viewer-spin').setAttribute('aria-pressed',String(viewerState.autoRotate));$('viewer-spin').textContent=viewerState.autoRotate?'停止环绕':'自动环绕';
 }
 function setViewerRotation(enabled){viewerState.autoRotate=Boolean(enabled)&&state.mode!=='scene';controls.autoRotate=viewerState.autoRotate;updateViewerButtons();}
@@ -47,15 +47,19 @@ function viewerLayout(){
 }
 function frameViewer(frame=viewerState.frame){
  if(state.mode==='scene'||!hero||!beast)return;
- viewerState.frame=frame==='head'?'head':'full';const a=state.mode==='hero'?hero:beast;
+ viewerState.frame=['head','portrait'].includes(frame)?frame:'full';if(viewerState.frame==='portrait'&&state.mode==='beast')viewerState.frame='head';const a=state.mode==='hero'?hero:beast;
  a.root.updateMatrixWorld(true);const bounds=new THREE.Box3().setFromObject(a.root,true),size=bounds.getSize(new THREE.Vector3()),center=bounds.getCenter(new THREE.Vector3());
  viewerState.anchor=null;const head=a.root.getObjectByName('head');
  if(viewerState.frame==='head'){
   if(state.mode==='beast'&&head){const headBounds=new THREE.Box3().setFromObject(head,true);if(!headBounds.isEmpty()){headBounds.getCenter(center);headBounds.getSize(size);size.multiplyScalar(1.08);}}
   else{if(head)head.getWorldPosition(center).add(new THREE.Vector3(0,.11,.025));else center.set(0,bounds.max.y-.19,0);size.set(.56,.58,.48);}
   if(head){viewerState.anchor=head;viewerState.anchorLocal.copy(head.worldToLocal(center.clone()));}
+ }else if(viewerState.frame==='portrait'){
+  const bottom=.61,top=bounds.max.y+.015;
+  center.set(0,(top+bottom)/2,.035);size.set(.76,top-bottom,.52);
  }
  if(![...size.toArray(),...center.toArray()].every(Number.isFinite)||size.lengthSq()<.0001)return;
+ updateViewerButtons();
  const area=viewerLayout(),direction=new THREE.Vector3(state.mode==='hero'?.36:.72,viewerState.frame==='head'?.08:.18,1).normalize();
  const horizontal=Math.hypot(size.x,size.z),vertical=size.y*Math.hypot(direction.x,direction.z)+horizontal*direction.y,depth=horizontal*Math.hypot(direction.x,direction.z)+size.y*direction.y;
  const tan=Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
@@ -136,10 +140,10 @@ async function init(){
  sceneLights=new THREE.Group();scene.add(sceneLights);const hemi=new THREE.HemisphereLight(0xb6d9e5,0x35473d,1.4);sceneLights.add(hemi);const key=new THREE.DirectionalLight(0xc7e4eb,3.3);key.position.set(-9,17,8);key.castShadow=true;key.shadow.mapSize.set(2048,2048);Object.assign(key.shadow.camera,{left:-17,right:17,top:17,bottom:-17,near:1,far:65});key.shadow.camera.updateProjectionMatrix();key.shadow.normalBias=.03;key.shadow.bias=-.0002;sceneLights.add(key);const rim=new THREE.DirectionalLight(0x90b9a8,1.8);rim.position.set(5,8,-10);sceneLights.add(rim);
  const pmrem=new THREE.PMREMGenerator(renderer),room=new RoomEnvironment();const envMap=pmrem.fromScene(room,.04);scene.environment=envMap.texture;scene.environmentIntensity=.45;room.dispose();pmrem.dispose();
  world=createEnvironment(THREE,scene,renderer);scene.add(telegraph);studio=createViewerStudio();controls.autoRotateSpeed=.65;
- const loader=new GLTFLoader();const [a,b]=await Promise.all([loader.loadAsync('./assets/3d/hanli.glb?v=20261122-polish3',p=>{if(p.total)$('load-text').textContent='青衫入画 · '+Math.round(p.loaded/p.total*100)+'%'}),loader.loadAsync('./assets/3d/mojiao.glb?v=20261122-polish3')]);
+ const loader=new GLTFLoader();const [a,b]=await Promise.all([loader.loadAsync('./assets/3d/hanli.glb?v=20261122-character5',p=>{if(p.total)$('load-text').textContent='青衫入画 · '+Math.round(p.loaded/p.total*100)+'%'}),loader.loadAsync('./assets/3d/mojiao.glb?v=20261122-character5')]);
  hero=actor(a);beast=actor(b);state.phase='ready';setMode('scene');hide('loading',true);$('begin').disabled=false;$('begin').textContent='开始试炼';$('intro-hero').disabled=false;
  window.__xiantu3d={state,hero,beast,scene,camera,renderer,begin,setMode,frameViewer,setViewerRotation,attack:strike,dodge,spell,getStatus:()=>({ready:true,mode:state.mode,phase:state.phase,frame:viewerState.frame,autoRotate:viewerState.autoRotate,heroClips:Object.keys(hero.actions),beastClips:Object.keys(beast.actions),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,hp:state.hp,bossHP:state.bossHP})};
- const entry=new URLSearchParams(location.search);if(['hero','beast'].includes(entry.get('view'))){setMode(entry.get('view'));if(entry.get('frame')==='head')frameViewer('head');}
+ const entry=new URLSearchParams(location.search);if(['hero','beast'].includes(entry.get('view'))){setMode(entry.get('view'));if(['head','portrait'].includes(entry.get('frame')))frameViewer(entry.get('frame'));}
  last=performance.now();requestAnimationFrame(animate);
 }
 $('begin').addEventListener('click',begin);$('retry').addEventListener('click',begin);$('intro-hero').addEventListener('click',()=>setMode('hero'));

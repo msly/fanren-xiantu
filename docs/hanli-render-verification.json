@@ -1,12 +1,14 @@
 {
   "asset": "assets/3d/hanli.glb",
-  "asset_sha256": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+  "asset_sha256": "25c2276513dee1366b148573f99212748e096df49fa5274b481cd1b6e245f558",
   "studio_source": "art/hanli.blend",
   "blender": "4.3.2",
   "method": "Import runtime GLB and render using source studio, CPU Cycles",
   "webgl_tested": false,
   "mesh_objects": 2,
   "samples": 48,
+  "clip": null,
+  "frame": 1,
   "studio": {
     "camera": {
       "location": [
@@ -64,11 +66,11 @@
           1.1071486473083496
         ],
         "color": [
-          0.6800000071525574,
-          0.8199999928474426,
+          0.75,
+          0.8399999737739563,
           1.0
         ],
-        "energy": 260.0,
+        "energy": 110.0,
         "size": 3.0
       },
       {
@@ -85,31 +87,16 @@
           2.5652174949645996
         ],
         "color": [
-          0.6299999952316284,
-          1.0,
-          0.8399999737739563
+          0.7200000286102295,
+          0.8799999952316284,
+          1.0
         ],
-        "energy": 600.0,
+        "energy": 360.0,
         "size": 2.0
       }
     ]
   },
   "renders": [
-    {
-      "view": "full",
-      "file": "docs/hanli-3d-preview.png",
-      "camera_location": [
-        2.5,
-        -4.5,
-        2.049999952316284
-      ],
-      "camera_rotation": [
-        1.354178547859192,
-        1.809414840181489e-10,
-        0.5085173845291138
-      ],
-      "ortho_scale": 2.180000066757202
-    },
     {
       "view": "head",
       "file": "docs/hanli-head-preview.png",
@@ -123,7 +110,40 @@
         -1.0309545217523919e-08,
         0.4107397794723511
       ],
-      "ortho_scale": 0.5299999713897705
+      "ortho_scale": 0.5299999713897705,
+      "sha256": "e838d0e25e2c14efde0429e7f7fda1b84cc164c8293e8830fb76ce09f28d8cc5"
+    },
+    {
+      "view": "portrait",
+      "file": "docs/hanli-portrait-preview.png",
+      "camera_location": [
+        0.949999988079071,
+        -4.0,
+        1.4800000190734863
+      ],
+      "camera_rotation": [
+        1.4926576614379883,
+        -1.5284404852877742e-09,
+        0.23459331691265106
+      ],
+      "ortho_scale": 1.2000000476837158,
+      "sha256": "55775db170d04f89d93eb69b0548368b381c87c8b1b00c7226c9058b424dbcae"
+    },
+    {
+      "view": "full",
+      "file": "docs/hanli-3d-preview.png",
+      "camera_location": [
+        2.5,
+        -4.5,
+        2.049999952316284
+      ],
+      "camera_rotation": [
+        1.354178547859192,
+        1.809414840181489e-10,
+        0.5085173845291138
+      ],
+      "ortho_scale": 2.180000066757202,
+      "sha256": "e81556f01823ce099ddf2bddb3302fc4bf6504b6f603965969e96f18b73504cf"
     },
     {
       "view": "back",
@@ -138,7 +158,8 @@
         -1.6337024533186195e-07,
         -2.6344940662384033
       ],
-      "ortho_scale": 2.180000066757202
+      "ortho_scale": 2.180000066757202,
+      "sha256": "6e8abc265d97e85435f49a1d06b03b91cbdd6de5723e7ccb59ccd0fdd23b595d"
     }
   ]
 }

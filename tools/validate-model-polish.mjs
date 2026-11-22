@@ -26,6 +26,7 @@ globalThis.createImageBitmap=async blob=>{
 };
 
 const footHz=60,wholeMeshSamples=25,groundTolerance=.005,loopTolerance=.01;
+const hanliWalkSupportClearance=.012;
 const round=n=>Math.round(n*1e7)/1e7;
 const v3=v=>v.toArray().map(round);
 const boxData=box=>({min:v3(box.min),max:v3(box.max),size:v3(box.getSize(new THREE.Vector3()))});
@@ -150,6 +151,11 @@ async function validate(name){
     result.wholeGeometryBounds=boxData(bounds);
     check(result.footMinY>=-groundTolerance,name+' '+clip.name+' feet penetrate the ground by '+round(-result.footMinY)+' m');
     check(result.wholeGeometryMinY>=-groundTolerance,name+' '+clip.name+' whole geometry penetrates the ground by '+round(-result.wholeGeometryMinY)+' m (includes sword and cloth)');
+    if(name==='hanli'&&clip.name==='Walk'){
+      result.supportFootClearanceLimitM=hanliWalkSupportClearance;
+      check(result.footMaxLowestY<=hanliWalkSupportClearance,
+        'hanli Walk lowest supporting foot rises '+round(result.footMaxLowestY)+' m above ground; limit '+hanliWalkSupportClearance+' m');
+    }
     check(result.maxSampledVertexMovementM>1e-5,name+' '+clip.name+' has no visible vertex motion');
     if(clip.name==='Idle'||clip.name==='Walk')check(result.loopEndpointMaxDeltaM<=loopTolerance,name+' '+clip.name+' loop jumps '+round(result.loopEndpointMaxDeltaM)+' m');
     for(const k of ['footMinY','footMaxLowestY','wholeGeometryMinY','maxSampledVertexMovementM','loopEndpointMaxDeltaM'])result[k]=round(result[k]);
@@ -170,6 +176,36 @@ async function validate(name){
     check(result.minFootY>=-groundTolerance,name+' '+from+'→'+to+' crossfade feet penetrate ground by '+round(-result.minFootY)+' m');
     result.minFootY=round(result.minFootY);result.maxLowestFootY=round(result.maxLowestFootY);report.crossfades.push(result);
   }
+  if(name==='hanli'){
+    // A stop can occur anywhere in the stride. A single starting phase can
+    // miss the nonlinear foot dip introduced by blending bone transforms.
+    const phases=24,hz=120;
+    report.walkTransitionPhaseSweep={phases,samplingHz:hz,
+      fadeDurationsS:[.16,.25],
+      scope:'Idle/Walk in both directions over a full cycle; .16 s matches production actor crossfades and .25 s is a longer transition stress case.',
+      minFootY:Infinity,maxLowestFootY:-Infinity,worst:null,samples:0,cases:[]};
+    const sweep=report.walkTransitionPhaseSweep;
+    for(const duration of sweep.fadeDurationsS)for(const [from,to] of [['Walk','Idle'],['Idle','Walk']])for(let phase=0;phase<phases;phase++){
+      mixer.stopAllAction();mixer.setTime(0);
+      const source=gltf.animations.find(c=>c.name===from),target=gltf.animations.find(c=>c.name===to);
+      const a=mixer.clipAction(source).reset().setLoop(THREE.LoopRepeat,Infinity).play();
+      mixer.update(source.duration*phase/phases);
+      const b=mixer.clipAction(target).reset().setLoop(THREE.LoopRepeat,Infinity).play();b.crossFadeFrom(a,duration,false);
+      const result={from,to,duration,sourcePhase:phase/phases,samples:Math.ceil(duration*hz)+2,minFootY:Infinity,maxLowestFootY:-Infinity,worstTime:0};
+      for(let i=0;i<result.samples;i++){
+        mixer.update(1/hz);update(model);
+        const lowest=Math.min(...Object.values(footPositions(feet)));
+        if(lowest<result.minFootY){result.minFootY=lowest;result.worstTime=(i+1)/hz}
+        result.maxLowestFootY=Math.max(result.maxLowestFootY,lowest);
+      }
+      if(result.minFootY<sweep.minFootY){sweep.minFootY=result.minFootY;sweep.worst={from,to,duration,sourcePhase:round(result.sourcePhase),time:round(result.worstTime)}}
+      sweep.maxLowestFootY=Math.max(sweep.maxLowestFootY,result.maxLowestFootY);sweep.samples+=result.samples;
+      for(const key of ['sourcePhase','minFootY','maxLowestFootY','worstTime'])result[key]=round(result[key]);
+      sweep.cases.push(result);
+    }
+    check(sweep.minFootY>=-groundTolerance,'hanli Walk/Idle phase-swept transitions penetrate ground by '+round(-sweep.minFootY)+' m');
+    sweep.minFootY=round(sweep.minFootY);sweep.maxLowestFootY=round(sweep.maxLowestFootY);
+  }
   return report;
 }
 
@@ -177,6 +213,7 @@ assert.equal(THREE.REVISION,'180');
 const report={scope:'Actual GLTFLoader/AnimationMixer r180 and CPU posed geometry; no browser/GPU render or performance test.',
   prerequisites:'Run tools/validate-assets.mjs for skin weights, full attributes and decoded texture/colour-space validation.',
   groundPlaneY:0,groundToleranceM:groundTolerance,loopEndpointToleranceM:loopTolerance,footSamplingHz:footHz,
+  hanliWalkSupportClearanceLimitM:hanliWalkSupportClearance,
   wholeMeshSampling:'25 evenly spaced times per clip; all vertices, including the sword and cloth.',
   footContactInterpretation:'Reported footMinY checks penetration. footMaxLowestY is the maximum height of the lowest foot, not a claim of physically correct weight transfer or planted contact.',
   webglTested:false,assets:[]};

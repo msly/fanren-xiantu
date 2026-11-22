@@ -12,13 +12,14 @@ import os
 import random
 import json
 import hashlib
+import sys
 from pathlib import Path
 from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSET = ROOT / 'assets' / '3d'
 ART = ROOT / 'art'
-QA = Path(os.environ.get('FANREN_QA_DIR', str(ROOT.parent / 'qa3d' / 'polish-v3')))
+QA = Path(os.environ.get('FANREN_QA_DIR', str(ROOT.parent / 'qa3d' / 'character-v5')))
 for directory in (ASSET, ART, QA):
     directory.mkdir(parents=True, exist_ok=True)
 random.seed(19)
@@ -74,35 +75,7 @@ for key in ('hair','hair_light'):
     M[key].node_tree.nodes['Principled BSDF'].inputs['Specular IOR Level'].default_value=.28
 
 
-def cloth_texture():
-    """Packed woven albedo, tangent normal and roughness, saved before packing."""
-    n=512
-    yy,xx=np.mgrid[0:n,0:n].astype(np.float32)
-    weave=np.sin(xx*math.pi/2)*np.cos(yy*math.pi/2)
-    grain=np.random.default_rng(19).random((n,n),dtype=np.float32)-.5
-    # Quiet diagonal brocade within the jade cloth, not broad glossy ridges.
-    motif=np.sin(xx*.085+np.sin(yy*.043)*2)*np.sin(yy*.055)
-    c=np.array([.105,.211,.176],dtype=np.float32)
-    albedo=np.ones((n,n,4),dtype=np.float32)
-    albedo[:,:,:3]=c[None,None,:]*(.97+.024*weave[:,:,None]+.018*motif[:,:,None])+grain[:,:,None]*.004
-    normal=np.ones((n,n,4),dtype=np.float32)
-    normal[:,:,0]=.5+.028*np.sin(xx*math.pi/2)
-    normal[:,:,1]=.5+.028*np.sin(yy*math.pi/2)
-    normal[:,:,2]=.998
-    rough=np.ones((n,n,4),dtype=np.float32)
-    rough[:,:,:3]=(.8+.035*weave+.025*grain)[:,:,None]
-    m=M['robe'];nodes=m.node_tree.nodes;bsdf=nodes.get('Principled BSDF')
-    for name,data,space,socket in [('Jade_weave_basecolor',albedo,'sRGB','Base Color'),('Jade_weave_normal',normal,'Non-Color','Normal'),('Jade_weave_roughness',rough,'Non-Color','Roughness')]:
-        im=bpy.data.images.new(name,n,n,alpha=True);im.colorspace_settings.name=space
-        im.pixels.foreach_set(data.ravel());im.update();im.file_format='PNG';im.filepath_raw=str(QA/(name+'.png'));im.save();im.pack()
-        tex=nodes.new('ShaderNodeTexImage');tex.image=im
-        if socket=='Normal':
-            nm=nodes.new('ShaderNodeNormalMap');nm.inputs['Strength'].default_value=.26
-            m.node_tree.links.new(tex.outputs['Color'],nm.inputs['Color']);m.node_tree.links.new(nm.outputs['Normal'],bsdf.inputs['Normal'])
-        else:m.node_tree.links.new(tex.outputs['Color'],bsdf.inputs[socket])
-
-
-cloth_texture()
+# Clothing and hair modules own their packed PBR maps.
 PARTS = []
 
 
@@ -255,443 +228,16 @@ for side, suffix in [(-1, 'R'), (1, 'L')]:
         tube('Soft ankle crease.' + suffix, [(side * .089 - .032, -.031, z), (side * .089, -.041, z + .004), (side * .089 + .032, -.031, z)], .0012, 'robe_dark', 'foot.' + suffix)
 
 
-# The outer robe is a closed garment shell; no overlapping inner torso is needed.
+# Separate reusable asset components keep the reference-driven modeling editable.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from hanli_costume import build_costume
+from hanli_face import build_face
+from hanli_hair import build_hair
 
+build_costume(globals())
 
-def torso_warp(x, y, z, a, j):
-    f = .0018 * math.sin(a * 9 + z * 19)
-    f += .0023 * math.exp(-((z - 1.06) / .09) ** 2) * math.sin(a * 11 + z * 27)
-    f += .0012 * math.sin(a * 3 + z * 12)
-    return x + math.sin(a) * f, y - math.cos(a) * f, z
-
-
-TORSO_ROWS = [(.87, .143, .102, 0, 0), (.96, .138, .100, 0, 0),
-              (1.02, .136, .098, 0, 0), (1.10, .146, .102, 0, 0),
-              (1.20, .17, .110, 0, 0), (1.29, .184, .098, 0, 0),
-              (1.34, .151, .082, 0, 0), (1.37, .083, .057, 0, 0),
-              (1.39, .054, .045, 0, 0), (1.407, .040, .036, 0, .002)]
-torso_rows = []
-for low, high in zip(TORSO_ROWS, TORSO_ROWS[1:]):
-    for t in np.linspace(0, 1, 5, endpoint=False):
-        torso_rows.append(tuple(a * (1-t) + b * t for a, b in zip(low, high)))
-torso_rows.append(TORSO_ROWS[-1])
-ring_mesh('Fitted outer robe', torso_rows, 'robe', skin_mode='torso', warp=torso_warp, n=64)
-
-# Underskirt and three separated outer cloth panels, with curved hems and draping.
-ring_mesh('Inner silk skirt', [(.13, .16, .13, 0, .015), (.31, .152, .122, 0, .008), (.60, .138, .11, 0, 0), (.88, .133, .096, 0, 0), (.98, .133, .096, 0, 0)], 'robe_dark', 'pelvis', skin_mode='inner_skirt')
-
-
-def skirt(name, amin, amax, bone, mat, n=40):
-    verts, faces, uv = [], [], []
-    rows = 18
-    def coord(u, f):
-        a = amin + (amax - amin) * u
-        length=.79 if 'Left' in name else (.835 if 'Right' in name else .805)
-        z = .975 - f * length
-        rx = .142 + f ** .8 * .072
-        ry = .109 + f ** 1.4 * .060
-        a += (.11 if 'Left' in name else -.045)*(1-f)**2
-        folds=.003*math.sin(a*3.4+.6*f)+(.002+.007*f)*(math.sin(a*6.5+1.1*math.sin(f*2.4))+.27*math.sin(a*15-.7*f))
-        z += f ** 5 * (.009 * math.cos(a * 3) - .008 * math.sin(a))
-        return (math.sin(a) * (rx + folds), -math.cos(a) * (ry + folds) + f ** 2 * .017, z)
-    for j in range(rows + 1):
-        for i in range(n + 1):
-            verts.append(coord(i / n, j / rows))
-            uv.append((i / n, 1 - j / rows))
-            if i < n and j < rows:
-                k = j * (n + 1) + i
-                faces.append((k, k + 1, k + n + 2, k + n + 1))
-    obj = mesh(name, verts, faces, mat, bone, 'skirt', uv)
-    solid = obj.modifiers.new('Silk panel thickness', 'SOLIDIFY')
-    solid.thickness = .0025
-    for u in (0, 1):
-        p = [coord(u, j / 20) for j in range(21)]
-        tube(name + ' raised edge', p, .0012, 'gold_dark', bone)
-    tube(name + ' stitched hem', [coord(i / n, .985) for i in range(n + 1)], .0009, 'gold_dark', bone)
-    return coord
-
-
-left_panel = skirt('Left draped robe panel', -.14, 1.10, 'robe.L', 'robe')
-right_panel = skirt('Right draped robe panel', -1.10, .025, 'robe.R', 'robe')
-skirt('Back draped robe panel', 1.13, math.tau - 1.13, 'robe.back', 'robe_dark', n=56)
-for side, panel in [('L', left_panel), ('R', right_panel)]:
-    for band in [.76, .82]:
-        pts = []
-        for i in range(30):
-            u = .18 + i / 29 * .61
-            p = Vector(panel(u, band + math.sin(u * math.tau * 2) * .007))
-            p.y -= .0015
-            pts.append(tuple(p))
-        tube('Cloud hem embroidery.' + side, pts, .0009, 'gold_dark', 'robe.' + side)
-
-# Fine, body-conforming lapel ribbons, with a raised collar around the neck.
-def front_surface(x, z, depth=.004):
-    rows = [row[:3] for row in TORSO_ROWS]
-    lo,hi=rows[0],rows[-1]
-    for a,b in zip(rows, rows[1:]):
-        if a[0] <= z <= b[0]: lo,hi=a,b;break
-    f=max(0,min(1,(z-lo[0])/(hi[0]-lo[0])))
-    rx=lo[1]*(1-f)+hi[1]*f;ry=lo[2]*(1-f)+hi[2]*f
-    angle=math.asin(max(-.999,min(.999,x/rx)))
-    return torso_warp(x,-ry*math.cos(angle),z,angle,0)[1]-depth
-
-def tailored(name, xs1, xs2, zs, mat):
-    edges,centre=[],[]
-    for i in range(len(zs)-1):
-        for j in range(10):
-            f=j/10;z=zs[i]*(1-f)+zs[i+1]*f
-            x1=xs1[i]*(1-f)+xs1[i+1]*f;x2=xs2[i]*(1-f)+xs2[i+1]*f
-            edges.append((x1,x2,z))
-            xc=(x1+x2)/2;centre.append((xc,front_surface(xc,z,.005),z))
-    edges.append((xs1[-1],xs2[-1],zs[-1]))
-    vv,ff,uv=[],[],[]
-    for j,(x1,x2,z) in enumerate(edges):
-        for k in range(9):
-            u=k/8;x=x1*(1-u)+x2*u
-            vv.append((x,front_surface(x,z,.0035)-.0006*math.sin(u*math.pi),z))
-            uv.append((u,j/(len(edges)-1)))
-            if k<8 and j<len(edges)-1:
-                q=j*9+k;ff.append((q,q+9,q+10,q+1))
-    obj=mesh(name,vv,ff,mat,'chest',uv=uv)
-    solid=obj.modifiers.new('Woven lapel thickness','SOLIDIFY');solid.thickness=.0018
-    return centre
-
-# A solid linen bib follows the torso, with its margins hidden under the outer lapels.
-lining_v,lining_f=[],[]
-for j in range(25):
-    f=j/24;zz=1.405-f*.113;half=.032*(1-f)+.001
-    for i in range(9):
-        xx=(-half+2*half*i/8)-.008*f
-        lining_v.append((xx,front_surface(xx,zz,.003),zz))
-        if i<8 and j<24:
-            k=j*9+i;lining_f.append((k,k+9,k+10,k+1))
-lining=mesh('Solid inner linen overlap',lining_v,lining_f,'linen','chest')
-mod=lining.modifiers.new('Inner fabric thickness','SOLIDIFY');mod.thickness=.0013
-tailored('Left underlap collar',[-.035,-.065,-.027],[-.021,-.047,-.012],[1.405,1.348,1.285],'robe_light')
-outer=tailored('Wide crossing outer lapel',[.020,.061,.016,-.116],[.050,.109,.053,-.080],[1.405,1.338,1.207,1.038],'robe_light')
-tube('Crossing lapel seam',outer,.0007,'gold_dark')
-# Raised rear collar settles around the neck and joins the front fabric.
-collar_v,collar_f=[],[]
-for j in range(3):
-    zz=1.375+j*.016
-    for i in range(33):
-        aa=.72+i/32*(math.tau-1.44)
-        collar_v.append((math.sin(aa)*(.047-j*.001),-math.cos(aa)*(.043-j*.001),zz))
-        if i<32 and j<2:
-            k=j*33+i;collar_f.append((k,k+1,k+34,k+33))
-collar=mesh('Standing cloth collar',collar_v,collar_f,'robe_light','chest')
-mod=collar.modifiers.new('Collar cloth thickness','SOLIDIFY');mod.thickness=.002
-
-# Sleeves are curved, tapered cloth volumes. Hands and fingers are modelled separately.
-for side, suffix in [(-1, 'R'), (1, 'L')]:
-    shoulder = (side * .167, 0, 1.305)
-    elbow = (side * .271, -.006, 1.114)
-    wrist = (side * .30, -.037, .946)
-    # One continuous cloth envelope spans the shoulder and elbow; smooth skin weights bend it.
-    path=[(side*.076,.002,1.294,.046,.060),(side*.127,0,1.310,.052,.064),
-          (side*.171,-.002,1.292,.056,.060),(side*.208,-.004,1.246,.050,.056),
-          (side*.241,-.006,1.19,.051,.055),(side*.268,-.007,1.123,.049,.050),
-          (side*.282,-.017,1.065,.053,.052),(side*.294,-.029,1.002,.045,.046),
-          (side*.30,-.037,.947,.037,.036)]
-    smooth_path=[]
-    for j in range(len(path)-1):
-        p0,p1,p2,p3=[np.array(path[k],dtype=float) for k in [max(0,j-1),j,j+1,min(len(path)-1,j+2)]]
-        for q in range(3):
-            f=q/3
-            smooth_path.append(tuple(.5*((2*p1)+(-p0+p2)*f+(2*p0-5*p1+4*p2-p3)*f*f+(-p0+3*p1-3*p2+p3)*f*f*f)))
-    path=smooth_path+[path[-1]]
-    sleeve_v,sleeve_f,sleeve_uv=[],[],[]
-    n=32
-    for j,(x,y,z,ru,rv) in enumerate(path):
-        center=Vector((x,y,z))
-        prev=Vector(path[max(0,j-1)][:3]);nxt=Vector(path[min(len(path)-1,j+1)][:3])
-        axis=(nxt-prev).normalized();u=axis.cross(Vector((0,1,0))).normalized();v=axis.cross(u).normalized()
-        for i in range(n+1):
-            a=i/n*math.tau
-            fold=.0022*math.sin(a*5+j*.19)+.0013*math.sin(a*11-j*.34)
-            pt=center+u*math.cos(a)*(ru+fold)+v*math.sin(a)*(rv+fold)
-            sleeve_v.append(tuple(pt));sleeve_uv.append((i/n,j/(len(path)-1)))
-            if i<n and j<len(path)-1:
-                k=j*(n+1)+i;sleeve_f.append((k,k+1,k+n+2,k+n+1))
-    mesh('Continuous draped sleeve.'+suffix,sleeve_v,sleeve_f,'robe','upper_arm.'+suffix,'arm.'+suffix,sleeve_uv)
-    cuff_start = Vector(wrist).lerp(Vector(elbow), .19)
-    limb('Dark fitted cuff.' + suffix, cuff_start, wrist, [(0, .041, .039), (.17, .042, .039), (.83, .036, .035), (1, .036, .035)], 'robe_dark', 'forearm.' + suffix)
-    for f in [.03, .86]:
-        point = Vector(cuff_start).lerp(Vector(wrist), f)
-        limb('Cuff bronze piping.' + suffix, point, point + (Vector(wrist) - Vector(cuff_start)).normalized() * .003, [(0, .042 if f < .5 else .037, .04 if f < .5 else .036), (1, .042 if f < .5 else .037, .04 if f < .5 else .036)], 'gold_dark', 'forearm.' + suffix)
-    for offset in [-.016, .016]:
-        tube('Sleeve soft fold.' + suffix, [(side * .205, -.062, 1.255 + offset), (side * .248, -.06, 1.185 + offset), (side * .27, -.054, 1.14 + offset)], .0011, 'robe_light', 'upper_arm.' + suffix)
-    if suffix=='R':
-        grip_center=Vector((-.307,-.055,.916));handle_axis=Vector((-.17,-.10,-.95)).normalized()
-        h_across=Vector((1,0,-.17)).normalized();h_front=handle_axis.cross(h_across).normalized()
-        sphere('Gripping palm.R',(-.304,-.031,.917),(.027,.018,.045),'skin','hand.R',segments=28)
-        for i in range(4):
-            d=-.027+i*.017
-            pts=[]
-            for degree in [230,185,140,95,52]:
-                aa=math.radians(degree)
-                pp=grip_center+handle_axis*d+h_across*math.cos(aa)*.018+h_front*math.sin(aa)*.018
-                pts.append(tuple(pp))
-            tube('Closed sword finger.%d'%i,pts,.0068 if i<3 else .0059,'skin','hand.R',radii=[1,1.05,1,.92,.68])
-        tube('Opposing sword thumb',[(-.282,-.035,.943),(-.282,-.060,.936),(-.294,-.075,.927),(-.310,-.072,.928)],.009,'skin','hand.R',radii=[1.1,1,.85,.65])
-    else:
-        sphere('Relaxed palm.L',(side*.303,-.037,.913),(.027,.019,.044),'skin','hand.L',segments=28)
-        for i,length in enumerate([.061,.072,.068,.054]):
-            x=side*(.284+i*.013)
-            pts=[(x,-.038,.894),(x+.002,-.049,.894-length*.5),(x,-.047,.894-length)]
-            tube('Relaxed finger.%d'%i,pts,.0066 if i<3 else .0058,'skin','hand.L',radii=[1.05,.91,.58])
-        tube('Relaxed thumb.L',[(.281,-.035,.931),(.272,-.056,.910),(.276,-.065,.892)],.008,'skin','hand.L',radii=[1.2,1,.65])
-
-# Waist belt and carefully fitted bronze/jade buckle.
-ring_mesh('Wide waist sash', [(.965, .143, .105, 0, 0), (.978, .144, .106, 0, 0), (1.025, .142, .104, 0, 0), (1.04, .138, .101, 0, 0)], 'leather', 'pelvis', n=64)
-for z in [.976, 1.03]:
-    tube('Belt edge stitching', [(math.sin(a) * .144, -math.cos(a) * .107, z) for a in [i * math.tau / 48 for i in range(49)]], .0018, 'gold', 'pelvis')
-strip('Bronze waist clasp', [(-.032, -.111, 1.031), (-.035, -.115, 1.003), (-.032, -.112, .976)], [(.032, -.111, 1.031), (.035, -.115, 1.003), (.032, -.112, .976)], 'gold', 'pelvis')
-sphere('Waist jade cabochon', (0, -.121, 1.003), (.019, .005, .018), 'jade', 'pelvis', segments=24)
-strip('Long silk sash end', [(.075, -.108, .993), (.102, -.121, .88), (.075, -.142, .75), (.088, -.16, .62)], [(.108, -.093, .993), (.132, -.11, .88), (.104, -.13, .75), (.117, -.148, .62)], 'robe_light', 'robe.L')
-tube('Sash edge', [(.104, -.108, .99), (.128, -.121, .88), (.1, -.142, .75), (.113, -.16, .62)], .0012, 'gold', 'robe.L')
-
-# Palm-heaven bottle: bottle silhouette, neck cap and cut-like scrolling decoration.
-bx, by, bz = .156, -.088, .907
-tube('Bottle suspension cord', [(.125, -.07, 1.016), (.165, -.10, .975), (bx, by, .954)], .0019, 'gold_dark', 'pelvis')
-ring_mesh('Palm-heaven jade bottle', [(bz - .038, .009, .009, bx, by), (bz - .031, .021, .019, bx, by), (bz - .006, .027, .023, bx, by), (bz + .017, .022, .02, bx, by), (bz + .028, .011, .01, bx, by), (bz + .046, .009, .008, bx, by)], 'jade', 'pelvis', n=32)
-ring_mesh('Bottle bronze stopper', [(bz + .044, .010, .009, bx, by), (bz + .05, .012, .011, bx, by), (bz + .055, .008, .008, bx, by)], 'gold', 'pelvis', n=24)
-for shift in [-.009, .009]:
-    tube('Bottle cloud engraving', [(bx - .014, by - .018, bz + shift), (bx - .006, by - .024, bz + shift + .007), (bx + .006, by - .024, bz + shift), (bx + .013, by - .02, bz + shift + .004)], .0011, 'jade_dark', 'pelvis')
-
-# Anatomical neck and a custom sculpted face surface, not a spherical head.
-ring_mesh('Neck', [(1.363,.039,.037,0,.004),(1.39,.037,.035,0,.006),(1.445,.032,.031,0,.012),(1.478,.027,.027,0,.019)], 'skin', 'neck', n=40)
-FACE_PROFILE = [(1.478, .009, .023), (1.488, .026, .036),
-                (1.50, .043, .047), (1.52, .057, .049),
-                (1.54, .062, .052), (1.56, .068, .058),
-                (1.58, .073, .063), (1.60, .074, .064),
-                (1.62, .071, .066), (1.64, .070, .066),
-                (1.66, .066, .064), (1.68, .055, .057),
-                (1.695, .035, .040), (1.705, .006, .008)]
-
-
-def face_profile(z):
-    """Smooth anatomical sections shared by skin, eyelids and the fitted scalp."""
-    z=max(FACE_PROFILE[0][0],min(FACE_PROFILE[-1][0],z))
-    for k,(a,b) in enumerate(zip(FACE_PROFILE,FACE_PROFILE[1:])):
-        if a[0] <= z <= b[0]:
-            t=(z-a[0])/(b[0]-a[0]);p=FACE_PROFILE[max(0,k-1)];q=FACE_PROFILE[min(len(FACE_PROFILE)-1,k+2)]
-            result=[]
-            for axis in (1,2):
-                m1=(b[axis]-p[axis])/(b[0]-p[0])*(b[0]-a[0])
-                m2=(q[axis]-a[axis])/(q[0]-a[0])*(b[0]-a[0])
-                result.append((2*t**3-3*t*t+1)*a[axis]+(t**3-2*t*t+t)*m1+(-2*t**3+3*t*t)*b[axis]+(t**3-t*t)*m2)
-            return tuple(result)
-    return FACE_PROFILE[-1][1:]
-
-
-face_rows=[(float(z),*face_profile(float(z)),0,-.013) for z in np.linspace(1.478,1.705,101)]
-
-
-def face_shape(x, y, z, a, j):
-    front = max(0, math.cos(a)) ** 3
-    ridge = .015 * math.exp(-(x / .0105) ** 2 - ((z - 1.589) / .034) ** 4)
-    tip = .022 * math.exp(-(x / .0125) ** 2 - ((z - 1.567) / .009) ** 2)
-    sockets = .009 * math.exp(-((abs(x) - .031) / .018) ** 2 - ((z - 1.608) / .010) ** 2)
-    cheek = .009 * math.exp(-((abs(x) - .045) / .021) ** 2 - ((z - 1.584) / .014) ** 2)
-    hollow = .0035 * math.exp(-((abs(x) - .048) / .020) ** 2 - ((z - 1.550) / .017) ** 2)
-    muzzle = .005 * math.exp(-(x / .030) ** 2 - ((z - 1.535) / .013) ** 2)
-    brow=.0045*math.exp(-((abs(x)-.030)/.021)**2-((z-1.622)/.0065)**2)
-    chin=.007*math.exp(-(x/.027)**2-((z-1.503)/.010)**2)
-    chin_fold=.002*math.exp(-(x/.024)**2-((z-1.520)/.0045)**2)
-    wings=.0065*math.exp(-((abs(x)-.012)/.006)**2-((z-1.560)/.0055)**2)
-    nostril_recess=.0030*math.exp(-((abs(x)-.010)/.0033)**2-((z-1.5565)/.0023)**2)
-    philtrum=.0014*math.exp(-(x/.004)**2-((z-1.547)/.007)**2)
-    y += front * (sockets+hollow+chin_fold+philtrum-ridge-tip-cheek-muzzle-brow-chin-wings+nostril_recess)
-    return x, y, z
-
-
-# Low-contrast facial colour and roughness variation, packed as real textures.
-M['skin_face']=material('Skin | subtle complexion', '#b78c70',.65)
-n=512
-yy,xx=np.mgrid[0:n,0:n].astype(np.float32)
-frow=yy/(n-1)*(len(face_rows)-1);lo=np.floor(frow).astype(int);hi=np.minimum(lo+1,len(face_rows)-1);ff=frow-lo
-rows=np.array(face_rows);zz=rows[lo,0]*(1-ff)+rows[hi,0]*ff;rr=rows[lo,1]*(1-ff)+rows[hi,1]*ff
-aa=xx/(n-1)*math.tau;fx=np.sin(aa)*rr;front=np.maximum(0,np.cos(aa))**4
-noise=np.random.default_rng(47).random((n,n),dtype=np.float32)-.5
-cheek=np.exp(-((np.abs(fx)-.045)/.025)**2-((zz-1.574)/.022)**2)*front
-under_eye=np.exp(-((np.abs(fx)-.031)/.020)**2-((zz-1.592)/.009)**2)*front
-nose_warm=np.exp(-(fx/.017)**2-((zz-1.568)/.022)**2)*front
-skin=np.ones((n,n,4),dtype=np.float32)
-base=np.array([177,137,112],dtype=np.float32)/255
-skin[:,:,:3]=base[None,None,:]+noise[:,:,None]*.010
-skin[:,:,0]+=.026*cheek+.016*nose_warm
-skin[:,:,1]-=.008*cheek+.008*nose_warm+.017*under_eye
-skin[:,:,2]-=.010*cheek+.006*nose_warm+.012*under_eye
-rough=np.ones((n,n,4),dtype=np.float32)
-rough[:,:,:3]=(.59+noise*.04-.05*nose_warm)[:,:,None]
-for name,data,space,socket in [('Hanli_skin_complexion',skin,'sRGB','Base Color'),('Hanli_skin_roughness',rough,'Non-Color','Roughness')]:
-    im=bpy.data.images.new(name,n,n,alpha=True);im.colorspace_settings.name=space
-    im.pixels.foreach_set(np.clip(data,0,1).ravel());im.update();im.file_format='PNG';im.filepath_raw=str(QA/(name+'.png'));im.save();im.pack()
-    m=M['skin_face'];tex=m.node_tree.nodes.new('ShaderNodeTexImage');tex.image=im
-    m.node_tree.links.new(tex.outputs['Color'],m.node_tree.nodes.get('Principled BSDF').inputs[socket])
-
-mesh_head = ring_mesh('Sculpted face and cranium', face_rows, 'skin_face', 'head', n=160, warp=face_shape)
-
-def skin_front(x,z):
-    rx,ry=face_profile(z)
-    angle=math.asin(max(-.999,min(.999,x/rx)))
-    return face_shape(x,-.013-ry*math.cos(angle),z,angle,0)[1]
-
-M['nostril']=material('Nostril recess', '#49312b',.9)
-# Eye whites occupy only the almond-shaped opening; skin lids cover their margins.
-for side,suffix in [(-1,'R'),(1,'L')]:
-    sphere('Ear.'+suffix,(side*.073,-.002,1.589),(.012,.011,.024),'skin','head',segments=28)
-    sphere('Ear concha.'+suffix,(side*.080,-.008,1.59),(.0028,.0035,.014),'skin_shadow','head',segments=20)
-    tube('Ear helix.'+suffix,[(side*.076,-.011,1.607),(side*.082,-.009,1.610),(side*.084,-.008,1.59),(side*.078,-.008,1.573)],.0022,'skin','head')
-    ex=side*.0305;ez=1.6075
-    ev,ef,euv=[],[],[]
-    for j in range(9):
-        v=-1+j/4
-        for i in range(25):
-            u=-1+i/12;x=ex+u*.0130
-            h=(.0042 if v>=0 else .0033)*math.sqrt(max(0,1-u*u))
-            z=ez+side*(x-ex)*.07+v*h
-            y=skin_front(x,z)-.0007-.0024*(1-u*u)*(1-v*v)
-            ev.append((x,y,z));euv.append((i/24,j/8))
-            if i<24 and j<8:
-                k=j*25+i;ef.append((k,k+1,k+26,k+25))
-    mesh('Recessed almond eye.'+suffix,ev,ef,'eye','head',uv=euv)
-    for name,radius,mat,depth in [('Limbal ring',.00465,'iris_rim',.00338),('Iris',.00405,'iris',.00350),('Pupil',.0020,'pupil',.00362)]:
-        zv=ez-.00035
-        iv=[(ex,skin_front(ex,zv)-depth,zv)];iff=[]
-        for i in range(33):
-            aa=i/32*math.tau;dx=math.cos(aa)*radius;dz=math.sin(aa)*radius
-            x=ex+dx;z=zv+dz
-            # Clip the lower circumference into the opening, below the lower lid.
-            lower=ez+side*(x-ex)*.07-.0033*math.sqrt(max(0,1-(dx/.013)**2))
-            upper=ez+side*(x-ex)*.07+.0042*math.sqrt(max(0,1-(dx/.013)**2))
-            z=max(lower+.00015,min(upper-.00015,z))
-            y=skin_front(x,z)-depth+.00035*(dx/radius)**2
-            iv.append((x,y,z))
-            if i<32:iff.append((0,i+1,i+2))
-        mesh(name+' shallow surface.'+suffix,iv,iff,mat,'head')
-    for upper in [True,False]:
-        lv,lf=[],[]
-        for j in range(4):
-            v=j/3
-            for i in range(25):
-                u=-1+i/12;x=ex+u*.013
-                h=(.0042 if upper else -.0033)*math.sqrt(max(0,1-u*u))
-                z=ez+side*(x-ex)*.07+h+(1 if upper else -1)*v*.0033*math.sqrt(max(0,1-u*u))
-                y=skin_front(x,z)-.0005-.0011*(1-v)*math.sqrt(max(0,1-u*u))
-                lv.append((x,y,z))
-                if i<24 and j<3:
-                    k=j*25+i;lf.append((k,k+1,k+26,k+25))
-        mesh(('Upper' if upper else 'Lower')+' skin lid.'+suffix,lv,lf,'skin','head')
-    # A thin, dark lash line sits on the upper edge rather than a thick brown tube.
-    lash=[]
-    for i in range(17):
-        u=-1+i/8;x=ex+u*.0127;z=ez+side*(x-ex)*.07+.00415*math.sqrt(max(0,1-u*u))
-        lash.append((x,skin_front(x,z)-.0016,z))
-    tube('Upper lash.'+suffix,lash,.00032,'hair','head',radii=[.25]+[1]*15+[.25])
-    # Flattened natural brow, with a lower inner end and tapered outer end.
-    bl,br=[],[]
-    for i in range(17):
-        u=i/16;x=side*(.015+u*.029)
-        z=1.6215+.0032*math.sin(u*math.pi*.8)-.001*u
-        thick=.0016*math.sin(math.pi*(.04+.92*u))
-        bl.append((x,skin_front(x,z-thick)-.0009,z-thick))
-        br.append((x,skin_front(x,z+thick)-.0009,z+thick))
-    strip('Natural brow.'+suffix,bl,br,'hair','head')
-    # Small planar dark recess in the integrated nose wing; no external nostril bead.
-    vv=[(side*.009,skin_front(side*.009,1.5574)-.0003,1.5574)];ff=[]
-    for i in range(17):
-        aa=i/16*math.tau;x=side*.009+math.cos(aa)*.0023;z=1.5574+math.sin(aa)*.0009
-        vv.append((x,skin_front(x,z)-.00035,z))
-        if i<16:ff.append((0,i+1,i+2))
-    mesh('Nostril opening.'+suffix,vv,ff,'nostril','head')
-# Lip surfaces grow continuously from the skin and meet at a fine mouth line.
-for upper in [True,False]:
-    vv,ff=[],[]
-    for j in range(5):
-        v=j/4
-        for i in range(33):
-            u=-1+i/16;x=u*.021
-            seam=1.5350-.0006*(1-u*u)
-            if upper:
-                edge=.0024*(1-u*u)+.0008*math.exp(-((abs(u)-.3)/.2)**2)
-            else:edge=-.0030*(1-u*u)
-            z=seam+v*edge
-            depth=.0004+.0017*(1-u*u)*math.sin(v*math.pi)
-            vv.append((x,skin_front(x,z)-depth,z))
-            if i<32 and j<4:
-                k=j*33+i;ff.append((k,k+1,k+34,k+33))
-    mesh(('Upper' if upper else 'Lower')+' fitted lip',vv,ff,'lips','head')
-seam=[]
-for i in range(25):
-    u=-1+i/12;x=u*.0208;z=1.5350-.0006*(1-u*u)
-    seam.append((x,skin_front(x,z)-.00065,z))
-tube('Fine mouth seam',seam,.00025,'skin_shadow','head',radii=[.1]+[.7]*23+[.1])
-
-# Fitted hair shell uses the same skull profile, plus a measured clearance.
-def skull_profile(z):
-    return face_profile(z)
-
-def hair_point(a,f,clear=.003):
-    front=max(0,math.cos(a))
-    bottom=1.545+front**.8*.109+.005*front*math.sin(a*2)**2
-    z=bottom*(1-f)+1.710*f
-    rx,ry=skull_profile(min(z,1.704))
-    return (math.sin(a)*(rx+clear),-.013-math.cos(a)*(ry+clear),z)
-verts,faces,uv=[],[],[]
-for j in range(25):
-    for i in range(81):
-        a=i/80*math.tau;verts.append(hair_point(a,j/24));uv.append((i/80,j/24))
-        if i<80 and j<24:
-            k=j*81+i;faces.append((k,k+1,k+82,k+81))
-cap=mesh('Swept fitted hair shell',verts,faces,'hair','head',uv=uv)
-bm=bmesh.new();bm.from_mesh(cap.data);bmesh.ops.remove_doubles(bm,verts=list(bm.verts),dist=1e-6);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(cap.data);bm.free()
-for k in range(42):
-    a=(k+.2)/42*math.tau
-    pts=[hair_point(a+.11*math.sin(f*math.pi),f,.0038) for f in [j/12 for j in range(13)]]
-    tube('Swept fine hair groove %02d'%k,pts,.00020,'hair_light','head',radii=[.3,.7,1,1,1,1,1,1,.8,.5,.3,.2,.05])
-knot=sphere('Bound hair knot',(-.002,.027,1.728),(.031,.027,.028),'hair','head',segments=36)
-for v in knot.data.vertices:
-    az=math.atan2(v.co.y,v.co.x)
-    v.co.x*=1+.065*math.sin(az*3+v.co.z*2)
-    v.co.z+=.07*math.sin(az*2)*(1-v.co.z*v.co.z)
-knot.rotation_euler.y=.14
-for k in range(14):
-    a=k/14*math.tau
-    tube('Knot fine ridge',[(math.cos(a)*.028,.026+math.sin(a)*.026,1.711),(math.cos(a+.6)*.031,.026+math.sin(a+.6)*.029,1.728),(math.cos(a+1.1)*.018,.026+math.sin(a+1.1)*.018,1.752)],.00022,'hair_light','head')
-tube('Bronze hair pin',[(-.047,.026,1.729),(.044,.026,1.733)],.0024,'gold','head')
-sphere('Hairpin jade bead',(-.049,.026,1.729),(.005,.004,.004),'jade','head',segments=16)
-# Broad tapered locks replace cylindrical strands.
-def lock(name,centres,widths):
-    v,f,uv=[],[],[]
-    keys=[np.array((*point,width),dtype=float) for point,width in zip(centres,widths)]
-    samples=[]
-    for j in range(len(keys)-1):
-        p0,p1,p2,p3=[keys[k] for k in [max(0,j-1),j,j+1,min(len(keys)-1,j+2)]]
-        for q in range(8):
-            t=q/8
-            samples.append(.5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t))
-    samples.append(keys[-1])
-    for j,sample in enumerate(samples):
-        point=sample[:3];w=max(.0002,sample[3])
-        for i in range(9):
-            u=i/8;xx=(u-.5)*2*w
-            ridge=.0025*math.sin(u*math.pi)+.00020*math.sin(u*math.pi*8)
-            v.append((point[0]+xx,point[1]-ridge,point[2]+.001*math.sin(u*math.pi)))
-            uv.append((u,j/(len(samples)-1)))
-            if i<8 and j<len(samples)-1:
-                k=j*9+i;f.append((k,k+9,k+10,k+1))
-    o=mesh(name,v,f,'hair','head',uv=uv);mod=o.modifiers.new('Hair lock thickness','SOLIDIFY');mod.thickness=.0011
-    return o
-for k in range(7):
-    off=(k-3)*.011
-    lock('Back hair lock.%02d'%k,[(off*.65,.032,1.69),(off,.073,1.58),(off*1.15,.082,1.47),(off+.010,.096,1.354+.018*math.sin(k))],[.001,.011,.010,.0003])
-for side in [-1,1]:
-    # Side locks are narrow and lie against the temples, with distinct tapered ends.
-    lock('Temple lock',[(side*.056,-.043,1.660),(side*.069,-.048,1.615),(side*.069,-.047,1.575),(side*.063,-.043,1.543)],[.0005,.008,.006,.0002])
-lock('Swept fringe',[(-.043,-.056,1.681),(-.040,-.078,1.655),(-.020,-.082,1.636),(-.008,-.083,1.622)],[.0005,.010,.006,.0002])
-lock('Fine fringe',[(-.036,-.059,1.678),(-.030,-.078,1.652),(-.010,-.082,1.635),(-.003,-.082,1.628)],[.0003,.0022,.0014,.0001])
+anatomy = build_face(globals())
+build_hair(globals(), anatomy)
 
 # Sword: diamond cross-section blade, separate polished edges and bronze guard.
 grip = Vector((-.307, -.055, .916))
@@ -760,7 +306,7 @@ for obj in PARTS:
     mode = obj.get('skin_mode', 'rigid')
     bone = obj.get('bind_bone', 'chest')
     if bone == 'head':
-        for vertex in obj.data.vertices: vertex.co.z -= .018
+        for vertex in obj.data.vertices: vertex.co.z -= .036
     if bone.startswith(('upper_arm.','forearm.','hand.')):
         side=-1 if bone.endswith('.R') else 1
         for vertex in obj.data.vertices:
@@ -770,6 +316,9 @@ for obj in PARTS:
             vertex.co.x-=side*offset
     def weight_vertex(v):
         z = v.co.z
+        if mode in ('hair_back','hair_front'):
+            f=max(0,min(1,(z-1.26)/.26));f=f*f*(3-2*f)
+            return {'head':f,'chest':1-f}
         if mode.startswith('shoulder.'):
             suffix=mode.split('.')[1];f=max(0,min(1,(abs(v.co.x)-.12)/.075))
             return {'chest':1-f,'upper_arm.'+suffix:f}
@@ -787,11 +336,26 @@ for obj in PARTS:
                 return {'pelvis': 1 - f, 'spine': f}
             f = min(1, max(0, (z - 1.08) / .2))
             return {'spine': 1 - f, 'chest': f}
-        if mode == 'skirt':
-            f = min(1, max(0, (.98 - z) / .32))
-            return {'pelvis': 1 - f, bone: f}
-        if mode == 'inner_skirt':
-            return {'pelvis': .7, 'robe.back': .3}
+        if mode in ('skirt', 'inner_skirt'):
+            # The calf must not overtake a pelvis-bound robe during a stride.
+            # Fade out the waist binding before introducing shin movement;
+            # this keeps each vertex within glTF's four-weight skin budget.
+            follow = max(0, min(1, (1.01-z)/.42))
+            follow = follow*follow*(3-2*follow)
+            shin = max(0, min(1, (.52-z)/.28))
+            shin = shin*shin*(3-2*shin)
+            if mode == 'skirt' and bone in ('robe.L', 'robe.R'):
+                side = bone.rsplit('.', 1)[1]
+                return {'pelvis':1-follow, bone:.12*follow,
+                        'thigh.'+side:.88*follow*(1-shin),
+                        'shin.'+side:.88*follow*shin}
+            left = max(0, min(1, .5+v.co.x/.13))
+            left = left*left*(3-2*left)
+            return {'pelvis':1-follow,
+                    'thigh.L':follow*(1-shin)*left,
+                    'thigh.R':follow*(1-shin)*(1-left),
+                    'shin.L':follow*shin*left,
+                    'shin.R':follow*shin*(1-left)}
         return {bone: 1}
     for v in obj.data.vertices:
         for b, weight in weight_vertex(v).items():
@@ -853,6 +417,42 @@ mod = body.modifiers.new('Hanli skin deformation', 'ARMATURE')
 mod.object = rig
 rig.show_in_front = True
 
+# Ground the exported animation using the actual weighted boot soles.  This
+# compensates the vertical lift of the authored stride without moving the
+# scene root or adding runtime-only offsets.  It does not implement foot IK.
+sole_material = list(body.data.materials).index(M['sole'])
+sole_indices = sorted({index for poly in body.data.polygons
+                       if poly.material_index == sole_material
+                       for index in poly.vertices})
+group_names = {group.index: group.name for group in body.vertex_groups}
+sole_vertices = [(body.data.vertices[index].co.copy(),
+                  [(group_names[g.group], g.weight)
+                   for g in body.data.vertices[index].groups])
+                 for index in sole_indices]
+rest_inverse = {bone.name: bone.matrix_local.inverted()
+                for bone in arm_data.bones}
+
+
+def ground_pose():
+    posed = {}
+    for bone in arm_data.bones:
+        basis = rig.pose.bones[bone.name].matrix_basis
+        if bone.parent:
+            posed[bone.name] = (posed[bone.parent.name]
+                               @ rest_inverse[bone.parent.name]
+                               @ bone.matrix_local @ basis)
+        else:
+            posed[bone.name] = bone.matrix_local @ basis
+    skin = {name: transform @ rest_inverse[name]
+            for name, transform in posed.items()}
+    lowest = min(sum((skin[name] @ point).z * weight
+                     for name, weight in weights)
+                 for point, weights in sole_vertices)
+    # Rotation interpolation during Walk/Idle blends can lower the soles by
+    # about 10 mm relative to either grounded endpoint.  Retain that measured
+    # clearance in the baked clips; the 60 Hz transition check enforces it.
+    rig.pose.bones['pelvis'].location.y += .010 - lowest
+
 
 def animate(name, frame_count, samples):
     action = bpy.data.actions.new(name)
@@ -874,10 +474,15 @@ def animate(name, frame_count, samples):
         elif name == 'Walk':
             stride = math.sin(phase * math.tau)
             rig.pose.bones['pelvis'].location.y = .012 * abs(stride)
+            rig.pose.bones['pelvis'].location.x = .006 * stride
             for sign, side in [(1, 'L'), (-1, 'R')]:
                 rig.pose.bones['thigh.' + side].rotation_euler.x = sign * stride * .32
                 rig.pose.bones['shin.' + side].rotation_euler.x = max(0, -sign * stride) * -.42
-                rig.pose.bones['foot.' + side].rotation_euler.x = sign * stride * -.10
+                # Keep the boot's sole level while the thigh and knee flex.
+                # The old additive foot pitch made the support foot tiptoe.
+                rig.pose.bones['foot.' + side].rotation_euler.x = (
+                    -rig.pose.bones['thigh.' + side].rotation_euler.x
+                    -rig.pose.bones['shin.' + side].rotation_euler.x)
                 rig.pose.bones['upper_arm.' + side].rotation_euler.x = -sign * stride * .2
                 rig.pose.bones['forearm.' + side].rotation_euler.x = -.06 - abs(stride) * .04
                 rig.pose.bones['robe.' + side].rotation_euler.x = sign * stride * .06
@@ -903,6 +508,7 @@ def animate(name, frame_count, samples):
             rig.pose.bones['upper_arm.L'].rotation_euler.x = -.35 * wind
             rig.pose.bones['thigh.L'].rotation_euler.x = -.1 * wind
             rig.pose.bones['robe.L'].rotation_euler.x = .08 * wind
+        ground_pose()
         for pb in rig.pose.bones:
             pb.keyframe_insert('rotation_euler', frame=frame, group=pb.name)
             pb.keyframe_insert('location', frame=frame, group=pb.name)
@@ -916,7 +522,7 @@ def animate(name, frame_count, samples):
 
 
 idle = animate('Idle', 73, 3)
-walk = animate('Walk', 25, 2)
+walk = animate('Walk', 25, 1)
 attack = animate('Attack', 31, 1)
 rig.animation_data.action = idle
 bpy.context.scene.frame_set(1)
@@ -949,8 +555,8 @@ def area(name, loc, energy, color, size):
 
 
 area('Key | warm silk', (-2.2, -3.2, 4.2), 430, (1, .89, .74), 3)
-area('Fill | cloud light', (2.8, -1.4, 2.1), 260, (.68, .82, 1), 3)
-area('Rim | jade edge', (1.3, 2.0, 3.1), 600, (.63, 1, .84), 2)
+area('Fill | cloud light', (2.8, -1.4, 2.1), 110, (.75, .84, 1), 3)
+area('Rim | jade edge', (1.3, 2.0, 3.1), 360, (.72, .88, 1), 2)
 bpy.ops.mesh.primitive_plane_add(size=200, location=(0, 0, -.004))
 floor = bpy.context.object
 floor.name = 'Studio ground'
@@ -989,8 +595,11 @@ bpy.ops.export_scene.gltf(filepath=str(ASSET / 'hanli.glb'), export_format='GLB'
     export_skins=True, export_yup=True, export_apply=False, export_extras=True,
     export_materials='EXPORT', export_cameras=False, export_lights=False)
 metadata = {'asset': 'hanli.glb', 'source': 'art/hanli.blend', 'generator': 'tools/build_hanli.py',
-    'revision': 3, 'uv_revision': 2,
+    'revision': 5, 'uv_revision': 2,
     'generator_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+    'component_sha256': {name: hashlib.sha256((Path(__file__).parent / name).read_bytes()).hexdigest()
+                         for name in ['hanli_face.py', 'hanli_hair.py', 'hanli_costume.py']},
+    'art_direction': 'User-provided Han Li reference: youthful face, half-tied long black hair, teal and pale-blue layered robes, pale-gold filigree and crimson tassels.',
     'glb_bytes': (ASSET / 'hanli.glb').stat().st_size,
     'glb_sha256': hashlib.sha256((ASSET / 'hanli.glb').read_bytes()).hexdigest(),
     'blend_sha256': hashlib.sha256((ART / 'hanli.blend').read_bytes()).hexdigest(),

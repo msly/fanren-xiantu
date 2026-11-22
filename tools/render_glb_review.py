@@ -25,8 +25,11 @@ def parse_args():
     parser.add_argument('--asset', type=Path, required=True)
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--name', choices=('hanli', 'mojiao'), required=True)
-    parser.add_argument('--views', nargs='+', choices=('full', 'head', 'back'), default=['full', 'head'])
+    parser.add_argument('--views', nargs='+', choices=('full', 'portrait', 'head', 'back'), default=['full', 'head'])
     parser.add_argument('--samples', type=int, default=48)
+    parser.add_argument('--clip', choices=('Idle', 'Walk', 'Attack'),
+                        help='Pose the imported Han Li rig using this exported clip')
+    parser.add_argument('--frame', type=float, default=1)
     return parser.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
 
 
@@ -71,7 +74,18 @@ for ob in list(bpy.data.objects):
 before_import = set(bpy.data.objects)
 bpy.ops.import_scene.gltf(filepath=str(asset_path))
 imported = [ob for ob in bpy.data.objects if ob not in before_import]
-scene.frame_set(1)
+if args.clip:
+    rigs = [ob for ob in imported if ob.type == 'ARMATURE']
+    if len(rigs) != 1:
+        raise RuntimeError('Explicit clip review requires one imported character rig')
+    rig = rigs[0]
+    tracks = [track for track in rig.animation_data.nla_tracks if track.name == args.clip]
+    if len(tracks) != 1 or len(tracks[0].strips) != 1:
+        raise RuntimeError('Imported clip not found: ' + args.clip)
+    rig.animation_data.action = tracks[0].strips[0].action
+    for track in rig.animation_data.nla_tracks:
+        track.mute = True
+scene.frame_set(int(args.frame), subframe=args.frame % 1)
 bpy.context.view_layer.update()
 mesh_objects = [ob for ob in imported if ob.type == 'MESH']
 if not mesh_objects:
@@ -107,6 +121,18 @@ for view in args.views:
         camera.rotation_euler = (target - camera.location).to_track_quat('-Z', 'Y').to_euler()
         scene.render.resolution_x = 900
         scene.render.resolution_y = 900
+    elif view == 'portrait':
+        if args.name == 'hanli':
+            camera.location = (.95, -4.0, 1.48)
+            target = Vector((0, -.025, 1.16))
+            camera.data.ortho_scale = 1.20
+        else:
+            camera.location = (3.2, -5.5, 2.45)
+            target = Vector((0, -1.0, 1.24))
+            camera.data.ortho_scale = 3.5
+        camera.rotation_euler = (target - camera.location).to_track_quat('-Z', 'Y').to_euler()
+        scene.render.resolution_x = 900
+        scene.render.resolution_y = 1200
     elif view == 'back':
         camera.location.x *= -1
         camera.location.y *= -1
@@ -124,6 +150,7 @@ manifest = {
     'studio_source': str(source_path), 'blender': bpy.app.version_string,
     'method': 'Import runtime GLB and render using source studio, CPU Cycles',
     'webgl_tested': False, 'mesh_objects': len(mesh_objects), 'samples': args.samples,
+    'clip': args.clip, 'frame': args.frame,
     'studio': studio, 'renders': renders,
 }
 (output_dir / (args.name + '-glb-review.json')).write_text(json.dumps(manifest, indent=2) + '\n')
