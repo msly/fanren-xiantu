@@ -72,8 +72,11 @@
     "triangles_change_percent": 48.29
   },
   "delivery": {
-    "status": "PENDING",
-    "report": "docs/runtime-release-delivery.json"
+    "status": "PASS",
+    "report": "docs/runtime-release-delivery.json",
+    "verified_at": "2026-11-22T21:09:50+08:00",
+    "source_commit": "cd3c41f66a09411df648b405063ebbbc008e5fcf",
+    "http_files": 18
   },
   "remaining_limits": [
     "Actual browser WebGL/CSS and target-device performance unverified",

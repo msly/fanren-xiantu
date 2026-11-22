@@ -1,0 +1,187 @@
+{
+  "revision": "hanli-character-6-runtime-1",
+  "status": "PASS",
+  "verified_at": "2026-11-22T21:09:50+08:00",
+  "verified_at_utc": "2026-11-22T13:09:50Z",
+  "source_commit": "cd3c41f66a09411df648b405063ebbbc008e5fcf",
+  "deployment_directory": "/home/appops/fanren-game",
+  "public_origin": "http://23.82.99.226:8090",
+  "verification_method": "Server-side HTTP GET through the public-IP endpoint; every response SHA256 matched the repository and deployment directory. No browser GPU or FPS inference.",
+  "transfer": {
+    "bytes": 14034582,
+    "sha256": "fba2555b88a8c9f9af29b8471b8d269549adf75f4978e8f6fbad300c9862c8b7",
+    "verified_files": 67
+  },
+  "files": [
+    {
+      "path": "assets/3d/hanli-info.json",
+      "status": 200,
+      "bytes": 3323,
+      "content_type": null,
+      "sha256": "f87eddec866412f4c205730a3ef9fd53e7cbdd4ff3d9e98ddd7a5407eccb7a0c",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "assets/3d/hanli.glb",
+      "status": 200,
+      "bytes": 16520736,
+      "content_type": null,
+      "sha256": "e410803590a90e19e9d3f1182f07a523c50187717bde56162394d57487b591d2",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "assets/3d/mojiao-info.json",
+      "status": 200,
+      "bytes": 892,
+      "content_type": null,
+      "sha256": "e33f9c194c1f979ab70032720e6fae7202aed9041d3ba9ccf02d757116f87bef",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "assets/3d/mojiao.glb",
+      "status": 200,
+      "bytes": 2738712,
+      "content_type": null,
+      "sha256": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "game3d.html",
+      "status": 200,
+      "bytes": 4362,
+      "content_type": "text/html",
+      "sha256": "ab51c615cb95a802f3e46fd864d8755b241d32877da8fb2fbdd3747a7902975f",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 181725,
+      "content_type": "text/html",
+      "sha256": "7039dbf8a86f7fb1003c412c82d5aff62d303cf486c4d96e807b55452948f1e8",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/LICENSE",
+      "status": 200,
+      "bytes": 1081,
+      "content_type": null,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/README.md",
+      "status": 200,
+      "bytes": 732,
+      "content_type": null,
+      "sha256": "6f221024b1fe869484ebad12a38bbad739764ac40b9da1a0b2f5e7fda2818812",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/addons/controls/OrbitControls.js",
+      "status": 200,
+      "bytes": 38703,
+      "content_type": "application/javascript",
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/addons/environments/RoomEnvironment.js",
+      "status": 200,
+      "bytes": 4899,
+      "content_type": "application/javascript",
+      "sha256": "c20f0b4677f6128a138d7152b85cbef9091f4f45cdfa05adca04d40c1697c7ae",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/addons/loaders/GLTFLoader.js",
+      "status": 200,
+      "bytes": 114739,
+      "content_type": "application/javascript",
+      "sha256": "67ac5551fdafa6e349bd80c8f8e5e39c136d6b2fb1ad647db9abb21dc86f9e4a",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/addons/utils/BufferGeometryUtils.js",
+      "status": 200,
+      "bytes": 35539,
+      "content_type": "application/javascript",
+      "sha256": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/build/three.core.min.js",
+      "status": 200,
+      "bytes": 381124,
+      "content_type": "application/javascript",
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/build/three.module.js",
+      "status": 200,
+      "bytes": 338908,
+      "content_type": "application/javascript",
+      "sha256": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "vendor/three/package.json",
+      "status": 200,
+      "bytes": 121,
+      "content_type": null,
+      "sha256": "31c7ef1f3d8d2adb2de17415d92b2a53c66f0978370421ce74f6ae7edcda3801",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "web3d/environment.js",
+      "status": 200,
+      "bytes": 23884,
+      "content_type": "application/javascript",
+      "sha256": "9721a5f5f65f85a4b967046151d31fa7f7c849e6054a84ac261c286ef3d01f6e",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "web3d/main.js",
+      "status": 200,
+      "bytes": 26575,
+      "content_type": "application/javascript",
+      "sha256": "9f546f40e5ab2d6e7f074f20375f74a215e843e2cd9ca6391402c16dfc1731b3",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    },
+    {
+      "path": "web3d/style.css",
+      "status": 200,
+      "bytes": 9677,
+      "content_type": "text/css",
+      "sha256": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
+      "repository_matches_deployment": true,
+      "repository_matches_http": true
+    }
+  ],
+  "browser_verification": {
+    "status": "BLOCKED",
+    "report": "docs/browser-verification.json",
+    "webgl_verified": false,
+    "css_layout_verified": false,
+    "fps_measured": false,
+    "mobile_performance_verified": false
+  }
+}
