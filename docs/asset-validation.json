@@ -1,0 +1,494 @@
+{
+  "result": "PASS",
+  "three_revision": "180",
+  "loader": "Unmodified vendored GLTFLoader r180",
+  "animation": "Unmodified Three.js AnimationMixer r180",
+  "image_decode": "@napi-rs/canvas through createImageBitmap shim",
+  "normal_map_check": "Decoded tangent-space normal maps must have a positive mean Z component; black images fail",
+  "scope": "CPU GLB parse, real texture decode and pixel statistics, geometry/skin/material validation and animation sampling; no WebGL renderer or GPU context",
+  "webgl_tested": false,
+  "assets": [
+    {
+      "file": "mojiao.glb",
+      "sha256": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+      "bytes": 2738712,
+      "meshes": 56,
+      "skinned_meshes": 0,
+      "bones": 0,
+      "vertices": 57016,
+      "triangles": 98226,
+      "normal_vertices": 57016,
+      "uv_vertices": 38771,
+      "validated_skin_weight_rows": 0,
+      "materials": 10,
+      "textures": 3,
+      "decoded_images": [
+        {
+          "bytes": 185953,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              25,
+              38,
+              31
+            ],
+            "max": [
+              38,
+              56,
+              45
+            ],
+            "mean": [
+              32.39272689819336,
+              48.59547424316406,
+              38.97578811645508
+            ],
+            "std": [
+              2.4844942829437833,
+              3.656208511843361,
+              2.9558050209796862
+            ]
+          }
+        },
+        {
+          "bytes": 125211,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              255,
+              170,
+              255
+            ],
+            "max": [
+              255,
+              202,
+              255
+            ],
+            "mean": [
+              255,
+              181.87372589111328,
+              255
+            ],
+            "std": [
+              0,
+              8.531398914297355,
+              0
+            ]
+          }
+        },
+        {
+          "bytes": 182060,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              99,
+              91,
+              250
+            ],
+            "max": [
+              158,
+              156,
+              255
+            ],
+            "mean": [
+              127.49911880493164,
+              127.52842330932617,
+              254.3432388305664
+            ],
+            "std": [
+              9.387565593555122,
+              9.20037898608298,
+              1.0908409565094432
+            ]
+          }
+        }
+      ],
+      "bind_world_bounds": {
+        "min": [
+          5.673649,
+          0.007005,
+          -6.884205
+        ],
+        "max": [
+          8.66278,
+          1.888561,
+          -1.988301
+        ],
+        "size": [
+          2.989132,
+          1.881556,
+          4.895904
+        ]
+      },
+      "animations": [
+        {
+          "clip": "Idle",
+          "duration": 4,
+          "tracks": 17,
+          "sample_count": 12,
+          "all_finite": true,
+          "placement_unchanged": true,
+          "scene_root_unchanged": true,
+          "sampled_world_bounds": {
+            "min": [
+              5.673649,
+              0.007005,
+              -7.676728
+            ],
+            "max": [
+              11.298425,
+              1.904795,
+              -1.988301
+            ],
+            "size": [
+              5.624776,
+              1.89779,
+              5.688427
+            ]
+          }
+        },
+        {
+          "clip": "Walk",
+          "duration": 1.2000000476837158,
+          "tracks": 17,
+          "sample_count": 12,
+          "all_finite": true,
+          "placement_unchanged": true,
+          "scene_root_unchanged": true,
+          "sampled_world_bounds": {
+            "min": [
+              5.673649,
+              0.006925,
+              -7.632182
+            ],
+            "max": [
+              11.294349,
+              1.922833,
+              -1.988301
+            ],
+            "size": [
+              5.6207,
+              1.915909,
+              5.643881
+            ]
+          }
+        },
+        {
+          "clip": "Attack",
+          "duration": 1.399999976158142,
+          "tracks": 19,
+          "sample_count": 12,
+          "all_finite": true,
+          "placement_unchanged": true,
+          "scene_root_unchanged": true,
+          "sampled_world_bounds": {
+            "min": [
+              5.673649,
+              0.006996,
+              -7.631811
+            ],
+            "max": [
+              11.312658,
+              1.917399,
+              -1.988301
+            ],
+            "size": [
+              5.639009,
+              1.910403,
+              5.64351
+            ]
+          }
+        }
+      ],
+      "crossfade": "Idle to Walk, 20 finite samples",
+      "embedded_dependencies": true
+    },
+    {
+      "file": "hanli.glb",
+      "sha256": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+      "bytes": 5937792,
+      "meshes": 24,
+      "skinned_meshes": 24,
+      "bones": 21,
+      "vertices": 78309,
+      "triangles": 138232,
+      "normal_vertices": 78309,
+      "uv_vertices": 78309,
+      "validated_skin_weight_rows": 78309,
+      "materials": 24,
+      "textures": 5,
+      "decoded_images": [
+        {
+          "bytes": 261134,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              24,
+              49,
+              41
+            ],
+            "max": [
+              28,
+              55,
+              46
+            ],
+            "mean": [
+              25.970779418945312,
+              52.19084548950195,
+              43.5333137512207
+            ],
+            "std": [
+              0.561740516290953,
+              0.906126218575688,
+              0.7901955408680373
+            ]
+          }
+        },
+        {
+          "bytes": 6074,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              120,
+              120,
+              254
+            ],
+            "max": [
+              135,
+              135,
+              254
+            ],
+            "mean": [
+              127.51953125,
+              127.51953125,
+              254
+            ],
+            "std": [
+              5.3150370205929365,
+              5.3150370205929365,
+              0
+            ]
+          }
+        },
+        {
+          "bytes": 238433,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              255,
+              192,
+              255
+            ],
+            "max": [
+              255,
+              216,
+              255
+            ],
+            "mean": [
+              255,
+              203.99582290649414,
+              255
+            ],
+            "std": [
+              0,
+              4.845896554546781,
+              0
+            ]
+          }
+        },
+        {
+          "bytes": 190702,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              176,
+              132,
+              108
+            ],
+            "max": [
+              183,
+              138,
+              113
+            ],
+            "mean": [
+              177.1492805480957,
+              136.9158821105957,
+              111.92369842529297
+            ],
+            "std": [
+              0.9530953911083839,
+              0.8571707268959906,
+              0.8375236300712333
+            ]
+          }
+        },
+        {
+          "bytes": 240676,
+          "width": 512,
+          "height": 512,
+          "options": {
+            "premultiplyAlpha": "none",
+            "colorSpaceConversion": "none"
+          },
+          "rgb": {
+            "min": [
+              255,
+              133,
+              255
+            ],
+            "max": [
+              255,
+              156,
+              255
+            ],
+            "mean": [
+              255,
+              150.30725860595703,
+              255
+            ],
+            "std": [
+              0,
+              3.10111695644988,
+              0
+            ]
+          }
+        }
+      ],
+      "bind_world_bounds": {
+        "min": [
+          6.768943,
+          0.008,
+          -4.208457
+        ],
+        "max": [
+          7.252526,
+          1.738027,
+          -3.66154
+        ],
+        "size": [
+          0.483583,
+          1.730027,
+          0.546917
+        ]
+      },
+      "animations": [
+        {
+          "clip": "Attack",
+          "duration": 1.2916666269302368,
+          "tracks": 63,
+          "sample_count": 12,
+          "all_finite": true,
+          "placement_unchanged": true,
+          "scene_root_unchanged": true,
+          "sampled_world_bounds": {
+            "min": [
+              6.768943,
+              0.007262,
+              -5.372326
+            ],
+            "max": [
+              10.185517,
+              1.738027,
+              -3.326229
+            ],
+            "size": [
+              3.416574,
+              1.730765,
+              2.046097
+            ]
+          }
+        },
+        {
+          "clip": "Idle",
+          "duration": 3.0416667461395264,
+          "tracks": 63,
+          "sample_count": 12,
+          "all_finite": true,
+          "placement_unchanged": true,
+          "scene_root_unchanged": true,
+          "sampled_world_bounds": {
+            "min": [
+              6.768943,
+              0.008,
+              -5.37715
+            ],
+            "max": [
+              9.505573,
+              1.738327,
+              -3.66154
+            ],
+            "size": [
+              2.73663,
+              1.730327,
+              1.71561
+            ]
+          }
+        },
+        {
+          "clip": "Walk",
+          "duration": 1.0416666269302368,
+          "tracks": 63,
+          "sample_count": 12,
+          "all_finite": true,
+          "placement_unchanged": true,
+          "scene_root_unchanged": true,
+          "sampled_world_bounds": {
+            "min": [
+              6.741854,
+              0.005026,
+              -5.417163
+            ],
+            "max": [
+              9.677797,
+              1.749911,
+              -3.618652
+            ],
+            "size": [
+              2.935943,
+              1.744885,
+              1.798511
+            ]
+          }
+        }
+      ],
+      "crossfade": "Idle to Walk, 20 finite samples",
+      "embedded_dependencies": true
+    }
+  ],
+  "warnings": [],
+  "errors": []
+}

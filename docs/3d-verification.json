@@ -1,431 +1,106 @@
 {
   "date": "2026-11-22",
-  "scope": "Independent Three.js 3D trial prototype; not AAA final art, not a full 3D port of the 2D campaign.",
+  "revision": "model-polish-3",
+  "baseline_commit": "4708b11",
+  "scope": "Editable 3D prototype character polish and dedicated character viewer; not a full 3D campaign or AAA final asset.",
+  "result": "PASS for asset, CPU animation, render import and viewer state checks",
   "runtime": "Three.js 0.180.0",
   "blender": "4.3.2",
   "asset_loader": {
     "result": "PASS",
-    "three_revision": "180",
-    "loader": "Unmodified vendored GLTFLoader r180",
-    "animation": "Unmodified Three.js AnimationMixer r180",
-    "image_decode": "@napi-rs/canvas through createImageBitmap shim",
-    "scope": "CPU GLB parse, real texture decode, geometry/skin/material validation and animation sampling; no WebGL renderer or GPU context",
-    "webgl_tested": false,
-    "assets": [
-      {
-        "file": "mojiao.glb",
-        "sha256": "8b125366dbb89211343b27dd69c1c19f31dcebc8f922897c17372978fd5d5b08",
-        "bytes": 1456712,
-        "meshes": 46,
-        "skinned_meshes": 0,
-        "bones": 0,
-        "vertices": 7528,
-        "triangles": 11069,
-        "normal_vertices": 7528,
-        "uv_vertices": 5644,
-        "validated_skin_weight_rows": 0,
-        "materials": 11,
-        "textures": 3,
-        "decoded_images": [
-          {
-            "bytes": 319504,
-            "width": 512,
-            "height": 512,
-            "options": {
-              "premultiplyAlpha": "none",
-              "colorSpaceConversion": "none"
-            }
-          },
-          {
-            "bytes": 267957,
-            "width": 512,
-            "height": 512,
-            "options": {
-              "premultiplyAlpha": "none",
-              "colorSpaceConversion": "none"
-            }
-          },
-          {
-            "bytes": 525875,
-            "width": 512,
-            "height": 512,
-            "options": {
-              "premultiplyAlpha": "none",
-              "colorSpaceConversion": "none"
-            }
-          }
-        ],
-        "bind_world_bounds": {
-          "min": [
-            5.649751,
-            0.015479,
-            -6.846097
-          ],
-          "max": [
-            8.779347,
-            2.481767,
-            -1.87875
-          ],
-          "size": [
-            3.129596,
-            2.466288,
-            4.967347
-          ]
-        },
-        "animations": [
-          {
-            "clip": "Idle",
-            "duration": 4,
-            "tracks": 5,
-            "sample_count": 12,
-            "all_finite": true,
-            "placement_unchanged": true,
-            "scene_root_unchanged": true,
-            "sampled_world_bounds": {
-              "min": [
-                5.649751,
-                0.001495,
-                -7.667203
-              ],
-              "max": [
-                11.403676,
-                2.506921,
-                -1.87875
-              ],
-              "size": [
-                5.753925,
-                2.505426,
-                5.788453
-              ]
-            }
-          },
-          {
-            "clip": "Walk",
-            "duration": 1.2000000476837158,
-            "tracks": 13,
-            "sample_count": 12,
-            "all_finite": true,
-            "placement_unchanged": true,
-            "scene_root_unchanged": true,
-            "sampled_world_bounds": {
-              "min": [
-                5.649751,
-                -0.174122,
-                -7.622535
-              ],
-              "max": [
-                11.39592,
-                2.528376,
-                -1.87875
-              ],
-              "size": [
-                5.746169,
-                2.702498,
-                5.743785
-              ]
-            }
-          },
-          {
-            "clip": "Attack",
-            "duration": 1.399999976158142,
-            "tracks": 7,
-            "sample_count": 12,
-            "all_finite": true,
-            "placement_unchanged": true,
-            "scene_root_unchanged": true,
-            "sampled_world_bounds": {
-              "min": [
-                5.649751,
-                -0.112765,
-                -7.619279
-              ],
-              "max": [
-                11.435685,
-                2.502758,
-                -1.87875
-              ],
-              "size": [
-                5.785934,
-                2.615523,
-                5.740529
-              ]
-            }
-          }
-        ],
-        "crossfade": "Idle to Walk, 20 finite samples",
-        "embedded_dependencies": true
-      },
-      {
-        "file": "hanli.glb",
-        "sha256": "b6581f09b5dff75f986cd1cb7c2cb94efd1879615a505686875669ae1b0b62b1",
-        "bytes": 3780324,
-        "meshes": 21,
-        "skinned_meshes": 21,
-        "bones": 21,
-        "vertices": 57692,
-        "triangles": 102546,
-        "normal_vertices": 57692,
-        "uv_vertices": 57692,
-        "validated_skin_weight_rows": 57692,
-        "materials": 21,
-        "textures": 2,
-        "decoded_images": [
-          {
-            "bytes": 1781,
-            "width": 256,
-            "height": 256,
-            "options": {
-              "premultiplyAlpha": "none",
-              "colorSpaceConversion": "none"
-            }
-          },
-          {
-            "bytes": 67383,
-            "width": 256,
-            "height": 256,
-            "options": {
-              "premultiplyAlpha": "none",
-              "colorSpaceConversion": "none"
-            }
-          }
-        ],
-        "bind_world_bounds": {
-          "min": [
-            6.716421,
-            0.008,
-            -4.210494
-          ],
-          "max": [
-            7.30497,
-            1.754,
-            -3.623246
-          ],
-          "size": [
-            0.58855,
-            1.746,
-            0.587248
-          ]
-        },
-        "animations": [
-          {
-            "clip": "Attack",
-            "duration": 1.2916666269302368,
-            "tracks": 63,
-            "sample_count": 12,
-            "all_finite": true,
-            "placement_unchanged": true,
-            "scene_root_unchanged": true,
-            "sampled_world_bounds": {
-              "min": [
-                6.716421,
-                0.006975,
-                -5.368412
-              ],
-              "max": [
-                10.27543,
-                1.754,
-                -3.535554
-              ],
-              "size": [
-                3.55901,
-                1.747025,
-                1.832857
-              ]
-            }
-          },
-          {
-            "clip": "Idle",
-            "duration": 3.0416667461395264,
-            "tracks": 63,
-            "sample_count": 12,
-            "all_finite": true,
-            "placement_unchanged": true,
-            "scene_root_unchanged": true,
-            "sampled_world_bounds": {
-              "min": [
-                6.716421,
-                0.008,
-                -5.42557
-              ],
-              "max": [
-                9.541437,
-                1.754323,
-                -3.623246
-              ],
-              "size": [
-                2.825016,
-                1.746323,
-                1.802324
-              ]
-            }
-          },
-          {
-            "clip": "Walk",
-            "duration": 1.0416666269302368,
-            "tracks": 63,
-            "sample_count": 12,
-            "all_finite": true,
-            "placement_unchanged": true,
-            "scene_root_unchanged": true,
-            "sampled_world_bounds": {
-              "min": [
-                6.729508,
-                0.005055,
-                -5.421742
-              ],
-              "max": [
-                9.677259,
-                1.765884,
-                -3.582987
-              ],
-              "size": [
-                2.947751,
-                1.76083,
-                1.838755
-              ]
-            }
-          }
-        ],
-        "crossfade": "Idle to Walk, 20 finite samples",
-        "embedded_dependencies": true
-      }
-    ],
+    "report": "docs/asset-validation.json",
     "warnings": [],
     "errors": []
   },
-  "character_source": {
-    "blend_reopen": "pass",
-    "weights": "all vertices normalized",
-    "pose_deformation": {
-      "Idle": [
-        [
-          -0.4469031095504761,
-          0.3442067503929138
-        ],
-        [
-          -0.16668601334095,
-          0.19778679311275482
-        ],
-        [
-          0.008000005967915058,
-          1.7540000677108765
-        ]
-      ],
-      "Walk": [
-        [
-          -0.5470635890960693,
-          0.3148868978023529
-        ],
-        [
-          -0.5313044786453247,
-          0.3159777522087097
-        ],
-        [
-          0.024567950516939163,
-          1.7660001516342163
-        ]
-      ],
-      "Attack": [
-        [
-          -0.2270345687866211,
-          0.2772040367126465
-        ],
-        [
-          -0.9948499202728271,
-          0.19778679311275482
-        ],
-        [
-          0.008000005967915058,
-          1.7540000677108765
-        ]
-      ]
-    },
-    "glb_clips": [
-      "Attack",
-      "Idle",
-      "Walk"
-    ],
-    "skins": 1,
-    "joints": 21,
-    "textures_embedded": 2,
-    "glb_bytes": 3780324,
-    "glb_sha256": "b6581f09b5dff75f986cd1cb7c2cb94efd1879615a505686875669ae1b0b62b1",
-    "blend_bytes": 2012522
-  },
-  "environment": {
-    "runtime": "Three.js r180 object construction with native Canvas; no browser renderer",
-    "constructMs": 259.750126,
-    "nodes": 94,
-    "meshes": 89,
-    "draws": 92,
-    "instances": 2098,
-    "lights": 2,
-    "triangles": 89408,
-    "materialCount": 20,
-    "textureCount": 5,
-    "invalidGeometry": [],
-    "bounds": 16,
-    "spawn": [
-      0,
-      0,
-      3
-    ],
-    "bossSpawn": [
-      0,
-      0,
-      -5
-    ]
-  },
-  "interaction_regressions": {
-    "engine": "Three.js r180 state functions plus deterministic DOM event harness; not browser rendering",
+  "motion": {
     "result": "PASS",
-    "checks": [
-      "lunge clears telegraph at transition and next update",
-      "blur pause recoverable via touch/click button without resetting battle",
-      "Esc and clickable pause share state",
-      "victory and defeat dialog cancel return safely to ready scene",
-      "spell long axis follows three different velocity directions"
-    ],
-    "projectileAlignmentDotProducts": [
-      0.9999999999999998,
-      1,
-      1
-    ]
+    "report": "docs/model-polish-verification.json",
+    "foot_samples": 727,
+    "whole_mesh_samples": 150,
+    "crossfade_samples": 248,
+    "normal_mapped_meshes_without_singular_uvs": 19
+  },
+  "viewer": {
+    "result": "PASS",
+    "report": "docs/viewer-verification.json",
+    "viewport_fixtures": 5,
+    "azimuths_per_model": 24,
+    "switch_cycles": 25
   },
   "visual_review": {
-    "method": "Real Blender CPU renders of delivered character assets",
-    "files": [
-      "docs/hanli-3d-preview.png",
-      "docs/mojiao-3d-preview.png"
-    ],
+    "method": "Actual final GLBs imported back into Blender and rendered in source studios using CPU Cycles",
+    "blend_reopen": "PASS",
+    "hanli": "docs/hanli-render-verification.json",
+    "mojiao": "docs/mojiao-render-verification.json",
+    "comparison": "docs/model-polish-comparison.jpg",
+    "same_comparison_cameras_and_lights": true,
     "web_screenshots": false
   },
   "browser_verification": {
     "status": "blocked",
-    "error": "ERR_CERT_COMMON_NAME_INVALID on cloud browser navigation; subsequent error-page observation blocked by browser URL policy",
-    "bypassed": false,
+    "error": "Local Playwright/Chromium failed before navigation: process_singleton_posix.cc socket() failed: Operation not permitted",
     "webgl_verified": false,
     "css_layout_verified": false,
     "fps_measured": false,
     "mobile_performance_verified": false
   },
   "source_sha256": {
-    "game3d.html": "e9fad11ab02d01b66420a1177ad967dae097f1553977b7929b567e0330730e52",
-    "web3d/main.js": "66641e6a442e480da93e19ec5713fe63deb1516405f86c5b7187727e18871ff8",
-    "web3d/style.css": "520ee6a0cb98ee948d3eef8661e51c19a8243e6be9cb8c932a783cd9b412445f",
-    "web3d/environment.js": "9721a5f5f65f85a4b967046151d31fa7f7c849e6054a84ac261c286ef3d01f6e",
-    "art/hanli.blend": "839bfd3fad9a1e1a250a206b4c8c8f9c8544d431366056fab4bd87213aa7b3cc",
-    "art/mojiao.blend": "f4da3fee2303217a39ec550b1a173b16d0dbd64d9a331524196bca80bdba08b7",
-    "assets/3d/hanli.glb": "b6581f09b5dff75f986cd1cb7c2cb94efd1879615a505686875669ae1b0b62b1",
-    "assets/3d/mojiao.glb": "8b125366dbb89211343b27dd69c1c19f31dcebc8f922897c17372978fd5d5b08"
+    "README.md": "5297164f91d5a705f97d267b84f22cabfc04af4e55fff40fd6d3763fde08342a",
+    "game3d.html": "b95c6f7292f3f3129bc5d88ae1512424e97d44bb1708186f6d23f09f4185a16c",
+    "web3d/main.js": "c644abfaf819dd9b73f3143555e0705d5c99f7dcdff2602359b02c69937b7fb6",
+    "web3d/style.css": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
+    "tools/build_hanli.py": "266fb4b3526921463400cb67ab0137bddd4bf8e111dd49a90c12dcb7a0ebb828",
+    "tools/build_mojiao.py": "519009a91d8d753556bf42f5a4af10c7f0c92ea613a3c11115e3618faa081caf",
+    "tools/validate-assets.mjs": "ab146ed09972ed442291aae2f9548b02e82dc61609aa810756fa7e9d32d80ccc",
+    "tools/validate-model-polish.mjs": "652546596e547bda1b7d99ea949610c821f3197ac7fd0a849f682587d2fe6ea0",
+    "tools/validate-viewer.mjs": "c902b4fd7776e0e7a9a0f968c8198573dbe10750d4a6777f4f91b0a08acd6f0e",
+    "tools/validate_mojiao.py": "34a63d7daf4e2fa33d4f694536cf29cc991d859d996c98afc7b570cc0a76e201",
+    "tools/render_glb_review.py": "bd2b8158914dffc4be214d39b237bd208a08199948c2dcf6b47da70232bde911",
+    "art/hanli.blend": "1d31d5594ade4b67be5937134522a44d94e30525f824cbdf73c0097de32ff58a",
+    "art/mojiao.blend": "ccec4e5b6fdc16ece976fc6b8c011b6eb487069831f4ab5f69cd6f2ba4c7c5fc",
+    "assets/3d/hanli.glb": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+    "assets/3d/mojiao.glb": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+    "assets/3d/hanli-info.json": "8e6eba1e30b767d7f57906ba8658ed05058f8b5810d40a04f2e7f9055fe70996",
+    "assets/3d/mojiao-info.json": "e33f9c194c1f979ab70032720e6fae7202aed9041d3ba9ccf02d757116f87bef",
+    "docs/asset-validation.json": "d2d0ed7f1af73812e26dae9493453703a5225ebddcfb76b3ef356e4a905656f9",
+    "docs/model-polish-verification.json": "1ed434fe2ac350ca7bbebfc8b04501d113841dff3ca88891052ee158da41ad20",
+    "docs/viewer-verification.json": "0a0de2cbcbf6ad5e61da2b1f8d1da2554d96252e27714517de278ceccebbcff6",
+    "docs/hanli-render-verification.json": "0a1b36453f028feeb7343f7fba98f1e57fad0e65e155503365a892da81e05a48",
+    "docs/mojiao-render-verification.json": "5f5295faabfd008930ac730473a9960ce5e920fc33a2a906b8f6ab493f42f8e5",
+    "docs/mojiao-verification.json": "9e7116ae772975e332fe9aeece88882a35490c9454368620d9a2db5946fb4ef2",
+    "docs/hanli-3d-preview.png": "566157e003b2620ce87a392f670ad569074b06019ff00f321c0a77ba561ed3c3",
+    "docs/hanli-head-preview.png": "35f4b00d8cdda905d4a0996a004fc02a8a60798d5457680cc177cab9c41071b3",
+    "docs/hanli-back-preview.png": "e527e7e6b109c7fe4e1f92eb36262895cf51962fb0da9f1586d945c1cf4b6bb8",
+    "docs/mojiao-3d-preview.png": "4a2dfda887538e6db38cc2c1d7a9184b143253868191692c4c8ffb5e8503fc7a",
+    "docs/mojiao-head-preview.png": "b5a2485e5b37eb7b8f060491fd84bf4ba6d361c7579b32c0589a80be6eaae437",
+    "docs/model-polish-comparison.jpg": "9fc36e05273db7a564a1bb4017e069b6ea56dd4afd1eae6d2e20971f8095322d"
   },
   "http_delivery": {
+    "status": "PASS",
     "url": "http://23.82.99.226:8090/game3d.html",
-    "method": "HTTP GET from the deployment server to its public address",
-    "runtime_resources_verified": 13,
+    "method": "HTTP GET from deployment host to its public address; cmp against tested working-tree files",
+    "runtime_resources_verified": 14,
+    "all_http_200": true,
     "all_downloaded_sha256_match_source": true,
     "javascript_content_type": "application/javascript",
-    "ui_rendering_verified": false
+    "hero_deep_link_http_200": true,
+    "source_sha256": {
+      "game3d.html": "b95c6f7292f3f3129bc5d88ae1512424e97d44bb1708186f6d23f09f4185a16c",
+      "web3d/main.js": "c644abfaf819dd9b73f3143555e0705d5c99f7dcdff2602359b02c69937b7fb6",
+      "web3d/style.css": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
+      "web3d/environment.js": "9721a5f5f65f85a4b967046151d31fa7f7c849e6054a84ac261c286ef3d01f6e",
+      "assets/3d/hanli.glb": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+      "assets/3d/mojiao.glb": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+      "assets/3d/hanli-info.json": "8e6eba1e30b767d7f57906ba8658ed05058f8b5810d40a04f2e7f9055fe70996",
+      "assets/3d/mojiao-info.json": "e33f9c194c1f979ab70032720e6fae7202aed9041d3ba9ccf02d757116f87bef",
+      "vendor/three/build/three.module.js": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "vendor/three/build/three.core.min.js": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "vendor/three/addons/loaders/GLTFLoader.js": "d011d3678fe82cfda9189714fa32480cc01baebf0ab5acaede8f88e5b5258168",
+      "vendor/three/addons/controls/OrbitControls.js": "c13b7c4fdf828e47561219d79036c8c272ff539c81195d050923ed7509e0c7a7",
+      "vendor/three/addons/environments/RoomEnvironment.js": "27168207de34c2fe5a268b8caf3031afe4fa23da8ee46b4d0c097a15dfca7ec8",
+      "vendor/three/addons/utils/BufferGeometryUtils.js": "6fab5a2a888cbc8e4a33cc85b78df7e4dfea1e07e4ef967a5e303cb1c44d9773"
+    },
+    "browser_ui_verified": false
   },
-  "original_2d_change": "One navigation link added to the title screen; no gameplay or storage code changed."
+  "original_2d_change": "No 2D gameplay, campaign or storage changes in this iteration."
 }

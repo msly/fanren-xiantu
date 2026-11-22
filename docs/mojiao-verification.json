@@ -1,0 +1,145 @@
+{
+  "result": "PASS",
+  "blender": "4.3.2",
+  "scope": "Reopened source, half-frame grounded animation samples and actual GLB loop endpoints; no WebGL rendering",
+  "source": "art/mojiao.blend",
+  "runtime": "assets/3d/mojiao.glb",
+  "glb_sha256": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+  "blend_sha256": "ccec4e5b6fdc16ece976fc6b8c011b6eb487069831f4ab5f69cd6f2ba4c7c5fc",
+  "generator_sha256": "519009a91d8d753556bf42f5a4af10c7f0c92ea613a3c11115e3618faa081caf",
+  "glb_bytes": 2738712,
+  "mesh_objects": 56,
+  "triangles": 98226,
+  "packed_textures": [
+    "mojiao-v2-hide-color",
+    "mojiao-v2-hide-normal",
+    "mojiao-v2-hide-roughness"
+  ],
+  "animation_sampling": [
+    {
+      "clip": "Idle",
+      "samples": 239,
+      "bounds_blender_xyz": [
+        [
+          -1.0122296810150146,
+          -2.3361826617576638,
+          0.007004782557487488
+        ],
+        [
+          1.2872227831886107,
+          2.9019461598508283,
+          1.9048062461126622
+        ]
+      ],
+      "min_ground_z_m": 0.007004782557487488,
+      "loop_matrix_max_error": 0.0,
+      "foot_tip_z_range_m": {
+        "front_leg_L_foot": [
+          0.007004793742794724,
+          0.007004987486206371
+        ],
+        "front_leg_R_foot": [
+          0.007004793742794724,
+          0.007004987486206371
+        ],
+        "rear_leg_L_foot": [
+          0.007004782557487488,
+          0.007004968366725872
+        ],
+        "rear_leg_R_foot": [
+          0.007004782557487488,
+          0.007004968366725872
+        ]
+      }
+    },
+    {
+      "clip": "Walk",
+      "samples": 71,
+      "bounds_blender_xyz": [
+        [
+          -1.0122296810150146,
+          -2.3371249171122748,
+          0.006892193048967377
+        ],
+        [
+          1.3947756755777974,
+          2.980747630457511,
+          1.9231072377380234
+        ]
+      ],
+      "min_ground_z_m": 0.006892193048967377,
+      "loop_matrix_max_error": 0.0,
+      "foot_tip_z_range_m": {
+        "front_leg_L_foot": [
+          0.006915163346068232,
+          0.08192933558618876
+        ],
+        "front_leg_R_foot": [
+          0.006892193048967377,
+          0.08192939455870585
+        ],
+        "rear_leg_L_foot": [
+          0.006900228066359815,
+          0.08192935465568185
+        ],
+        "rear_leg_R_foot": [
+          0.006912156521981849,
+          0.08192942370153178
+        ]
+      }
+    },
+    {
+      "clip": "Attack",
+      "samples": 83,
+      "bounds_blender_xyz": [
+        [
+          -1.0122296810150146,
+          -2.3362439427301176,
+          0.0069845059147763955
+        ],
+        [
+          1.3947858496703525,
+          2.980296658226201,
+          1.9184279993999591
+        ]
+      ],
+      "min_ground_z_m": 0.0069845059147763955,
+      "loop_matrix_max_error": 0.0,
+      "foot_tip_z_range_m": {
+        "front_leg_L_foot": [
+          0.0069845059147763955,
+          0.007005091605572389
+        ],
+        "front_leg_R_foot": [
+          0.0069845059147763955,
+          0.007005091605572389
+        ],
+        "rear_leg_L_foot": [
+          0.006994932434370493,
+          0.00700508761376728
+        ],
+        "rear_leg_R_foot": [
+          0.006994932434370493,
+          0.00700508761376728
+        ]
+      }
+    }
+  ],
+  "runtime_animation_endpoints": [
+    {
+      "clip": "Idle",
+      "channels": 17,
+      "endpoint_max_error": 0.0
+    },
+    {
+      "clip": "Walk",
+      "channels": 17,
+      "endpoint_max_error": 7.450580596923828e-09
+    },
+    {
+      "clip": "Attack",
+      "channels": 19,
+      "endpoint_max_error": 0.0
+    }
+  ]
+}

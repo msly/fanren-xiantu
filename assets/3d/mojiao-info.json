@@ -1,16 +1,24 @@
 {
   "asset": "Mojiao",
+  "revision": 2,
   "blender_version": "4.3.2",
   "source": "original procedural geometry",
   "orientation": "Blender -Y forward, glTF +Z forward; Blender Z up to glTF Y up",
-  "vertices": 6906,
-  "triangles": 11069,
-  "mesh_objects": 46,
+  "vertices": 51608,
+  "triangles": 98226,
+  "mesh_objects": 56,
   "animations": [
     "Idle",
     "Walk",
     "Attack"
   ],
-  "glb_bytes": 1456712,
-  "notes": "Editable layered mesh and articulated transform animation; production-style prototype, not a AAA finished asset."
+  "glb_bytes": 2738712,
+  "notes": "Editable articulated 3D asset with fitted closed scutes and original embedded textures; not a finished AAA character.",
+  "animation_revision": 2,
+  "uv_revision": 2,
+  "loop_endpoints": "Exact first-pose match for all three clips",
+  "generator": "tools/build_mojiao.py",
+  "generator_sha256": "519009a91d8d753556bf42f5a4af10c7f0c92ea613a3c11115e3618faa081caf",
+  "glb_sha256": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+  "blend_sha256": "ccec4e5b6fdc16ece976fc6b8c011b6eb487069831f4ab5f69cd6f2ba4c7c5fc"
 }

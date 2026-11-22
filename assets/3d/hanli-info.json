@@ -4,15 +4,21 @@
   "generator": "tools/build_hanli.py",
   "blender": "4.3.2",
   "forward": "glTF +Z",
-  "height_m": 1.754,
-  "vertices": 52529,
-  "triangles": 102546,
-  "materials": 21,
+  "height_m": 1.738,
+  "vertices": 70614,
+  "triangles": 138232,
+  "materials": 24,
   "bones": 21,
   "clips": [
     "Idle",
     "Walk",
     "Attack"
   ],
-  "quality_scope": "Original editable procedural prototype; not a AAA-ready production character."
+  "quality_scope": "Original editable procedural prototype; not a AAA-ready production character.",
+  "revision": 3,
+  "generator_sha256": "266fb4b3526921463400cb67ab0137bddd4bf8e111dd49a90c12dcb7a0ebb828",
+  "glb_bytes": 5937792,
+  "glb_sha256": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+  "blend_sha256": "1d31d5594ade4b67be5937134522a44d94e30525f824cbdf73c0097de32ff58a",
+  "uv_revision": 2
 }

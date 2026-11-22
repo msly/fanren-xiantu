@@ -1,0 +1,219 @@
+{
+  "result": "PASS",
+  "validatedAt": "2026-11-22T09:14:37.238Z",
+  "node": "v24.22.3",
+  "source_sha256": {
+    "assets/3d/hanli.glb": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+    "assets/3d/mojiao.glb": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+    "web3d/main.js": "c644abfaf819dd9b73f3143555e0705d5c99f7dcdff2602359b02c69937b7fb6",
+    "web3d/style.css": "5b500967a6cb2d71a3af8a262e04a6fda8cd01c564f001c486ff7bb847fd04fd",
+    "game3d.html": "b95c6f7292f3f3129bc5d88ae1512424e97d44bb1708186f6d23f09f4185a16c",
+    "tools/validate-viewer.mjs": "c902b4fd7776e0e7a9a0f968c8198573dbe10750d4a6777f4f91b0a08acd6f0e"
+  },
+  "runtime": "Unmodified Three.js r180 GLTFLoader, AnimationMixer, OrbitControls and production state functions with deterministic DOM rectangle fixtures; no browser GPU or CSS layout certification",
+  "checks": [
+    "Full model bounding boxes stay inside reserved content region over 24 azimuths, two real GLBs and five viewport fixtures",
+    "Head framing follows actual animated head nodes through Idle, Walk and Attack",
+    "Real OrbitControls auto rotation starts and stops with finite camera state",
+    "25 repeated viewer/scene cycles reuse one studio and restore world, lights, fog, exposure, camera projection, actor placement and orbit state",
+    "Battle starts from portrait mode with default framing and controls",
+    "Boss windup/lunge telegraph, projectile direction, blur/click/Esc pause, victory/defeat cancel and retry state retain prior behavior"
+  ],
+  "projectionFixtures": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "mode": "hero",
+      "fullBodyBounds": [
+        794.3,
+        1089.7,
+        165.9,
+        882.7
+      ],
+      "reservedRegion": [
+        476,
+        1408,
+        86,
+        944
+      ]
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "mode": "beast",
+      "fullBodyBounds": [
+        604.5,
+        1279.5,
+        389.3,
+        719.5
+      ],
+      "reservedRegion": [
+        476,
+        1408,
+        86,
+        944
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "mode": "hero",
+      "fullBodyBounds": [
+        105.8,
+        284.2,
+        132.5,
+        556.5
+      ],
+      "reservedRegion": [
+        18,
+        372,
+        86,
+        586
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "mode": "beast",
+      "fullBodyBounds": [
+        49.2,
+        340.8,
+        274.5,
+        415.1
+      ],
+      "reservedRegion": [
+        18,
+        372,
+        86,
+        586
+      ]
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "mode": "hero",
+      "fullBodyBounds": [
+        119,
+        201,
+        103.6,
+        299
+      ],
+      "reservedRegion": [
+        18,
+        302,
+        86,
+        310
+      ]
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "mode": "beast",
+      "fullBodyBounds": [
+        45.5,
+        274.5,
+        150.8,
+        261.3
+      ],
+      "reservedRegion": [
+        18,
+        302,
+        86,
+        310
+      ]
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "mode": "hero",
+      "fullBodyBounds": [
+        542.7,
+        630.6,
+        109.1,
+        318.9
+      ],
+      "reservedRegion": [
+        361.38,
+        812,
+        86,
+        334
+      ]
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "mode": "beast",
+      "fullBodyBounds": [
+        430.6,
+        742.8,
+        154.6,
+        308.1
+      ],
+      "reservedRegion": [
+        361.38,
+        812,
+        86,
+        334
+      ]
+    },
+    {
+      "viewport": [
+        640,
+        400
+      ],
+      "mode": "hero",
+      "fullBodyBounds": [
+        398.7,
+        490.1,
+        110,
+        328.1
+      ],
+      "reservedRegion": [
+        280.8,
+        608,
+        86,
+        344
+      ]
+    },
+    {
+      "viewport": [
+        640,
+        400
+      ],
+      "mode": "beast",
+      "fullBodyBounds": [
+        322.6,
+        566.2,
+        168.6,
+        287.1
+      ],
+      "reservedRegion": [
+        280.8,
+        608,
+        86,
+        344
+      ]
+    }
+  ],
+  "projectileAlignmentDotProducts": [
+    0.9999999999999998,
+    1,
+    1
+  ]
+}

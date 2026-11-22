@@ -1,0 +1,486 @@
+{
+  "scope": "Actual GLTFLoader/AnimationMixer r180 and CPU posed geometry; no browser/GPU render or performance test.",
+  "prerequisites": "Run tools/validate-assets.mjs for skin weights, full attributes and decoded texture/colour-space validation.",
+  "groundPlaneY": 0,
+  "groundToleranceM": 0.005,
+  "loopEndpointToleranceM": 0.01,
+  "footSamplingHz": 60,
+  "wholeMeshSampling": "25 evenly spaced times per clip; all vertices, including the sword and cloth.",
+  "footContactInterpretation": "Reported footMinY checks penetration. footMaxLowestY is the maximum height of the lowest foot, not a claim of physically correct weight transfer or planted contact.",
+  "webglTested": false,
+  "assets": [
+    {
+      "file": "hanli.glb",
+      "sha256": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+      "bytes": 5937792,
+      "footSelection": "Every Boot soles vertex with at least 0.5 weight on footL/footR (exported bone names).",
+      "footVertexCounts": {
+        "footR": 203,
+        "footL": 202
+      },
+      "normalMappedUVs": [
+        {
+          "mesh": "Hanli_editable_character_mesh_5",
+          "material": "Jade silk | woven outer robe",
+          "uv": "uv",
+          "triangles": 15180,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        }
+      ],
+      "clips": [
+        {
+          "name": "Attack",
+          "duration": 1.2916666,
+          "footSamples": 79,
+          "wholeMeshSamples": 25,
+          "footMinY": 0.0071856,
+          "footMaxLowestY": 0.008,
+          "worstFoot": {
+            "time": 0.2166667,
+            "foot": "footL",
+            "y": 0.0071856
+          },
+          "perFootMinY": {
+            "footR": 0.008,
+            "footL": 0.0071856
+          },
+          "wholeGeometryMinY": 0.0071858,
+          "maxSampledVertexMovementM": 1.5139928,
+          "loopEndpointMaxDeltaM": 3e-7,
+          "wholeGeometryBounds": {
+            "min": [
+              -0.6515842,
+              0.0071858,
+              -0.1960539
+            ],
+            "max": [
+              0.2778707,
+              1.738027,
+              1.1332688
+            ],
+            "size": [
+              0.9294549,
+              1.7308412,
+              1.3293227
+            ]
+          }
+        },
+        {
+          "name": "Idle",
+          "duration": 3.0416667,
+          "footSamples": 184,
+          "wholeMeshSamples": 25,
+          "footMinY": 0.008,
+          "footMaxLowestY": 0.008,
+          "worstFoot": {
+            "time": 0,
+            "foot": "footR",
+            "y": 0.008
+          },
+          "perFootMinY": {
+            "footR": 0.008,
+            "footL": 0.008
+          },
+          "wholeGeometryMinY": 0.008,
+          "maxSampledVertexMovementM": 0.0111922,
+          "loopEndpointMaxDeltaM": 1e-7,
+          "wholeGeometryBounds": {
+            "min": [
+              -0.3856378,
+              0.008,
+              -0.2041134
+            ],
+            "max": [
+              0.2788341,
+              1.7383274,
+              0.166759
+            ],
+            "size": [
+              0.6644719,
+              1.7303274,
+              0.3708724
+            ]
+          }
+        },
+        {
+          "name": "Walk",
+          "duration": 1.0416666,
+          "footSamples": 64,
+          "wholeMeshSamples": 25,
+          "footMinY": 0.00342,
+          "footMaxLowestY": 0.023952,
+          "worstFoot": {
+            "time": 0.5,
+            "foot": "footL",
+            "y": 0.00342
+          },
+          "perFootMinY": {
+            "footR": 0.00342,
+            "footL": 0.00342
+          },
+          "wholeGeometryMinY": 0.0042282,
+          "maxSampledVertexMovementM": 0.4521952,
+          "loopEndpointMaxDeltaM": 2e-7,
+          "wholeGeometryBounds": {
+            "min": [
+              -0.431223,
+              0.0042282,
+              -0.308978
+            ],
+            "max": [
+              0.2910197,
+              1.7499111,
+              0.5293293
+            ],
+            "size": [
+              0.7222427,
+              1.7456829,
+              0.8383074
+            ]
+          }
+        }
+      ],
+      "crossfades": [
+        {
+          "from": "Idle",
+          "to": "Walk",
+          "samples": 31,
+          "minFootY": 0.00342,
+          "maxLowestFootY": 0.023952
+        },
+        {
+          "from": "Walk",
+          "to": "Idle",
+          "samples": 31,
+          "minFootY": 0.0043418,
+          "maxLowestFootY": 0.0147192
+        },
+        {
+          "from": "Idle",
+          "to": "Attack",
+          "samples": 31,
+          "minFootY": 0.0071858,
+          "maxLowestFootY": 0.008
+        },
+        {
+          "from": "Attack",
+          "to": "Idle",
+          "samples": 31,
+          "minFootY": 0.0071934,
+          "maxLowestFootY": 0.008
+        }
+      ]
+    },
+    {
+      "file": "mojiao.glb",
+      "sha256": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+      "bytes": 2738712,
+      "footSelection": "Every vertex in the four front/rear leg L/R foot meshes, including hide and claws; forearms are excluded from foot contact.",
+      "footVertexCounts": {
+        "front_leg_L_foot": 1982,
+        "front_leg_R_foot": 1982,
+        "rear_leg_L_foot": 1982,
+        "rear_leg_R_foot": 1982
+      },
+      "normalMappedUVs": [
+        {
+          "mesh": "front_leg_L_•_scapula_and_biceps",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 776,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "front_leg_L_•_forearm_and_wrist",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1052,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "front_leg_L_foot_•_Ink_green_•_living_scale_hide",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1664,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "front_leg_R_•_scapula_and_biceps",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 776,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "front_leg_R_•_forearm_and_wrist",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1052,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "front_leg_R_foot_•_Ink_green_•_living_scale_hide",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1664,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "head_•_Ink_green_•_living_scale_hide",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 5364,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Mandible_•_deep_continuous_lower_jaw",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 2108,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "rear_leg_L_•_scapula_and_biceps",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 776,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "rear_leg_L_•_forearm_and_wrist",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1052,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "rear_leg_L_foot_•_Ink_green_•_living_scale_hide",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1664,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "rear_leg_R_•_scapula_and_biceps",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 776,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "rear_leg_R_•_forearm_and_wrist",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1052,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "rear_leg_R_foot_•_Ink_green_•_living_scale_hide",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1664,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Tail_flowing_section_00",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 836,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Tail_flowing_section_01",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 836,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Tail_flowing_section_02",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 1228,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        },
+        {
+          "mesh": "Torso_•_low_stalking_ribcage",
+          "material": "Ink green • living scale hide",
+          "uv": "uv",
+          "triangles": 3916,
+          "singularTriangles": 0,
+          "singularAreaFraction": 0
+        }
+      ],
+      "clips": [
+        {
+          "name": "Idle",
+          "duration": 4,
+          "footSamples": 241,
+          "wholeMeshSamples": 25,
+          "footMinY": 0.0070048,
+          "footMaxLowestY": 0.0070049,
+          "worstFoot": {
+            "time": 0.1166667,
+            "foot": "front_leg_L_foot",
+            "y": 0.0070048
+          },
+          "perFootMinY": {
+            "front_leg_L_foot": 0.0070048,
+            "front_leg_R_foot": 0.0070048,
+            "rear_leg_L_foot": 0.0070049,
+            "rear_leg_R_foot": 0.0070049
+          },
+          "wholeGeometryMinY": 0.0070048,
+          "maxSampledVertexMovementM": 0.273782,
+          "loopEndpointMaxDeltaM": 0,
+          "wholeGeometryBounds": {
+            "min": [
+              -1.0122297,
+              0.0070048,
+              -2.9018043
+            ],
+            "max": [
+              1.2869957,
+              1.904795,
+              2.3361826
+            ],
+            "size": [
+              2.2992254,
+              1.8977902,
+              5.237987
+            ]
+          }
+        },
+        {
+          "name": "Walk",
+          "duration": 1.2,
+          "footSamples": 74,
+          "wholeMeshSamples": 25,
+          "footMinY": 0.0068921,
+          "footMaxLowestY": 0.010221,
+          "worstFoot": {
+            "time": 0.05,
+            "foot": "front_leg_R_foot",
+            "y": 0.0068921
+          },
+          "perFootMinY": {
+            "front_leg_L_foot": 0.0069151,
+            "front_leg_R_foot": 0.0068921,
+            "rear_leg_L_foot": 0.0069002,
+            "rear_leg_R_foot": 0.0069121
+          },
+          "wholeGeometryMinY": 0.0068921,
+          "maxSampledVertexMovementM": 0.5808788,
+          "loopEndpointMaxDeltaM": 1e-7,
+          "wholeGeometryBounds": {
+            "min": [
+              -1.0122297,
+              0.0068921,
+              -2.9807477
+            ],
+            "max": [
+              1.3936614,
+              1.9228331,
+              2.3371249
+            ],
+            "size": [
+              2.4058911,
+              1.915941,
+              5.3178726
+            ]
+          }
+        },
+        {
+          "name": "Attack",
+          "duration": 1.4,
+          "footSamples": 85,
+          "wholeMeshSamples": 25,
+          "footMinY": 0.0069845,
+          "footMaxLowestY": 0.0070051,
+          "worstFoot": {
+            "time": 0.55,
+            "foot": "front_leg_L_foot",
+            "y": 0.0069845
+          },
+          "perFootMinY": {
+            "front_leg_L_foot": 0.0069845,
+            "front_leg_R_foot": 0.0069845,
+            "rear_leg_L_foot": 0.0069949,
+            "rear_leg_R_foot": 0.0069949
+          },
+          "wholeGeometryMinY": 0.0069854,
+          "maxSampledVertexMovementM": 0.5831527,
+          "loopEndpointMaxDeltaM": 1e-7,
+          "wholeGeometryBounds": {
+            "min": [
+              -1.0122297,
+              0.0069854,
+              -2.9798863
+            ],
+            "max": [
+              1.394052,
+              1.9173987,
+              2.3353287
+            ],
+            "size": [
+              2.4062817,
+              1.9104132,
+              5.3152149
+            ]
+          }
+        }
+      ],
+      "crossfades": [
+        {
+          "from": "Idle",
+          "to": "Walk",
+          "samples": 31,
+          "minFootY": 0.0055263,
+          "maxLowestFootY": 0.0070049
+        },
+        {
+          "from": "Walk",
+          "to": "Idle",
+          "samples": 31,
+          "minFootY": 0.0033121,
+          "maxLowestFootY": 0.0070049
+        },
+        {
+          "from": "Idle",
+          "to": "Attack",
+          "samples": 31,
+          "minFootY": 0.0069577,
+          "maxLowestFootY": 0.0070049
+        },
+        {
+          "from": "Attack",
+          "to": "Idle",
+          "samples": 31,
+          "minFootY": 0.0068258,
+          "maxLowestFootY": 0.0070049
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "result": "PASS"
+}

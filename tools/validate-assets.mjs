@@ -2,7 +2,7 @@
  * Load the real GLBs through the vendored Three.js GLTFLoader and AnimationMixer.
  * Requires Node 20+ and @napi-rs/canvas for PNG/JPEG decoding only.
  * This is CPU asset/animation validation; it does not create a WebGL context.
- * Run: node tools/validate-assets.mjs [report.json]
+ * Run: node tools/validate-assets.mjs [report.json] [asset-directory]
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -14,10 +14,24 @@ import * as THREE from '../vendor/three/build/three.module.js';
 import { GLTFLoader } from '../vendor/three/addons/loaders/GLTFLoader.js';
 
 const require=createRequire(import.meta.url);
-const {loadImage}=require('@napi-rs/canvas');
+const {loadImage,createCanvas}=require('@napi-rs/canvas');
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const out=process.argv[2]?path.resolve(process.argv[2]):path.resolve(root,'../qa3d/asset-validation.json');
+const assetRoot=process.argv[3]?path.resolve(process.argv[3]):path.join(root,'assets/3d');
 const decoded=[];
+const pixelStats=new WeakMap();
+function inspectPixels(image){
+  const canvas=createCanvas(image.width,image.height),ctx=canvas.getContext('2d');
+  ctx.drawImage(image,0,0);
+  const rgba=ctx.getImageData(0,0,image.width,image.height).data;
+  const min=[255,255,255],max=[0,0,0],sum=[0,0,0],sum2=[0,0,0];
+  for(let i=0;i<rgba.length;i+=4)for(let c=0;c<3;c++){
+    const value=rgba[i+c];min[c]=Math.min(min[c],value);max[c]=Math.max(max[c],value);
+    sum[c]+=value;sum2[c]+=value*value;
+  }
+  const n=rgba.length/4,mean=sum.map(value=>value/n);
+  return {min,max,mean,std:sum2.map((value,c)=>Math.sqrt(Math.max(0,value/n-mean[c]**2)))};
+}
 globalThis.self=globalThis;
 globalThis.ProgressEvent??=class ProgressEvent extends Event {
   constructor(type,init={}){super(type);Object.assign(this,{lengthComputable:false,loaded:0,total:0},init);}
@@ -27,7 +41,8 @@ globalThis.createImageBitmap=async(blob,options={})=>{
   const img=await loadImage(bytes);
   assert(img.width>0&&img.height>0,'Texture decode returned empty dimensions');
   img.close=()=>{};
-  decoded.push({bytes:bytes.length,width:img.width,height:img.height,options});
+  const stats=inspectPixels(img);pixelStats.set(img,stats);
+  decoded.push({bytes:bytes.length,width:img.width,height:img.height,options,rgb:stats});
   return img;
 };
 
@@ -49,7 +64,7 @@ function checkTransforms(scene){
 }
 
 async function validateAsset(filename){
-  const absolute=path.join(root,'assets/3d',filename);
+  const absolute=path.join(assetRoot,filename);
   const bytes=await fs.readFile(absolute);
   assert.equal(bytes.readUInt32LE(0),0x46546c67,'Bad GLB magic');
   assert.equal(bytes.readUInt32LE(4),2,'Expected glTF 2');
@@ -93,6 +108,10 @@ async function validateAsset(filename){
         assert(tex.image&&tex.image.width>0&&tex.image.height>0,m.name+' '+k+' missing decoded texture');
         if(k==='map'||k==='emissiveMap')assert.equal(tex.colorSpace,THREE.SRGBColorSpace,m.name+' colour texture encoding');
         else assert.equal(tex.colorSpace,THREE.NoColorSpace,m.name+' data texture encoding');
+        if(k==='normalMap'){
+          const stats=pixelStats.get(tex.image);
+          assert(stats&&stats.mean[2]>128,m.name+' invalid tangent normal map: expected a positive mean Z component; check for an empty black texture');
+        }
       }
     }
     if(o.isSkinnedMesh){
@@ -162,6 +181,6 @@ try{
 }finally{console.warn=oldWarn;console.error=oldError;}
 assert.equal(errors.length,0,'Loader or mixer logged errors');
 assert.equal(warnings.length,0,'Loader or mixer logged warnings');
-const report={result:'PASS',three_revision:THREE.REVISION,loader:'Unmodified vendored GLTFLoader r180',animation:'Unmodified Three.js AnimationMixer r180',image_decode:'@napi-rs/canvas through createImageBitmap shim',scope:'CPU GLB parse, real texture decode, geometry/skin/material validation and animation sampling; no WebGL renderer or GPU context',webgl_tested:false,assets:results,warnings,errors};
+const report={result:'PASS',three_revision:THREE.REVISION,loader:'Unmodified vendored GLTFLoader r180',animation:'Unmodified Three.js AnimationMixer r180',image_decode:'@napi-rs/canvas through createImageBitmap shim',normal_map_check:'Decoded tangent-space normal maps must have a positive mean Z component; black images fail',scope:'CPU GLB parse, real texture decode and pixel statistics, geometry/skin/material validation and animation sampling; no WebGL renderer or GPU context',webgl_tested:false,assets:results,warnings,errors};
 await fs.mkdir(path.dirname(out),{recursive:true});await fs.writeFile(out,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({result:report.result,three:report.three_revision,assets:results.map(r=>({file:r.file,meshes:r.meshes,skinned_meshes:r.skinned_meshes,bones:r.bones,triangles:r.triangles,animations:r.animations.map(a=>a.clip),samples:r.animations.reduce((n,a)=>n+a.sample_count,0),textures:r.textures,sha256:r.sha256})),warnings,errors,report:out},null,2));

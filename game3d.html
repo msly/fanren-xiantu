@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09181e">
 <title>仙途 · 山门试剑 — 3D 预览</title>
-<link rel="stylesheet" href="./web3d/style.css">
+<link rel="stylesheet" href="./web3d/style.css?v=20261122-polish3">
 <script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.js","three/addons/":"./vendor/three/addons/"}}</script>
 </head>
 <body>
 <canvas id="scene" aria-label="仙途三维演武场"></canvas>
 <div class="vignette"></div>
-<header class="topbar">
+<header id="topbar" class="topbar">
  <a class="brand" href="./index.html"><span class="brand-seal">凡</span><span>仙 途<small>山门试剑</small></span></a>
  <nav aria-label="场景模式"><button id="view-scene" class="active">演武场</button><button id="view-hero">观韩立</button><button id="view-beast">观墨蛟</button></nav>
  <button id="quality" class="quiet" title="切换画质">画质 · 均衡</button>
@@ -31,6 +31,7 @@
 <section id="viewer" class="viewer hidden" aria-label="角色观察">
  <div class="eyebrow" id="viewer-sub">青竹剑修</div><h1 id="viewer-name">韩立</h1><p id="viewer-desc"></p>
  <div class="pose-buttons"><button data-pose="Idle" class="active">静立</button><button data-pose="Walk">行走</button><button data-pose="Attack">出招</button></div>
+ <div class="viewer-tools" aria-label="观察取景"><button data-frame="full" class="active" aria-pressed="true">全身</button><button data-frame="head" aria-pressed="false">头部近景</button><button id="viewer-spin" aria-pressed="false">自动环绕</button></div>
  <small>拖动环绕观察 · 滚轮拉近 · 双指缩放</small>
 </section>
 <aside id="loading" class="loading"><span class="loading-dot"></span><span id="load-text">山门渐启 · 正在准备人物与场景</span></aside>
@@ -38,9 +39,9 @@
 <button id="pause" class="pause-toggle hidden" aria-pressed="false" title="暂停或继续试炼">暂停</button>
 <div id="combat-actions" class="combat-actions hidden"><button id="strike"><b>J</b>斩击</button><button id="spell"><b>Q</b>剑芒 <span id="spell-cd"></span></button><button id="dodge"><b>空格</b>罗烟步</button></div>
 <div id="touch-pad" class="touch-pad hidden" aria-label="移动"><button data-key="KeyW" aria-label="前进">↑</button><div><button data-key="KeyA" aria-label="向左">←</button><button data-key="KeyS" aria-label="后退">↓</button><button data-key="KeyD" aria-label="向右">→</button></div></div>
-<footer class="footer"><span id="help">拖动观察山门 · 滚轮拉近</span><a href="./index.html">返回 2D 仙途 ↗</a></footer>
+<footer id="footer" class="footer"><span id="help">拖动观察山门 · 滚轮拉近</span><a href="./index.html">返回 2D 仙途 ↗</a></footer>
 <dialog id="result"><div class="eyebrow">山门试炼</div><h2 id="result-title"></h2><p id="result-text"></p><button id="retry" class="primary">再试一剑</button><button id="return-scene" class="secondary">回到演武场</button></dialog>
 <dialog id="failure"><h2>山门暂未开启</h2><p id="failure-text">场景加载未完成，请刷新重试。</p><button onclick="location.reload()" class="primary">重新进入</button><a href="./index.html">返回 2D 仙途</a></dialog>
-<script type="module" src="./web3d/main.js"></script>
+<script type="module" src="./web3d/main.js?v=20261122-polish3"></script>
 </body>
 </html>

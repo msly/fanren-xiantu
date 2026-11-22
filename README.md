@@ -31,7 +31,7 @@
 | 场景 | 石质演武台、山门、残栏、松竹、远山、雾、灯火、动态旗帜与粒子 |
 | 韩立 | 交领青袍、束发、长剑、掌天瓶、21 骨骼蒙皮，静立/行走/攻击 |
 | 墨蛟 | 四足、角须、牙列、爪、鳞甲、长尾，分层关节变换动画 |
-| 观察 | 人物与妖兽独立观察、环绕与缩放、三种动作预览 |
+| 观察 | 独立布光展台、全身/头部近景、自动环绕、动画头部跟随、三种动作预览 |
 | 战斗 | 镜头相对移动、斩击、剑芒、闪避、法力消耗恢复、敌人追击与蓄势扑击、胜负与重试 |
 | 输入 | 键鼠、触屏移动与战斗按钮、失焦自动暂停及点击恢复 |
 | 渲染 | PBR 材质、内嵌纹理、环境照明、实时阴影、ACES 色调映射、分辨率档位 |
@@ -40,7 +40,7 @@
 
 ### 模型源文件与真实渲染
 
-下图由交付的 Blender 模型进行 CPU 渲染，展示资产本身；不是网页运行截图。
+下图将本次交付的 GLB 重新导入 Blender 后进行 CPU 渲染，展示游戏资产本身；不是网页运行截图。
 
 | 韩立 | 墨蛟 |
 |---|---|
@@ -48,8 +48,8 @@
 
 | 资产 | GLB 大小 | 三角面 | 运行时结构 |
 |---|---:|---:|---|
-| `hanli.glb` | 3,780,324 字节 | 102,546 | 21 个材质分片、21 骨骼、2 张内嵌纹理 |
-| `mojiao.glb` | 1,456,712 字节 | 11,069 | 46 个网格、分层关节动画、3 张内嵌纹理 |
+| `hanli.glb` | 5,937,792 字节 | 138,232 | 24 个材质分片、21 骨骼、5 张内嵌纹理 |
+| `mojiao.glb` | 2,738,712 字节 | 98,226 | 56 个网格、分层关节动画、3 张内嵌纹理 |
 
 两份 GLB 都以米为单位，Y 向上、+Z 为正面，脚底位于地面附近；统一提供 `Idle`、`Walk`、`Attack` 动作。所有纹理与缓冲均内嵌，无外部资产请求。场景文件由代码生成；角色保留真实 `.blend` 源文件。Three.js 固定为 0.180.0，MIT 许可证见 `vendor/three/LICENSE`。
 
@@ -62,18 +62,43 @@ blender -b --factory-startup --python tools/build_hanli.py
 blender -b --factory-startup --python tools/build_mojiao.py
 ```
 
-脚本会重建 `art/*.blend` 与 `assets/3d/*.glb`，并在项目旁的 `qa3d/` 输出预览与统计。也可直接用 Blender 打开 `.blend`，编辑后按上述坐标和动作接口导出 GLB。
+脚本会重建 `art/*.blend` 与 `assets/3d/*.glb`，并在项目旁的 `qa3d/` 输出预览与统计。韩立脚本可设置 `FANREN_SKIP_RENDER=1` 只生成资产，或通过 `FANREN_QA_DIR` 指定预览目录。也可直接用 Blender 打开 `.blend`，编辑后按上述坐标和动作接口导出 GLB。
+
+### 本轮建模打磨
+
+![同视角、同灯光的 GLB 模型前后对照](docs/model-polish-comparison.jpg)
+
+- **韩立**：补齐领口封闭面，交领改为逐点贴合衣身的曲面；肩袖埋入衣身并平滑分配蒙皮权重。重做眉弓、眼窝、鼻翼、颧骨和下颌结构，使用贴合眼睑的虹膜/瞳孔表面；鬓发和额发改为连续曲线发束。增加皮肤肤色与粗糙度纹理，保留可编辑骨骼、握剑手、分层衣摆、掌天瓶和三种动作。
+- **墨蛟**：保留贴合背鳞、口鼻与角根连接、脚掌接地的上一轮改进；修复尾巴动画首尾相位不一致造成的循环跳动。
+- **法线贴图**：修复外袍封口、裙摆厚边以及妖兽圆环端盖退化 UV，19 个使用法线贴图的网格均有有效切线坐标。
+- **观察体验**：中性展台与独立主光/补光/轮廓光；全身、头部近景、自动环绕可切换。近景跟随真实头部动画，返回演武场恢复原灯光、相机和战斗状态。
+
+在线入口：[3D 试炼](http://23.82.99.226:8090/game3d.html)、[韩立近景](http://23.82.99.226:8090/game3d.html?view=hero&frame=head)、[墨蛟近景](http://23.82.99.226:8090/game3d.html?view=beast&frame=head)。头部静帧：[韩立](docs/hanli-head-preview.png)、[墨蛟](docs/mojiao-head-preview.png)。
 
 ### 3D 验证范围
 
-- 两份 `.blend` 重新打开成功；韩立蒙皮权重归一、三个动作产生有效形变。
-- 未修改的 Three.js r180 `GLTFLoader` 成功加载两份 GLB；原生 PNG 解码通过，共 5 张纹理。
-- 每个模型采样 36 个动画时刻，并检查动作交叉淡入；位置、法线、UV、索引、骨骼矩阵、形变包围盒均有限，角色根位置和朝向不被动画覆盖。
-- 实际 Three.js 场景构造检查通过；环境使用静态实例合批。
-- 战斗状态回归覆盖蓄势转扑击、弹体朝向、失焦暂停后点击恢复，以及胜负弹窗取消后返回演武场。
-- 当前云浏览器访问预览地址发生证书错误，未绕过该错误；**尚未完成浏览器 GPU 画面、CSS 布局、实机帧率或移动端性能验收**。
+- 两份 `.blend` 重新打开成功；最终 GLB 重新导入后完成全身和头部 CPU 渲染，韩立另检查背面。
+- 原版 Three.js r180 `GLTFLoader`、`AnimationMixer` 加载两份 GLB，8 张内嵌纹理解码、颜色空间、法线、UV、索引、骨骼矩阵和全部蒙皮权重通过。
+- 脚掌按 60 Hz 检查 **727 个时刻**；另做 **150 个全模型时刻**与 **248 个动画过渡时刻**检查。两模型无穿地，Idle/Walk 首尾顶点差不超过 0.0000002 米。
+- 韩立行走中最低脚掌最高离地约 2.4 厘米；当前走路动画尚未实现物理脚锁与完整重量转移。
+- 两模型 × 五组视口矩形 × 24 个环绕方位通过取景投影检查；25 轮观察/战场切换无场景节点增长，头部动画跟随与战斗状态回归通过。
+- 本地 Chromium 在启动阶段因 `socket() failed: Operation not permitted` 退出；**上述相机与界面矩形测试不包含真实浏览器 CSS、GPU 画面或实机帧率验收**。
 
-详细证据见 `docs/3d-verification.json`。资产检查脚本为 `tools/validate-assets.mjs`，需要 Node.js 与 `@napi-rs/canvas`；此检查不创建 WebGL 上下文。
+总报告见 `docs/3d-verification.json`；细项证据分别在 `docs/asset-validation.json`、`docs/model-polish-verification.json`、`docs/viewer-verification.json`。验证命令需要 Node.js 20+ 与 `@napi-rs/canvas`，不创建 WebGL 上下文：
+
+```sh
+node tools/validate-assets.mjs docs/asset-validation.json
+node tools/validate-model-polish.mjs docs/model-polish-verification.json
+node tools/validate-viewer.mjs docs/viewer-verification.json
+```
+
+重新检查运行时模型的真实渲染：
+
+```sh
+blender -b --factory-startup --python tools/render_glb_review.py -- \
+  --studio art/hanli.blend --asset assets/3d/hanli.glb \
+  --output-dir ../qa3d/glb-review --name hanli --views full head back
+```
 
 ## 角色视觉升级 · 2026-11-22
 

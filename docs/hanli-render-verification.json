@@ -1,0 +1,144 @@
+{
+  "asset": "assets/3d/hanli.glb",
+  "asset_sha256": "39635dd4c7f4dea72d6c6b45b20d7fb7e59a95775924ac29a7be6753da1f7407",
+  "studio_source": "art/hanli.blend",
+  "blender": "4.3.2",
+  "method": "Import runtime GLB and render using source studio, CPU Cycles",
+  "webgl_tested": false,
+  "mesh_objects": 2,
+  "samples": 48,
+  "studio": {
+    "camera": {
+      "location": [
+        2.5,
+        -4.5,
+        2.049999952316284
+      ],
+      "rotation_euler": [
+        1.354178547859192,
+        1.809414840181489e-10,
+        0.5085173845291138
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 2.180000066757202
+    },
+    "color": {
+      "view_transform": "AgX",
+      "look": "AgX - Medium High Contrast",
+      "exposure": -0.10000000149011612,
+      "gamma": 1.0
+    },
+    "lights": [
+      {
+        "name": "Key | warm silk",
+        "type": "AREA",
+        "location": [
+          -2.200000047683716,
+          -3.200000047683716,
+          4.199999809265137
+        ],
+        "rotation_euler": [
+          0.8892838358879089,
+          3.8414611935877474e-08,
+          -0.6022875308990479
+        ],
+        "color": [
+          1.0,
+          0.8899999856948853,
+          0.7400000095367432
+        ],
+        "energy": 430.0,
+        "size": 3.0
+      },
+      {
+        "name": "Fill | cloud light",
+        "type": "AREA",
+        "location": [
+          2.799999952316284,
+          -1.399999976158142,
+          2.0999999046325684
+        ],
+        "rotation_euler": [
+          1.2471776008605957,
+          -1.4298318262717657e-07,
+          1.1071486473083496
+        ],
+        "color": [
+          0.6800000071525574,
+          0.8199999928474426,
+          1.0
+        ],
+        "energy": 260.0,
+        "size": 3.0
+      },
+      {
+        "name": "Rim | jade edge",
+        "type": "AREA",
+        "location": [
+          1.2999999523162842,
+          2.0,
+          3.0999999046325684
+        ],
+        "rotation_euler": [
+          0.8608677387237549,
+          -1.2617989320062861e-08,
+          2.5652174949645996
+        ],
+        "color": [
+          0.6299999952316284,
+          1.0,
+          0.8399999737739563
+        ],
+        "energy": 600.0,
+        "size": 2.0
+      }
+    ]
+  },
+  "renders": [
+    {
+      "view": "full",
+      "file": "docs/hanli-3d-preview.png",
+      "camera_location": [
+        2.5,
+        -4.5,
+        2.049999952316284
+      ],
+      "camera_rotation": [
+        1.354178547859192,
+        1.809414840181489e-10,
+        0.5085173845291138
+      ],
+      "ortho_scale": 2.180000066757202
+    },
+    {
+      "view": "head",
+      "file": "docs/hanli-head-preview.png",
+      "camera_location": [
+        1.2999999523162842,
+        -3.0,
+        1.7200000286102295
+      ],
+      "camera_rotation": [
+        1.523224949836731,
+        -1.0309545217523919e-08,
+        0.4107397794723511
+      ],
+      "ortho_scale": 0.5299999713897705
+    },
+    {
+      "view": "back",
+      "file": "docs/hanli-back-preview.png",
+      "camera_location": [
+        -2.5,
+        4.5,
+        2.049999952316284
+      ],
+      "camera_rotation": [
+        1.354712963104248,
+        -1.6337024533186195e-07,
+        -2.6344940662384033
+      ],
+      "ortho_scale": 2.180000066757202
+    }
+  ]
+}

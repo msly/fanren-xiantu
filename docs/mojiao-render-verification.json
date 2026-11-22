@@ -1,0 +1,129 @@
+{
+  "asset": "assets/3d/mojiao.glb",
+  "asset_sha256": "1a1e3b1cabd88fcdcd268f9753068dcd55b7a143778fb4b26c9835fd4ada4245",
+  "studio_source": "art/mojiao.blend",
+  "blender": "4.3.2",
+  "method": "Import runtime GLB and render using source studio, CPU Cycles",
+  "webgl_tested": false,
+  "mesh_objects": 56,
+  "samples": 32,
+  "studio": {
+    "camera": {
+      "location": [
+        6.300000190734863,
+        -7.699999809265137,
+        4.199999809265137
+      ],
+      "rotation_euler": [
+        1.2680504322052002,
+        8.393278960738826e-08,
+        0.6747410893440247
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 6.349999904632568
+    },
+    "color": {
+      "view_transform": "AgX",
+      "look": "None",
+      "exposure": 0.0,
+      "gamma": 1.0
+    },
+    "lights": [
+      {
+        "name": "Warm key",
+        "type": "AREA",
+        "location": [
+          -4.0,
+          -5.0,
+          7.0
+        ],
+        "rotation_euler": [
+          0.817888617515564,
+          8.242558635629393e-09,
+          -0.6747409701347351
+        ],
+        "color": [
+          1.0,
+          0.8399999737739563,
+          0.6399999856948853
+        ],
+        "energy": 1250.0,
+        "size": 5.0
+      },
+      {
+        "name": "Cool rim",
+        "type": "AREA",
+        "location": [
+          4.0,
+          3.0,
+          5.0
+        ],
+        "rotation_euler": [
+          0.8960553407669067,
+          -4.7119307566845237e-08,
+          2.2142975330352783
+        ],
+        "color": [
+          0.4000000059604645,
+          0.7200000286102295,
+          1.0
+        ],
+        "energy": 1400.0,
+        "size": 4.0
+      },
+      {
+        "name": "Front fill",
+        "type": "AREA",
+        "location": [
+          4.0,
+          -5.0,
+          3.0
+        ],
+        "rotation_euler": [
+          1.2680504322052002,
+          2.7343286745917794e-08,
+          0.6747409701347351
+        ],
+        "color": [
+          0.5799999833106995,
+          0.800000011920929,
+          1.0
+        ],
+        "energy": 580.0,
+        "size": 4.0
+      }
+    ]
+  },
+  "renders": [
+    {
+      "view": "full",
+      "file": "docs/mojiao-3d-preview.png",
+      "camera_location": [
+        6.300000190734863,
+        -7.699999809265137,
+        4.199999809265137
+      ],
+      "camera_rotation": [
+        1.2680504322052002,
+        8.393278960738826e-08,
+        0.6747410893440247
+      ],
+      "ortho_scale": 6.349999904632568
+    },
+    {
+      "view": "head",
+      "file": "docs/mojiao-head-preview.png",
+      "camera_location": [
+        3.200000047683716,
+        -5.5,
+        2.450000047683716
+      ],
+      "camera_rotation": [
+        1.353184700012207,
+        5.926944268708212e-09,
+        0.6627295017242432
+      ],
+      "ortho_scale": 2.700000047683716
+    }
+  ]
+}
